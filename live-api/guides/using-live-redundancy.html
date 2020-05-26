@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="冗長グループを使用すると、2 つ以上の Live ジョブを 1 つのストリームにまとめることができ、自動フェールオーバーにより、中断のない信頼性の高い再生が可能になります。 このガイドでは、冗長グループの作成、ジョブの追加、Live API を使用したフェイルオーバーの強制について説明します。">
+  
+  <title>ライブ冗長性の使用</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://learning-services-media.brightcove.com/doc-assets/site-assets/css/site/prism.css">
+  <link rel="stylesheet" href="https://learning-services-media.brightcove.com/doc-assets/site-assets/css/site/styles.css">
+  <link rel="stylesheet" href="https://learning-services-media.brightcove.com/doc-assets/site-assets/css/site/landing-page.css">
+  <link rel="stylesheet" href="https://learning-services-media.brightcove.com/doc-assets/site-assets/css/site/tabs.css">
+  <link rel="stylesheet" href="/assets/css/local.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/google-analytics.js"></script>
+  <script src="/assets/js/sajari-head.js"></script>
+</head>
+
+<body class="body">
+
+<header>
+  <div class="div-header"><a href="/"> <img class="product-logo" src="https://learning-services-media.brightcove.com/doc-assets/site-assets/images/site/product-logos/logo-bc-live.svg" alt="製品ロゴ" style="max-height: 100px;max-width: 232px;"> <!-- GTranslate: https://gtranslate.io/ --> </a> <select onchange="doGTranslate(this);"><option value="">言語を選択</option><option value="en|en">英語</option><option value="en|Zh-tw">繁体中文</option><option value="en|fr">フランセ</option><option value="en|de">ドイッチュ</option><option value="en|ja">日本語</option><option value="en|ko">한국어</option><option value="en|es">エスパニョール</option></select><script>
+/* <![CDATA[ */
+function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
+/* ]]> */
+</script><select id="site_select" class="bcls-select" style="margin-right: 1rem;"><option value="">ブライトコーブのその他のドキュメント</option>
+      
+        
+          <option value="https://support.brightcove.com">ドキュメンテーションホーム</option>
+        
+      
+        
+          <option value="https://audience.support.brightcove.com">ブライトコーブのオーディエンス</option>
+        
+      
+        
+          <option value="https://beacon.support.brightcove.com">ブライトコーブビーコン</option>
+        
+      
+        
+          <option value="https://campaign.support.brightcove.com">ブライトコーブキャンペーン</option>
+        
+      
+        
+          <option value="https://engage.support.brightcove.com">ブライトコーブエンゲージ</option>
+        
+      
+        
+          <option value="https://live.support.brightcove.com">ブライトコーブライブ</option>
+        
+      
+        
+          <option value="https://gallery.support.brightcove.com">ブライトコーブギャラリー</option>
+        
+      
+        
+          <option value="https://ssai.support.brightcove.com">ブライトコーブ SSAI</option>
+        
+      
+        
+          <option value="https://social.support.brightcove.com">ブライトコーブソーシャル</option>
+        
+      
+        
+          <option value="https://studio.support.brightcove.com">ビデオクラウドスタジオ</option>
+        
+      
+        
+          <option value="https://player.support.brightcove.com">ブライトコーブプレーヤー開発</option>
+        
+      
+        
+          <option value="https://apis.support.brightcove.com">ビデオクラウドプラットフォーム API</option>
+        
+      
+        
+          <option value="https://sdks.support.brightcove.com">ビデオクラウドデバイス SDK</option>
+        
+      
+        
+          <option value="https://integrations.support.brightcove.com">統合/CMSコネクタ</option>
+        
+      
+        
+          <option value="https://general.support.brightcove.com">ビデオクラウド全般</option>
+        
+      
+        
+          <option value="https://zencoder.support.brightcove.com">Zencoder</option></select> <span class="secondary-nav"> <a href="https://supportportal.brightcove.com/s/login/?language=en_US"> <img src="https://learning-services-media.brightcove.com/doc-assets/site-assets/images/site/support.png" alt="サポート"> -ERR:REF-NOT-FOUND-サポートへのお問い合わせ </a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;"> | <img src="https://learning-services-media.brightcove.com/doc-assets/site-assets/images/site/status.png" alt="システムステータス"> </span> <a href="https://status.brightcove.com/"> -ERR:REF-NOT-FOUND- -ERR:REF-NOT-FOUND- システムステータス </a> </span> <br></div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb arr-right">
+      
+      <li class="breadcrumb-item"><a href="/">ホーム </a></li>
+      
+      
+      
+      <li class="breadcrumb-item"><a href="/live-api/guides/">ガイド </a></li>
+      
+      <li class="breadcrumb-item active" aria-current="page">ライブ冗長性の使用</li>
+    </ol>
+  </nav>
+</header>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-3 left-side-bar">
+        <nav class="sidenav">
+          
+            
+            <h5><a href="/">ホーム </a></h5>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/get-started/">はじめに <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/get-started/brightcove-live-training-videos.html">ブライトコーブライブトレーニングビデオ </a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信 </a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティス </a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ：OBSでのライブモジュールの使用 </a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:Wirecast でのライブモジュールの使用 </a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/general/">一般情報 <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/general/live-drm.html">ライブDRM </a></li>
+                  
+                
+                  
+                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス </a></li>
+                  
+                
+                  
+                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集 </a></li>
+                  
+                
+                  
+                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減 </a></li>
+                  
+                
+                  
+                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされるエンコーダ </a></li>
+                  
+                
+                  
+                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Akamai ストリーム・パッケージングとワイアカストの使用 </a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/live-module/">ライブモジュールの使用 <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理 </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成 </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/host-cisco-webex-conference-brightcove-live.html">Cisco Webex をブライトコーブライブにホストする </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/host-zoom-conference-brightcove-live.html">ブライトコーブライブへのホストズーム </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告の実装 </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性 </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-facebook.html">ライブイベントを Facebook に公開する </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-youtube.html">ライブイベントを YouTube に公開する </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析の確認 </a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブRTMP出力の使用 </a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/live-api/">ライブ API の操作 <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li class="submenu-header"><a href="/live-api/getting-started/">ライブ API: はじめに <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">概要:ライブ API </a></li>
+                        
+                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">API を使用したライブストリームの作成 </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header"><a href="/live-api/code-samples/">ライブ API: コードサンプル <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成 </a></li>
+                        
+                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS 入力用のライブジョブの作成 </a></li>
+                        
+                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントでの RTMP 出力の使用 </a></li>
+                        
+                        <li><a href="/live-api/code-samples/simulated-live.html">シミュレートされたライブイベント </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header"><a href="/live-api/references/">ライブ API: 参照 <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/references/live-api-error-messages.html">エラーメッセージ </a></li>
+                        
+                        <li><a href="/live-api/references/live-api-release-notes.html">リリースノート </a></li>
+                        
+                        <li><a href="/live-api/references/reference.html">ライブ API リファレンス </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header"><a href="/live-api/ssai/">ライブAPI: SSAI <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAIを使用したキューポイントとアドビーコン </a></li>
+                        
+                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバーサイド広告挿入 (SSAI) </a></li>
+                        
+                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化 </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header"><a href="/live-api/guides/">ライブ API: ガイド <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">ブライトコーブのライブのベストプラクティス </a></li>
+                        
+                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">ブライトコーブライブプログラム広告メタデータ API </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度クリップを作成する </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">VOD クリップの作成 </a></li>
+                        
+                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたは VOD ジョブの一覧を取得する </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3 時限メタデータを挿入 </a></li>
+                        
+                        <li><a href="/live-api/guides/live-drm-live-api.html">ライブ API によるライブ DRM </a></li>
+                        
+                        <li><a href="/live-api/guides/managing-credentials-live-api.html">ライブ API の認証情報の管理 </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-notifications.html">通知 </a></li>
+                        
+                        <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減 </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP 出力 </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント </a></li>
+                        
+                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームを使用した署名付き URL とトークン認証 </a></li>
+                        
+                        <li><a href="/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用 </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-vod-live-event.html">VOD from ライブイベント </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/admin/">アカウントの管理 <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムのライブ取り込みプロファイルの作成 </a></li>
+                  
+                
+                  
+                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルのフィールド </a></li>
+                  
+                
+                  
+                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理 </a></li>
+                  
+                
+                  
+                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理 </a></li>
+                  
+                
+                  
+                    <li><a href="/admin/standard-live-ingest-profiles.html">標準のライブ取り込みプロファイル </a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/release-notes/">リリースノート <strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/release-notes/known-issues.html">既知の問題 </a></li>
+                  
+                
+                  
+                    <li><a href="/release-notes/live-api-release-notes.html">ライブ API リリースノート </a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/support/">サポート<strong> + </strong> </a></h5>            
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く </a></li>
+                  
+                
+                  
+                    <li><a href="/support/viewing-brightcove-system-status-page.html">ブライトコーブのシステムステータスページの表示 </a></li>
+                  
+                
+              </ul>
+            
+          
+      </nav>
+    </div>
+    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
+  <!-- bootstrap layout -->
+
+<!-- search bar -->
+<div id="nav-search-box" style="margin-top: 1rem;"></div>
+  
+    
+
+
+<article class="bcls-article">
+  <h1>ライブ冗長性の使用</h1>
+  <summary>冗長グループを使用すると、2 つ以上の Live ジョブを 1 つのストリームにまとめることができ、自動フェールオーバーにより、中断のない信頼性の高い再生が可能になります。 このガイドでは、冗長グループの作成、ジョブの追加、Live API を使用したフェイルオーバーの強制について説明します。</summary>
+  <section class="bcls-section">
+    <h2 id="Introduction">はじめに</h2>
+    
+    <p>Brightcove Live の冗長性機能は、最初のストリームが機能しなくなった場合に Live が自動的にフェイルオーバーするバックアップストリームを作成することで、ライブイベントの信頼性の高いパフォーマンスを保証します。</p>
+    
+    <p>Live API へのすべてのリクエストには、次のヘッダーが必要です。</p>
+    
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">API リクエストヘッダー</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>キー</th>
+          <th>値</th>
+          <th>注記</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td><code>X-APIキー </code></td>
+          <td>{あなたの API キー}</td>
+          <td>Brightcove Live アカウントを開設したときにキーが提供されているはずです。</td>
+        </tr>
+        <tr>
+          <td><code>コンテンツタイプ </code></td>
+          <td>アプリケーション/json</td>
+          <td>技術的には、<code> content-type </code> ヘッダーは、要求本文を含む書き込み要求に対してのみ必要ですが、読み取り要求に害はありません。</td>
+        </tr>
+      </tbody>
+    </table>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Create_your_Live_jobs">ライブジョブの作成</h2>
+    
+    <p>冗長な設定では、2 つ以上の Brightcove Live ジョブを作成する必要があります。 ジョブの唯一の要件は、ジョブ<strong> が同じ</strong> <code> 出力</code> 設定で作成されることです。 これを実現する最も簡単な方法は、必要な出力仕様を持つジョブを 1 つ作成し、<code> copy_outputs_from_job パラメータを使用して追加のジョブ</code> を作成することです。</p>
+    
+    <p>これらのジョブを作成できるリージョンには制限はありませんが、比較的近くに配置することをお勧めします。</p>
+    
+    <p>ライブジョブが作成されたら、後でジョブ ID を保持します。 これらのジョブを冗長グループに追加するために使用するリクエストボディは、次のようになります (以下のセクションを参照)。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">[ 
+ {
+「job_id」:「0b76bc73f92f46dc917bbe5061c0c633&quot; 
+}, 
+ {
+「job_id」:「0ae5a71dc54b3181af0f98e407c27&quot; 
+} 
+] </code></pre>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Create_the_redundant_group">冗長グループの作成</h2>
+    
+    <p>冗長グループを作成するには、次の宛先に <code> POST </code> 要求を送信します。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups </code></pre>
+    
+    <p>リクエスト本文の例を次に示します。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">{ 
+「ad_insertion」: true, 
+「processing_regions」: [&quot;us-west-2&quot;], 
+「storage_regions」: [&quot;us-west-2&quot;,「us-east-1&quot;], 
+「label」:「テストRG」, 
+「live_dvr_sliding_window_duration」: 1800 
+} </code></pre>
+    
+    <p>以下の表は、リクエストボディのフィールドの完全なリストです。 場合によっては、これらはライブジョブの作成に使用されるフィールドと同じです。 フィールドの詳細については、<a href="/live-api/references/reference.html"> ライブ API リファレンスを</a> 参照してください。</p>
+    
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">冗長グループフィールドの作成</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>フィールド</th>
+          <th>タイプ</th>
+          <th>必須ですか？</th>
+          <th>説明</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td><code>insertion </code></td>
+          <td>ブール値</td>
+          <td>オプション</td>
+          <td>このストリームを SSAI を有効にする場合は true に設定します。</td>
+        </tr>
+        <tr>
+          <td><code>cdns </code></td>
+          <td>配列</td>
+          <td>オプション</td>
+          <td>マニフェスト生成に使用される追加の CDN プロバイダの配列。 提供されたCDNごとに、それに応じてマニフェストが先頭に追加されます</td>
+        </tr>
+        <tr>
+          <td><code>DRM </code></td>
+          <td>オブジェクト</td>
+          <td>オプション</td>
+          <td>まだサポートされていません</td>
+        </tr>
+        <tr>
+          <td><code>暗号化 </code></td>
+          <td>オブジェクト</td>
+          <td>オプション</td>
+          <td>まだサポートされていません</td>
+        </tr>
+        <tr>
+          <td><code>ラベル </code></td>
+          <td>文字列</td>
+          <td>必須です</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td><code>dvr_sliding_window </code></td>
+          <td>整数</td>
+          <td>オプション</td>
+          <td>グループを識別するラベル</td>
+        </tr>
+        <tr>
+          <td><code>通知 </code></td>
+          <td>配列</td>
+          <td>オプション</td>
+          <td>通知先のオブジェクトまたは文字列の配列</td>
+        </tr>
+        <tr>
+          <td><code>regions </code></td>
+          <td>配列</td>
+          <td>必須です</td>
+          <td>冗長グループの処理領域。 これにより、マニフェストを生成する AWS リージョンが決定されます。 これは、storage_regionsおよびライブジョブが作成されるリージョンと一致することを推奨します。</td>
+        </tr>
+        <tr>
+          <td><code>regions </code></td>
+          <td>配列</td>
+          <td>必須です</td>
+          <td>ストレージリージョンのメディアチャンクとプレイリストは S3 にアップロードされます。 これは、processing_regions とライブジョブが作成されるリージョンと一致することを推奨します。</td>
+        </tr>
+        <tr>
+          <td><code>ビデオクラウド </code></td>
+          <td>オブジェクト</td>
+          <td>オプション</td>
+          <td>Video Cloud のお客様は、ライブ配信に使用するビデオを作成することもできます。</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p>応答は次のようになります。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">{ 
+「id」:「481ff4cf0bf74956bc2ec6e1265880&quot;, 
+「processing_regions」: [
+ {「region」: 
+「us-west-2&quot;, 
+「確率」: 1 
+} 
+], 
+「storage_regions」: [
+「us-west-2&quot;, 
+「us-east-1&quot;」
+], 
+「ジョブ」: [], 
+「状態」:「スタンバイ」, 
+「ラベル」:「テスト RG」, 
+「live_dvr_sliding_window_duration」: 1800, 
+「ステータス」: {
+「us-west-2&quot;: null 
+}, 
+「ad_挿入」: true, 
+ 
+「出力」: {「再生URL」:」https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/playlist.m3u8「, 
+「playback_url_dvr」: &quot;https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/playlist_dvr.m3u8&quot;, 
+「ssai_playback_urls」: {
+ &quot;26f8470f61374e608e27af9c1b3f7ff0「: {
+「playback_url」: &quot;https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/26f8470f61374e608e27af9c1b3f7ff0/playlist_ssaiM.m3u8「, 
+「playback_url_dvr」:」https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/26f8470f61374e608e27af9c1b3f7ff0/playlist_dvr_ssaiM.m3u8「, 
+「description」:「House Ads-864b84f712ae40bca1510a8052b34312&quot;, 
+「type」:「ads」
+ 
+} 
+} </code></pre>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Add_live_jobs_to_the_redundant_group">冗長グループへのライブジョブの追加</h2>
+    
+    <p>冗長グループを作成したら、<code> POST </code> 要求を送信して、そのグループにジョブを追加できます。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id}/jobs </code></pre>
+    
+    <p>ライブジョブIDは、次のようにリクエスト本文で指定されます。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">[ 
+ {
+「job_id」:「0b76bc73f92f46dc917bbe5061c0c633&quot; 
+}, 
+ {
+「job_id」:「0ae5a71dc54b3181af0f98e407c27&quot; 
+} 
+] </code></pre>
+    
+    <p>ジョブオブジェクトには、いくつかの追加のオプションプロパティがあります。次の表は、すべてのフィールドを示しています。</p>
+    
+    <table class="bcls-table">
+      <caption class="bcls-caption--table">ライブジョブ要求フィールドの追加</caption>
+      <thead class="bcls-table__head">
+        <tr>
+          <th>フィールド</th>
+          <th>タイプ</th>
+          <th>必須ですか？</th>
+          <th>説明</th>
+        </tr>
+      </thead>
+      <tbody class="bcls-table__body">
+        <tr>
+          <td><code>job_id </code></td>
+          <td>文字列</td>
+          <td>必須です</td>
+          <td>グループに追加するジョブのID。 <code>プレイリスト</code> も<code> ストリーム</code> も指定されていない場合、すべての<code> 出力</code> が使用されます。</td>
+        </tr>
+        <tr>
+          <td><code>プレイリスト </code></td>
+          <td>文字列</td>
+          <td>オプション</td>
+          <td>ストリームの出力として使用するプレイリストのラベル。 <code>プレイリスト</code> が定義されている場合、<code> ストリーム</code> <em> は未定義</em> <strong> でなければなりません </strong>。</td>
+        </tr>
+        <tr>
+          <td><code>ストリーム </code></td>
+          <td>配列</td>
+          <td>オプション</td>
+          <td>ストリームの出力として使用するストリームラベルのリスト。 <code>ストリーム</code> が定義されている場合、<code> プレイリストは</code> <em> 未定義</em> <strong> でなければなりません </strong>。</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p>このリクエストの成功応答は、冗長グループ ID を返します。</p>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Get_Redundant_Group_Status">冗長グループのステータスを取得する</h2>
+    
+    <p>冗長グループのステータスを取得するには、<code> GET </code> リクエストを以下に送信します。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id} </code></pre>
+    
+    <p>応答は次のようになります。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">{ 
+「id」:「481ff4cf0bf74956bc2ec6e1265880&quot;, 
+「processing_regions」: [
+ {「region」: 
+「us-west-2&quot;, 
+「確率」: 1 
+} 
+], 
+「storage_regions」: [
+「us-west-2&quot;, 
+「us-east-1&quot;」
+], 
+「jobs」: [
+ {
+「job_id」:「0b76bc73f92f46dc917bbe5061c0c633&quot;, 
+「streams」: [
+「hls720p」, 
+「hls540p」, 
+「hls360p」
+], 
+「状態」:「処理中」
+}, 
+ {
+「job_id」:「0ae5a4a71dc54b3181af0f98e407c27&quot;, 
+「ストリーム」: [
+「hls720p」, 
+「hls540p」, 
+「hls360p」
+], 
+「状態」:「処理中」
+} 
+], 
+」状態」:「処理中」, 
+「created_at」: 1568057414849, 
+「updated_at」: 1568059153017, 
+「ラベル」:「テストRG」, 
+「live_dvr_sliding_window_duration」: 1800, 
+「ステータス」: {「us-west-2&quot;: {
+「switchDrift」: 0, 
+「End」: 0, 
+「End」: false, 
+「OnAir」:「0b76bc73f92f46dc917bbe5061c0c633&quot;、
+「モード」:「auto」,「InManifest」: true, 
+「MediaSequence」: 10, 
+「Healthiness」: 0, 
+「持続時間」: 4, 
+「DiscontinuitySequence」: 1, 
+「SourceChunk」: {
+ 
+「MediaSequence」: 3639, 
+「Duration」: 4, 
+「DiscontinuitySequence」: 0, 
+「ProgramDateTime」:「2019-09-09T 19:59:36 Z」, 
+「LiveJobID」:「0b76bc73f92f46dc917bbe5061c0c633&quot; 
+}, 
+「UpdateDAT」:「2019-09-09T」19:59:46 Z」, 
+「ProgramDateTime」:「2019-09-09T 19:59:36 Z」
+ 
+}, 
+「ad_insertion」: true, 
+「outputs」: {
+「playback_url」: &quot;https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/playlist.m3u8&quot;, 
+「playback_url_dvr」:「https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/playlist_dvr.m3u8「, 
+「ssai_playback_urls」: {
+「26f8470f61374e608e27af9c1b3f7ff0&quot;: {
+「playback_url」:」https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/26f8470f61374e608e27af9c1b3f7ff0/playlist_ssaiM.m3u8「, 
+「playback_url_dvr」: &quot;https://playback-qa.a-live.io/r481ff4cf0bf74956bc2ec6e126588080/us-west-2/NA/26f8470f61374e608e27af9c1b3f7ff0/playlist_dvr_ssaiM.m3u8&quot;,
+「説明」:「ハウス広告-864b84f712ae40bca1510a8052b34312&quot;, 
+「タイプ」:「広告」
+ 
+} 
+} 
+} </code></pre>
+    
+    <p>冗長グループ内の各処理領域には、領域ごとにキーが設定された独自の<code> ステータス</code> オブジェクトがあります。 この例では、<code> us_west_2 の処理領域では、on_</code> <code> air </code> ジョブが <code> 0b76bc73f92f46dc917bbe5061c0c633 </code> であることがわかります。</p>
+    
+    <p>副次的な注意として、この時点で、処理領域に関連する<code> 確率は</code> 常に <code> 1 </code> になりますが、将来の機能強化のためにデータモデルに含まれています。これは、0 ～ 1 の間の確率を持つ複数の処理領域を可能にし、そのリージョンを使用する再生トラフィックです。</p>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="add_cuepoints">キューポイントの手動追加</h2>
+    
+    <p>冗長性のあるライブストリームにキューポイントを手動で追加することは、通常のライブストリームにキューポイントを追加することと非常によく似ています。 冗長グループに対してこれを行うには、<code> POST </code> 要求を行います。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id}/cuepoint </code></pre>
+    
+    <p>次のようなリクエストボディを含めます。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">{ 
+「ad_server_data」: {
+「件名」:「野生動物」
+}, 
+「期間」: 30, 
+「タイムコード」: &quot;09:23:18:05&quot; 
+} </code></pre>
+    
+    <p><code>タイムコード</code> フィールドを省略すると、キューポイントがすぐに挿入されます。</p>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Force_a_Job_failover">ジョブのフェイルオーバーを強制する</h2>
+    
+    <p>フェイルオーバーは Brightcove Live システムによって自動的に管理されるため、ユーザーの介入は必要ありません。 しかし、何らかの理由で別のジョブへのフェールオーバーを強制する場合は、<code> on_air </code> ジョブのエンコーダを停止するだけです。</p>
+    
+    <p>また、API を使用してフェールオーバーを強制するには、<code> PUT </code> リクエストを実行します。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id}/switch </code></pre>
+    
+    <p>リクエスト本文は次のようになります。</p>
+    
+    <pre class="line-numbers">
+ <code class="language-json">{ 
+「mode」:「manual」, 
+「on_air」:「0ae5a4a71dc54b3181af0f98ee407c27&quot; 
+} </code></pre>
+    
+    <p>ここで、<code> モード</code> は<code> 手動</code> または<code> 自動 </code>（デフォルト）のいずれかであり、<code> on_air </code> は<strong> セカンダリ </strong> ジョブ ID の 1 つの値を持ちます。</p>
+    
+    <p>注:<code> 手動</code> モードになると、自動ジョブのフェイルオーバーは発生<strong> しません </strong>。 自動フェールオーバーを再開するには、モードを <code> auto </code> に戻す<strong> 必要があります </strong>。 本体からモードを省略してforceクエリパラメータを追加することで、手動に切り替えることなくOn-Air Job を変更できます <code>。 force = true</code> を要求します。 これにより、サービスは強制的にジョブを切り替えますが、問題が検出された場合、いつでも切り替えることができます。</p>
+    </section>
+    
+    <section class="bcls-section">
+    <h2 id="Ending_a_redundant_stream">冗長ストリームの終了</h2>
+    
+    <p>冗長ストリームを終了するには、2 つの方法があります。 冗長グループは設計上、暗黙的に <a href="/live-api/guides/live-api-static-entry-points.html"> SEP </a> ストリームです。 冗長グループからすべてのジョブを削除することで、冗長グループを <code> STANDBY </code> モードにすることができます。</p>
+    
+    <p>これを行うには、<code> DELETE</code> リクエストを使用して次の操作を行います。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id}/jobs/{job_id} </code></pre>
+    
+    <p>を削除するジョブごとに。 現在<code> on_air</code> にあるジョブを削除するには、<code>? force-true </code> クエリパラメータ。</p>
+    
+    <p>ストリームを終了する 2 番目の方法は、DELETE 要求をに送信して冗長グループを完全に<code> 削除</code> することです。</p>
+    
+    <pre>
+ <code class="language-http">https://api.bcovlive.io/v1/redundantgroups/{redundant_group_id} </code></pre>
+    </section>
+    </article>
+    
+    
+<!-- complete bootstrap layout -->
+    </div>
+    <div class="col-sm-2 right-side-bar">
+      
+      <nav class="right-side-nav">
+        <h6 class="toc">ページの内容</h6>
+        <ul id="in_page_nav" class="list-none"></ul>
+      </nav>
+      
+    </div>
+  </div>
+</div>
+
+<hr>
+<div class="last-updated">ページ最終更新日:2020 年 4 月 19 日</div>
+
+
+
+<footer class="bcls-footer" role="contentinfo">
+  <div class="row">
+    <div class="region region-footer-top-center col-md-12">
+      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
+
+        <h2>ブライトコーブのサポート</h2>
+
+        <ul class="menu">
+          <li><a href="https://status.brightcove.com">システムステータス </a></li>
+          <li><a href="https://supportportal.brightcove.com/s/login/?language=en_US">サポートへのお問い合わせ </a></li>
+          <li><a href="https://support.brightcove.com/">ドキュメンテーション </a></li>
+        </ul>
+
+      </nav>
+      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
+
+        <h2>トレーニング</h2>
+
+        <ul class="menu">
+          <li><a href="https://studio.support.brightcove.com/training/online-training-courses.html">オンラインコース </a></li>
+          <li><a href="https://studio.support.brightcove.com/training/register-training.html">コースへの登録 </a></li>
+          <li><a href="https://university.brightcove.com/">ブライトコーブ大学 </a></li>
+        </ul>
+
+      </nav>
+      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
+
+        <h2>ブライトコーブ</h2>
+
+        <ul class="menu">
+          <li><a href="https://www.brightcove.com">ブライトコーブ </a></li>
+          <li><a href="https://supportportal.brightcove.com/s/login/?language=en_US" data-drupal-link-system-path="https://supportportal.brightcove.com/s/login/?language=en_US">お問い合わせ </a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="region region-footer-bottom-center col-md-12">
+      <div class="bcls-copyright footer-menu">
+        <table>
+          <tr>
+            <td><div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;">ブライトコーブ株式会社すべての権利を保有します。</div>
+            </td>
+            <td><a href="https://www.brightcove.com/en/legal/privacy">プライバシー </a> | <a href="https://www.brightcove.com/en/terms-and-conditions"> 利用規約 </a></td>
+            <td><div class="gf-links-cols footer-menu">
+                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"> <i class="fab fa-linkedin-in" style="font-size: 1.5rem;"> <a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"> <i class="fab fa-twitter" style="font-size: 1.5rem;"> <a href="https://www.facebook.com/Brightcove" title="フェイスブック" newtab="newtab" class="gf-social-facebook"> <i class="fab fa-facebook-f" style="font-size: 1.5rem;"> </i> </a> </i> </a> </i> </a></div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</footer>
+<div id="talla_wrapper">
+  <p style="text-align: right;position: relative;"><button style="background:rgb(149, 192, 57);color:Snow;padding:.3rem;position:fixed;right:0;bottom:1em;z-index:9999999" onclick="javascript:displayChat()">質問がありますか？ </button></p>
+  <div id="talla_chat">
+</div>
+</div>
+<script>
+      
+  var searchBox = sajari.init({
+    mode: "search-box",
+    project: "1588255093746585379", // Set this to your project.
+    collection: "brightcove-documenation", // Set this to your collection.
+    instantPipeline: "autocomplete", // Pipeline used as you type
+    inputPlaceholder: "Search", // Input element placeholder
+    maxSuggestions: 5, // Maximum number of suggestions to show
+    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
+  });
+  
+    searchBox("sub", "pipeline.search-sent", function (_, query) {
+      window.location = "/search.html?q=" + encodeURIComponent(query.q);
+    });
+  
+
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/https-fix.js"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/setDate.js"></script>
+  
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/prism.js"></script>
+  
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/site.js"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/tabs.js"></script>
+  
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/toc.js"></script>
+  
+  <script src="/assets/js/sites_nav.js"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/bcls-utils.js"></script>
+  <script src="https://learning-services-media.brightcove.com/doc-assets/site-assets/js/site/local-link-fix.js"></script>
+  <script src="/assets/js/feedback.js"></script>
+  
+  <script src="/assets/js/sajari-search-foot.js"></script>
+  
+  <!-- <script src="/assets/js/sajari-index.js"></script> -->
+  <script src="https://assets.talla.com/latest/embeddedjs/talla.js"></script>
+  <script src="/assets/js/talla-init.js"></script>
+  <style>
+    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
+      background-color: lightblue;
+    }
+    div.sj-tabs__tab {
+      margin-top: 3rem;
+      margin-left: .3rem;
+      border-top-left-radius: .4rem;
+      border-top-right-radius: .4rem;
+      background-color:#e8e8e8;
+    }
+
+    div.sj-tabs__tab.sj-tabs__tab--selected {
+      border-bottom-color: crimson;
+      background-color: #f8f8f8;
+    }
+
+    p.sj-results__result__description.css-p9jvyt {
+      font-size: 1rem;
+    }
+
+    .sj-result__text.css-31l7gp h3 {
+      color: navy;
+      font-size: 1.4rem;
+    }
+    </style>
+
+</body>
+
+</html>
