@@ -1,16 +1,27 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="このトピックでは、ライブ配信ジョブにブライトコーブのサーバーサイド広告挿入（SSAI）を使用する際のキューポイントと広告ビーコンを管理する方法について説明します。">
+  <meta name="description" content="このトピックでは、ライブストリームジョブに Brightcove のサーバー側広告挿入 (SSAI) を使用する場合に、キューポイントと広告ビーコンを管理する方法について説明します。">
   
-  <title>ライブ API: SSAI を使用したキューポイントとアドビーコン</title>
+  <title>ライブ API:SSAI を使用したキューポイントと広告ビーコン</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">  
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-ultra.eot" type="font/eot">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-ultra.woff" type="font/woff">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-super.eot" type="font/eot">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-super.woff" type="font/woff">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-black.eot" type="font/eot">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-black.woff" type="font/woff">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-bold.eot" type="font/eot">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-bold.woff" type="font/woff">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-medium.eot" type="font/eot">
+  <link data-react-helmet="true" rel="preload" as="font" href="https://files.brightcove.com/fonts/balto/baltoweb-medium.woff" type="font/woff">
+  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
@@ -27,58 +38,66 @@
 <body class="body">
 
 <header>
-  <div class="div-header"><a href="/"> <img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/logo-bc-live.svg" alt="製品ロゴ" style="max-height: 100px;max-width: 232px;"> <!-- GTranslate: https://gtranslate.io/ --> </a> <select onchange="doGTranslate(this);"><option value="">言語を選択</option><option value="en|en">英語</option><option value="en|Zh-tw">繁体中文</option><option value="en|fr">フランセ</option><option value="en|de">ドイッチュ</option><option value="en|ja">日本語</option><option value="en|ko">한국어</option><option value="en|es">エスパニョール</option></select><script>
+  <div class="div-header">
+    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Live_Logo.svg" alt="製品ロゴ" style="max-height: 100px;max-width: 232px;"/></a>
+<!-- GTranslate: https://gtranslate.io/ -->
+<select onchange="doGTranslate(this);"><option value="">言語の選択</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
+
+<script>
 /* <![CDATA[ */
 function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
 /* ]]> */
-</script><select id="site_select" class="bcls-select" style="margin-right: 1rem;"><option value="">ブライトコーブのその他のドキュメント</option>
+</script>
+
+    <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
+      <option value="">ブライトコーブのその他のドキュメント</option>
       
         
-          <option value="https://support.brightcove.com">ドキュメンテーションホーム</option>
-        
-      
-        
-          <option value="https://audience.support.brightcove.com">ブライトコーブのオーディエンス</option>
-        
-      
-        
-          <option value="https://beacon.support.brightcove.com">ブライトコーブビーコン</option>
+          <option value="https://support.brightcove.com">ドキュメントホーム</option>
         
       
         
-          <option value="https://campaign.support.brightcove.com">ブライトコーブキャンペーン</option>
+          <option value="https://audience.support.brightcove.com">Brightcove Audience</option>
         
       
         
-          <option value="https://engage.support.brightcove.com">ブライトコーブエンゲージ</option>
+          <option value="https://beacon.support.brightcove.com">Brightcove Beacon</option>
         
       
         
-          <option value="https://live.support.brightcove.com">ブライトコーブライブ</option>
+          <option value="https://campaign.support.brightcove.com">Brightcove Campaign</option>
         
       
         
-          <option value="https://gallery.support.brightcove.com">ブライトコーブギャラリー</option>
+          <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
         
       
         
-          <option value="https://ssai.support.brightcove.com">ブライトコーブ SSAI</option>
+          <option value="https://live.support.brightcove.com">Brightcove Live</option>
         
       
         
-          <option value="https://social.support.brightcove.com">ブライトコーブソーシャル</option>
+          <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
         
       
         
-          <option value="https://studio.support.brightcove.com">ビデオクラウドスタジオ</option>
+          <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
         
       
         
-          <option value="https://player.support.brightcove.com">ブライトコーブプレーヤー開発</option>
+          <option value="https://social.support.brightcove.com">Brightcove Social</option>
         
       
         
-          <option value="https://apis.support.brightcove.com">ビデオクラウドプラットフォーム API</option>
+          <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
+        
+      
+        
+          <option value="https://player.support.brightcove.com">ブライトコーブのプレーヤー開発</option>
+        
+      
+        
+          <option value="https://apis.support.brightcove.com">Video CloudプラットフォームAPI</option>
         
       
         
@@ -86,66 +105,74 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
         
       
         
-          <option value="https://integrations.support.brightcove.com">統合/CMSコネクタ</option>
+          <option value="https://integrations.support.brightcove.com">統合および CMS コネクタ</option>
         
       
         
-          <option value="https://general.support.brightcove.com">ビデオクラウド全般</option>
+          <option value="https://general.support.brightcove.com">ビデオクラウドの一般情報</option>
         
       
         
-          <option value="https://zencoder.support.brightcove.com">Zencoder</option></select> <span class="secondary-nav"> <a href="https://supportportal.brightcove.com/s/login/?language=en_US"> <img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="サポート"> -ERR:REF-NOT-FOUND-サポートへのお問い合わせ </a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;"> | <img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="システムステータス"> </span> <a href="https://status.brightcove.com/"> -ERR:REF-NOT-FOUND- -ERR:REF-NOT-FOUND- システムステータス </a> </span> <br></div>
+          <option value="https://zencoder.support.brightcove.com">Zencoder</option>
+        
+      
+    </select>
+
+
+    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="サポート"/> サポートへのお問い合わせ</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="システムステータス"/> システムステータス</a></span> <br/>
+    
+  </div>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb arr-right">
       
-      <li class="breadcrumb-item"><a href="/">ホーム </a></li>
+      <li class="breadcrumb-item"><a href="/">ホーム</a></li>
       
       
       
-      <li class="breadcrumb-item"><a href="/live-api/ssai/">SSAI </a></li>
+      <li class="breadcrumb-item"><a href="/live-api/ssai/">SSAI</a></li>
       
-      <li class="breadcrumb-item active" aria-current="page">ライブ API: SSAI を使用したキューポイントとアドビーコン</li>
+      <li class="breadcrumb-item active" aria-current="page">ライブ API:SSAI を使用したキューポイントと広告ビーコン</li>
     </ol>
   </nav>
 </header>
 <div class="container">
     <div class="row">
       <div class="col-sm-3 left-side-bar">
-        <nav class="sidenav">
+        <nav class="sidenav" id="side_nav">
           
             
-            <h5><a href="/">ホーム </a></h5>
+            <h5><a href="/index.html">ホーム</a></h5>
             
           
             
-              <h5 class="submenu-header"><a href="/get-started/">はじめに <strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/get-started/index.html">入門編 <strong>+</strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
-                    <li><a href="/get-started/brightcove-live-training-videos.html">ブライトコーブライブトレーニングビデオ </a></li>
+                    <li><a href="/get-started/brightcove-live-training-videos.html">ブライトコーブのライブトレーニング動画</a></li>
                   
                 
                   
-                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信 </a></li>
+                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信</a></li>
                   
                 
                   
-                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティス </a></li>
+                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティス</a></li>
                   
                 
                   
-                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ：OBSでのライブモジュールの使用 </a></li>
+                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ:OBS でのライブモジュールの使用</a></li>
                   
                 
                   
-                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:Wirecast でのライブモジュールの使用 </a></li>
+                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:Wirecast でのライブモジュールの使用</a></li>
                   
                 
               </ul>
             
           
             
-              <h5 class="submenu-header"><a href="/general/">一般情報 <strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/general/index.html">一般情報<strong> + </strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
@@ -153,163 +180,185 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
                   
                 
                   
-                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス </a></li>
+                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス</a></li>
                   
                 
                   
-                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集 </a></li>
+                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集</a></li>
                   
                 
                   
-                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減 </a></li>
+                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
                   
                 
                   
-                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされるエンコーダ </a></li>
+                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされるエンコーダ</a></li>
                   
                 
                   
-                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Akamai ストリーム・パッケージングとワイアカストの使用 </a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-module/">ライブモジュールの使用 <strong> + </strong> </a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理 </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成 </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/host-cisco-webex-conference-brightcove-live.html">Cisco Webex をブライトコーブライブにホストする </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/host-zoom-conference-brightcove-live.html">ブライトコーブライブへのホストズーム </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告の実装 </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性 </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-facebook.html">ライブイベントを Facebook に公開する </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-youtube.html">ライブイベントを YouTube に公開する </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析の確認 </a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブRTMP出力の使用 </a></li>
+                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Akamai ストリームのパッケージングとワイヤキャストの使用</a></li>
                   
                 
               </ul>
             
           
             
-              <h5 class="submenu-header"><a href="/live-api/">ライブ API の操作 <strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/live-module/index.html">ライブモジュールの使用<strong> + </strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
-                    <li class="submenu-header"><a href="/live-api/getting-started/">ライブ API: はじめに <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">ライブ SSAI を使用したクライアント側のプリロール広告</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">ブライトコーブライブでアバイアカンファレンスの開催について</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex をブライトコーブライブでホストする</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">ブライトコーブライブにズームをホストする</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">ブライトコーブライブで INXPO イベントを主催する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告の実装</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-facebook.html">ライブイベントを Facebook に公開する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-youtube.html">ライブイベントをYouTubeに公開する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析のレビュー</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブ RTMP 出力を使用する</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/live-api/index.html">ライブ API の操作<strong> + </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/getting-started/index.html">ライブ API:入門編 <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
                         
                         <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">概要:ライブ API </a></li>
                         
-                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">API を使用したライブストリームの作成 </a></li>
+                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">API を使用したライブストリームの作成</a></li>
                         
                       </ul>
                     </li>
                   
                 
                   
-                    <li class="submenu-header"><a href="/live-api/code-samples/">ライブ API: コードサンプル <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                    <li class="submenu-header">
+                      <a href="/live-api/code-samples/index.html">ライブ API:コードサンプル <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
                         
-                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成 </a></li>
+                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成</a></li>
                         
-                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS 入力用のライブジョブの作成 </a></li>
+                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS 入力用のライブジョブを作成する</a></li>
                         
-                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントでの RTMP 出力の使用 </a></li>
+                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントでの RTMP 出力の使用</a></li>
                         
-                        <li><a href="/live-api/code-samples/simulated-live.html">シミュレートされたライブイベント </a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header"><a href="/live-api/references/">ライブ API: 参照 <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/references/live-api-error-messages.html">エラーメッセージ </a></li>
-                        
-                        <li><a href="/live-api/references/live-api-release-notes.html">リリースノート </a></li>
-                        
-                        <li><a href="/live-api/references/reference.html">ライブ API リファレンス </a></li>
+                        <li><a href="/live-api/code-samples/simulated-live.html">シミュレートされたライブイベント</a></li>
                         
                       </ul>
                     </li>
                   
                 
                   
-                    <li class="submenu-header"><a href="/live-api/ssai/">ライブAPI: SSAI <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                    <li class="submenu-header">
+                      <a href="/live-api/references/index.html">ライブ API:参考文献 <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
                         
-                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAIを使用したキューポイントとアドビーコン </a></li>
+                        <li><a href="/live-api/references/live-api-error-messages.html">エラーメッセージ</a></li>
                         
-                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバーサイド広告挿入 (SSAI) </a></li>
+                        <li><a href="/live-api/references/live-api-release-notes.html">リリースノート</a></li>
                         
-                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化 </a></li>
+                        <li><a href="/live-api/references/reference.html">ライブ API リファレンス</a></li>
                         
                       </ul>
                     </li>
                   
                 
                   
-                    <li class="submenu-header"><a href="/live-api/guides/">ライブ API: ガイド <strong> + </strong> </a><ul class="sidenav-subsubmenu" style="display:none;">
+                    <li class="submenu-header">
+                      <a href="/live-api/ssai/index.html">ライブ API:SSAI <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
                         
-                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">ブライトコーブのライブのベストプラクティス </a></li>
+                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAI を使用したキューポイントと広告ビーコン</a></li>
+                        
+                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバー側広告挿入 (SSAI) </a></li>
+                        
+                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化</a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/guides/index.html">ライブ API:ガイド <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">ブライトコーブライブのベストプラクティス</a></li>
                         
                         <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">ブライトコーブライブプログラム広告メタデータ API </a></li>
                         
-                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度クリップを作成する </a></li>
+                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度が高いクリップの作成</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">VOD クリップの作成 </a></li>
+                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">VOD クリップを作成する</a></li>
                         
-                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたは VOD ジョブの一覧を取得する </a></li>
+                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたはVODジョブのリストを取得する</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3 時限メタデータを挿入 </a></li>
+                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3 時限メタデータの挿入</a></li>
                         
-                        <li><a href="/live-api/guides/live-drm-live-api.html">ライブ API によるライブ DRM </a></li>
+                        <li><a href="/live-api/guides/live-drm-live-api.html">ライブ API を介したライブ DRM </a></li>
                         
-                        <li><a href="/live-api/guides/managing-credentials-live-api.html">ライブ API の認証情報の管理 </a></li>
+                        <li><a href="/live-api/guides/managing-credentials-live-api.html">ライブ API の認証情報の管理</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-notifications.html">通知 </a></li>
+                        <li><a href="/live-api/guides/live-api-notifications.html">通知</a></li>
                         
-                        <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減 </a></li>
+                        <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP 出力 </a></li>
+                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP 出力</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント </a></li>
+                        <li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント</a></li>
                         
-                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームを使用した署名付き URL とトークン認証 </a></li>
+                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームでの署名付き URL とトークン認証</a></li>
                         
-                        <li><a href="/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用 </a></li>
+                        <li><a href="/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用</a></li>
                         
-                        <li><a href="/live-api/guides/live-api-vod-live-event.html">VOD from ライブイベント </a></li>
+                        <li><a href="/live-api/guides/live-api-vod-live-event.html">ライブイベントよりVOD </a></li>
                         
                       </ul>
                     </li>
@@ -319,57 +368,65 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
             
           
             
-              <h5 class="submenu-header"><a href="/admin/">アカウントの管理 <strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/admin/index.html">アカウントの管理 <strong>+</strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
-                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムのライブ取り込みプロファイルの作成 </a></li>
+                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルの作成</a></li>
                   
                 
                   
-                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルのフィールド </a></li>
+                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブインジェストプロファイルのフィールド</a></li>
                   
                 
                   
-                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理 </a></li>
+                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理</a></li>
                   
                 
                   
-                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理 </a></li>
+                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理</a></li>
                   
                 
                   
-                    <li><a href="/admin/standard-live-ingest-profiles.html">標準のライブ取り込みプロファイル </a></li>
+                    <li><a href="/admin/standard-live-ingest-profiles.html">標準ライブインジェストプロファイル</a></li>
                   
                 
               </ul>
             
           
             
-              <h5 class="submenu-header"><a href="/release-notes/">リリースノート <strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/release-notes/index.html">リリースノート<strong> + </strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
-                    <li><a href="/release-notes/known-issues.html">既知の問題 </a></li>
+                    <li><a href="/release-notes/live-api-release-notes.html">ライブリリースノート</a></li>
                   
                 
                   
-                    <li><a href="/release-notes/live-api-release-notes.html">ライブ API リリースノート </a></li>
+                    <li><a href="/release-notes/known-issues.html">既知の問題</a></li>
                   
                 
               </ul>
             
           
             
-              <h5 class="submenu-header"><a href="/support/">サポート<strong> + </strong> </a></h5>            
+              <h5 class="submenu-header"><a href="/support/index.html"><strong>サポート+ </strong></a></h5>
               <ul class="sidenav-submenu" style="display:none;">
                 
                   
-                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く </a></li>
+                    <li><a href="/support/brightcove-answer.html">ブライトコーブの回答</a></li>
                   
                 
                   
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">ブライトコーブのシステムステータスページの表示 </a></li>
+                    <li><a href="/support/viewing-brightcove-system-status-page.html">ブライトコーブのシステムステータスページの表示</a></li>
+                  
+                
+                  
+                    <li><a href="/support/contact-sales.html">営業へのお問い合わせ</a></li>
+                  
+                
+                  
+                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く</a></li>
                   
                 
               </ul>
@@ -380,85 +437,98 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
   <!-- bootstrap layout -->
 
+<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="ナビゲーションメニュー"/></p>
+
 <!-- search bar -->
 <div id="nav-search-box" style="margin-top: 1rem;"></div>
+<!-- in-page navigation for narrow screens -->
+<details class="centered-inpage-nav" id="centered_inpage_nav">
+  <summary><h6 class="toc">ページコンテンツ</h6></summary>
+  <nav id="centered_toc"></nav>
+  <ul id="centered_in_page_toc" class="list-none"></ul>
+</details>
+<!-- open in new tab/window -->
+<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="新しいタブで開く" style="margin-top:4em;width: 1.5em;"/></a>
+
+
+
   
     
 
 
 <article class="bcls-article">
- <h1>ライブ API: SSAI を使用したキューポイントとアドビーコン</h1>
- <summary>このトピックでは、ライブ配信ジョブにブライトコーブのサーバーサイド広告挿入（SSAI）を使用する際のキューポイントと広告ビーコンを管理する方法について説明します。</summary>
+ <h1>ライブ API:SSAI を使用したキューポイントと広告ビーコン</h1>
+ <summary>このトピックでは、ライブストリームジョブに Brightcove のサーバー側広告挿入 (SSAI) を使用する場合に、キューポイントと広告ビーコンを管理する方法について説明します。</summary>
 
  <section class="bcls-section">
   <h2 id="Overview">概要</h2>
   
-  <p>サーバーサイド広告挿入 <span class="”notranslate”">（SSAI）</span> を使用すると、ライブストリーミングイベント中に指定した時間に広告を表示できます。 一般的な情報については、<a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html"> Live API: サーバーサイド広告挿入 <span class="”notranslate”"> (SSAI) </span> </a> ドキュメントを参照してください。</p>
+  <p><span translate="No">(SSAI)</span>サーバー側の広告挿入では、ライブストリーミングイベント中に、指定した時間に広告を表示できます。一般的な情報については、<a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">ライブ API を参照してください。<span translate="No">(SSAI)</span></a>サーバー側の広告挿入ドキュメント。</p>
   
-  <aside class="bcls-aside bcls-aside--information"><span class="”notranslate”">SSAI </span> を使用するには、アカウントで SSAI を有効にしておく必要があります。 詳細については、アカウントマネージャーにお問い合わせください。</aside>
+  <aside class="bcls-aside bcls-aside--information">を使用する前に<span translate="No">SSAI</span>、アカウントで有効にする必要があります。詳細はアカウントマネージャーにお問い合わせください。</aside>
   </section>
   
   <section class="bcls-section">
   <h2 id="Cue_points">キューポイント</h2>
   
-  <p>広告ブレークは、キューポイントによってトリガーされます。キューポイントは次の2つの方法で指定できます。</p>
+  <p>広告ブレイクはキューポイントによってトリガーされます。キューポイントは次の 2 つの方法で指定できます。</p>
   
   <ul>
     <li>エンコーダによってブライトコーブに送信</li>
-    <li><span class="notranslate">ライブ API </span> を使用して作成された即時キューポイント</li>
+    <li>経由で作成された即時キューポイント<span translate="No">Live API</span></li>
   </ul>
   
   <h3>エンコーダから</h3>
   
-  <p>ブライトコーブのライブ配信システムは、エンコーダから送信されたキューポイントを AMF 形式で解釈できます。</p>
+  <p>ブライトコーブのライブ配信システムは、エンコーダによって送信されたキューポイントを AMF 形式で解釈できます。</p>
   
   <pre class="line-numbers">
- <code class="language-bash">AMFDataList 
- [0]: OnCuePoint 
- [1]: {Obj []: 
- 時間:1.9889, //アドブレイク
- 名の 1 番目のビデオフレームの最初の PTS に対するこのパケットの PTS との差:「scte35」, 
- タイプ:「event」, 
- ad_server_data:「ywjjzgVMZ2G=」,//任意で導入された Brightcove. これは、パラメータのbase64でエンコードされたjsonマップです。例えば {&#39;key&#39;：&#39;value&#39;} 
- パラメータ：{Obj []：
- タイプ：「avail_in&quot;、
- 期間：12.0 
-} 
-} </code></pre>
+  <code class="language-bash" translate="No">AMFDataList
+  [0]:onCuePoint
+  [1]:{Obj[]:
+    time: 1.9889, //Difference from PTS of THIS packet to the first PTS of the 1st video frame in the adbreak
+    name: "scte35",
+    type: "event",
+    ad_server_data: "YWJjZGVmZ2g=",	// optional introduced by Brightcove. It is a base64 encoded json map of parameters e.g. {‘key’:’value’}
+    parameters: {Obj[]:
+      type: "avail_in",
+      duration: 12.0
+    }
+  }</code></pre>
   
-  <h4>注意事項:</h4>
+  <h4>注</h4>
   
   <ul>
-    <li><code>avail_in </code> タイプのキューポイントのみが現在サポートされています。</li>
-    <li>RTMP および <a href="/live-api/getting-started/overview-brightcove-live-api.html#input_protocol"> TS </a> 入力では、SCTE-35 キューポイントがサポートされています。</li>
+    <li>現在、<code translate="No">avail_in</code>タイプキューポイントのみがサポートされています。</li>
+    <li>SCTE-35 キューポイントは、RTMP および<a href="/live-api/getting-started/overview-brightcove-live-api.html#input_protocol"> TS </a>入力でサポートされます。</li>
   </ul>
   
-  <aside class="bcls-aside bcls-aside--information">Elemental エンコーダのキューポイント設定のサンプルスクリーンショットについては、<a href="#Appendix"> 以下の付録</a> を参照してください。</aside>
+  <aside class="bcls-aside bcls-aside--information">Elemental エンコーダのキューポイント設定のサンプルスクリーンショットについては、<a href="#Appendix">以下の付録を参照してください</a>。</aside>
   </section>
   
   <section class="bcls-section">
-  <h2 id="Manual_cue_point_insertion">手動キューポイント挿入</h2>
+  <h2 id="Manual_cue_point_insertion">キューポイントの手動挿入</h2>
   
-  <p><code>POST </code> リクエストを送信することで、<span class="notranslate"> Live API </span> を使用して即時キューポイントを作成できます。</p>
+  <p><span translate="No">Live API</span>リクエストを送信することにより、<code translate="No">POST</code>を使用して即時キューポイントを作成できます。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http notranslate">POST </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">POST</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http notranslate">https://api.bcovlive.io/v1/jobs/ <span class="bcls-input"> Job_id </span> /キューポイント </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/jobs/<span class="bcls-input">Job_ID</span>/cuepoint</code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http notranslate">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <p>以下を指定するリクエストボディを含めます。</p>
+  <p>以下を指定するリクエスト本文を含めます。</p>
   
   <table class="bcls-table">
     <thead class="bcls-table__head">
@@ -470,70 +540,72 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </thead>
     <tbody class="bcls-table__body">
       <tr>
-        <td><code>期間 </code></td>
+        <td><code translate="No">duration</code></td>
         <td>整数</td>
-        <td>休憩時間（秒単位）。 <br /> <br />挿入するキューポイントの持続時間は、ジョブ内の<strong> セグメントの長さの 2 倍以上に</strong> する必要があります。 <a href="#Duration_example">期間の例</a> を参照してください。</td>
+        <td>休憩時間（秒）。<br/><br/>挿入するキューポイントのデュレーションは、<strong>ジョブ内のセグメントの長さの 2 倍以上である必要があります</strong>。<a href="#Duration_example">デュレーションの例を参照してください</a>。</td>
       </tr>
       <tr>
-        <td><code>タイムコード </code></td>
-        <td>SMPTE フォーマット</td>
-        <td><strong>オプション:</strong> SMPTE 形式のタイムコード (<strong> HH: MM: SS: FF </strong> (FF = フレーム) で、変数のセット (キー/値のペア) を ADServer に渡すタイミングを指定します。 <br /> <br />省略すると、キューポイントがすぐに挿入されます。 <br /> <br />timecode プロパティを使用する場合、エンコーダは <code> onFi </code> を介して t<code> c </code> プロパティに格納された SMPTE フォーマット（<code> HH: MM: SS: FF </code>）タイムコードを送信する必要があります。 タイムコードはライブストリームの開始時からのものです。</td>
+        <td><code translate="No">timecode</code></td>
+        <td>SMPTEフォーマット</td>
+        <td><strong>オプション:</strong>SMPTE 形式のタイムコード、<strong> HH: MM: SS: FF </strong>（FF = フレーム）で、任意の変数（キーと値のペア）のセットを ADServer に渡すタイミングを指定します。<br/><br/>省略すると、キューポイントは直ちに挿入されます。<br/><br/> timecode プロパティを使用する場合、エンコーダーは、<code translate="No">tc</code>プロパティに格納された SMPTE 形式 ( <code translate="No">HH:MM:SS:FF</code> ) タイムコードを<code translate="No">OnFI</code>。タイムコードは、ライブストリームの先頭からのものです。</td>
       </tr>
       <tr>
-        <td><code>server </code></td>
+        <td><code translate="No">ad_server_data</code></td>
         <td>オブジェクト</td>
-        <td><strong>オプション:</strong> 渡すキーと値のペアは、使用している広告サーバーによって異なります。 詳細については、広告サーバーのドキュメントと「<a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html#Targeting_ads_using_ad_macros"> 広告マクロを使用したターゲティング広告 </a>」セクションを参照してください。</td>
+        <td><strong>オプション:</strong>渡すキー/値のペアは、使用している広告サーバーによって異なります。詳細については、広告サーバーのドキュメントおよび「<a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html#Targeting_ads_using_ad_macros">広告マクロを使用した広告のターゲティング</a>」セクションを参照してください。</td>
       </tr>
     </tbody>
   </table>
   
-  <h4 id="Duration_example">期間の例</h4>
+  <h4 id="Duration_example">デュレーションの例</h4>
   
-  <p>挿入するキューポイントの持続時間は、ジョブ内の<strong> セグメントの長さの 2 倍以上に</strong> する必要があります。</p>
+  <p>挿入するキューポイントのデュレーションは、<strong>ジョブ内のセグメントの長さの 2 倍以上である必要があります</strong>。</p>
   
-  <p>例えば、<code>「segment_seconds」が 4 </code> のジョブに <strong> 10 秒のキューポイント</strong> を挿入すると正常に動作します。 ただし、<code>「segment_seconds」が 6 </code> のジョブに同じキューポイントを挿入すると、以下のエラーが発生します。</p>
+  <p>たとえば、<code translate="No">"segment_seconds"=4</code>でジョブに<strong> 10 秒のキューポイントを挿入すると正常に動作します</strong>。ただし、<code translate="No">"segment_seconds"=6</code>のジョブに同じキューポイントを挿入すると、次のエラーが発生します。</p>
   
   <pre>
- <code class="language-json notranslate">「error」:「パラメータ期間はジョブの (2 * ターゲット期間) 
- 以上である必要があります」
- </code></pre>
-   <h3>サンプルリクエスト本文</h3>
+  <code class="language-json" translate="No">"error": "The parameter duration should be greater than
+    or equal to (2 * target duration) of the job"
+  </code></pre>
+  &nbsp;
+  
+  <h3>リクエスト本文の例</h3>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
-「期間」: 30, 
-「タイムコード」: &quot;15:50:49:16「, 
-「ad_server_data」: {
-「adbreakid」: 12312 
-「breaktheme」:「フィットネス」
-} 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "duration": 30,
+    "timecode": "15:50:49:16",
+    "ad_server_data" : {
+    "adbreakid": 12312
+    "breaktheme": "fitness"
+    }
+  }</code></pre>
   
-  <h4>注記</h4>
+  <h4>注</h4>
   
   <ol>
-    <li>Wirecast や OBS などのソフトウェアエンコーダは、RTMP ストリーム内の <code> OnFi </code> パケット経由のタイムコード送信をサポートしていません。</li>
-    <li>エレメンタルハードウェアエンコーダは、RTMP ストリームの <code> OnFi </code> パケットを介したタイムコードの送信をサポートします。</li>
+    <li>Wirecast や OBS などのソフトウェアエンコーダは、RTMP <code translate="No">OnFI</code>ストリーム内のパケット経由のタイムコードの送信をサポートしていません</li>
+    <li>要素ハードウェアエンコーダは、RTMP <code translate="No">OnFI</code>ストリーム内のパケットを介したタイムコードの送信をサポートする</li>
   </ol>
   
-  <h3>サンプル応答</h3>
+  <h3>レスポンスの例</h3>
   
   <pre class="line-numbers">
- <code class="language-json notranslate"> <code>{ 
-「id」:「job_ID」, 
-「cue_point」: {
-「id」:「adbreak-2f58393ada1442D98eca0817fa565Ba4
-&quot;,「期間」: 30,「精度」: 
-「セグメント」, [セグメントでも<code> フレーム</code> でも可]「inserted_at」: 
-「2017-07-21T 09:30:46 .307.307.307.307Z」[46.307Z」キュー </code>ポイントがストリームに挿入されました] 
-}, 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "id": "Job_ID",
+    "cue_point": {
+      "id": "adBreak-2f58393ada1442d98eca0817fa565ba4",
+      "duration": 30,
+      "accuracy": "segment", [Can be <code translate="No">segment</code> or <code translate="No">frame </code> ]
+      "inserted_at": "2017-07-21T09:30:46.307Z" [ Time when the cue point was inserted in the stream]
+    },
+  }</code></pre>
   </section>
   
   <section class="bcls-section">
   <h2 id="Beacons">ビーコン</h2>
   
-  <p>ビーコンは、再生時のデータポイントで、再生された広告の有無と再生量を追跡するためにサードパーティアナリティクスに送信されます。 このセクションでは、<span class="notranslate"> Live API </span> を使用して設定できるビーコンタイプと、データを提供するために使用できる変数について説明します。 次のセクションでは、ビーコンセットの作成と管理に使用する API リクエストについて詳しく説明します。</p>
+  <p>ビーコンは、再生時にサードパーティアナリティクスに送信されるデータポイントで、再生された広告の有無と量を追跡します。このセクションでは、を使用して設定できるビーコンの種類と<span translate="No">Live API</span>、データを提供するために使用できる変数について説明します。次のセクションでは、ビーコンセットの作成と管理に使用する API リクエストについて詳しく説明します。</p>
   
   <h3>ビーコンの種類</h3>
   
@@ -541,171 +613,199 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     <caption class="bcls-caption--table">ビーコンの種類</caption>
     <thead class="bcls-table__head">
       <tr>
-        <th style="width:20%;">ビーコンの種類</th>
+        <th style="width:20%;">ビーコンタイプ</th>
         <th style="width:60%;word-wrap:break-word">説明</th>
       </tr>
     </thead>
     <tbody class="bcls-table__body">
       <tr>
-        <td style="width:20%"><code>[ ロード] </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">セッションごとに1回起動され、トップレベルのマニフェストが要求された場合にのみトリガーされます</td>
+        <td style="width:20%"><code translate="No">Load </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">セッションごとに 1 回発生し、トップレベルマニフェストが要求された場合にのみトリガーされます</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>遊ぶ </code></td>
+        <td style="width:20%"><code translate="No">Play </code></td>
         <td style="text-align:left;width:60%;word-wrap:break-word">コンテンツが要求され、最初のセグメントが返されました</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>ハートビート </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">目標時間（セグメント秒）</td>
+        <td style="width:20%"><code translate="No">Heartbeat </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">目標期間（セグメント秒）</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドスタート </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">個別の広告を開始しました</td>
+        <td style="width:20%"><code translate="No">AdStart </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">個人広告開始しました</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドファースト・クォーティレ </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">最初の広告四分位数 (25%)</td>
+        <td style="width:20%"><code translate="No">AdFirstQuartile </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">第 1 広告四分位数 (25%)</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドミポイント </code></td>
+        <td style="width:20%"><code translate="No">AdMidpoint </code></td>
         <td style="text-align:left;width:60%;word-wrap:break-word">第 2 広告四分位数 (50%)</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドサード四分位数 </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">第三広告四分位数 (75%)</td>
+        <td style="width:20%"><code translate="No">AdThirdQuartile </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">第 3 広告四分位数 (75%)</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドコンプリート </code></td>
+        <td style="width:20%"><code translate="No">AdComplete </code></td>
         <td style="text-align:left;width:60%;word-wrap:break-word">個々の広告が完了しました</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドブレイクスタート </code></td>
+        <td style="width:20%"><code translate="No">AdBreakStart </code></td>
         <td style="text-align:left;width:60%;word-wrap:break-word">広告休憩が始まりました</td>
       </tr>
       <tr>
-        <td style="width:20%"><code>アドブレイクコンプリート </code></td>
-        <td style="text-align:left;width:60%;word-wrap:break-word">広告休憩が終了しました</td>
+        <td style="width:20%"><code translate="No">AdBreakComplete </code></td>
+        <td style="text-align:left;width:60%;word-wrap:break-word">広告ブレイクは終了しました</td>
       </tr>
     </tbody>
   </table>
   
   <h3>ビーコン/広告変数</h3>
   
-  <p>次の表に、ビーコンURLのデータを提供するために使用できる変数を示します。 変数を含めるには、次のように二重の中括弧で囲みます。<code> <span class="bcls-highlight"> {{</span> job.job_id <span class="bcls-highlight">}} </span> </code>。 完全な例については、ビーコン・セットの管理に関する次のセクションを参照してください。</p>
+  <p>次の表は、ビーコン URL のデータを提供するために使用できる変数を示しています。変数を含めるには、次のように二重の中括弧で囲みます<code translate="No"><span class="bcls-highlight">{{</span>job.job_id<span class="bcls-highlight">}}</span> </code>。完全な例については、ビーコンセットの管理に関する次のセクションを参照してください。</p>
   
   <table class="bcls-table">
     <caption class="bcls-caption--table">広告の設定変数</caption>
     <thead class="bcls-table__head">
       <tr>
-        <th style="width:20%;">変数</th>
-        <th style="width:60%;"><div style="word-wrap:break-word;">説明</div>
+        <th style="width:20%;">可変</th>
+        <th style="width:60%;">
+        <div style="word-wrap:break-word;">説明</div>
         </th>
       </tr>
     </thead>
     <tbody class="bcls-table__body">
       <tr>
-        <td style="width:20%"><code>session.session_id </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">一意のセッション ID</div>
+        <td style="width:20%"><code translate="No">session.session_id </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">一意のセッション ID</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>job.job_id </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">一意のジョブ ID</div>
+        <td style="width:20%"><code translate="No">job.job_id </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">一意のジョブ ID</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>application.ad_configuration.説明 </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">セッション作成時のアプリケーションの値</div>
+        <td style="width:20%"><code translate="No">videocloud.video_id</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">VideoCloud ビデオで作成されたジョブでのみ使用できます。</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>random.int32 </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ランダムな 32 ビット符号付き整数</div>
+        <td style="width:20%"><code translate="No">application_ad_configuration.description </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">セッション作成時のアプリケーションの値</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>ランダム.int64 </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ランダムな 64 ビット符号付き整数</div>
+        <td style="width:20%"><code translate="No">random.int32 </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ランダム32ビット符号付き整数</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>random.uint32 </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ランダムな 32 ビット符号なし整数</div>
+        <td style="width:20%"><code translate="No">random.int64 </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ランダム64ビット符号付き整数</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>ランダム.uint64 </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ランダムな 64 ビット符号なし整数</div>
+        <td style="width:20%"><code translate="No">random.uint32 </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ランダム32ビット符号なし整数</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>ランダム.uuid </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ランダムな UUID</div>
+        <td style="width:20%"><code translate="No">random.uint64 </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ランダム64ビット符号なし整数</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>timestamputc </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ads-apiからの呼び出しが行われたときのエポック時間（ミリ秒単位）</div>
+        <td style="width:20%"><code translate="No">random.uuid </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ランダム UUID</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>クライアント.useragent </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">セッション作成時のhttpユーザーエージェントヘッダー値</div>
+        <td style="width:20%"><code translate="No">server.timestamputc </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ads-apiからの呼び出しが行われたときのエポック時間（ミリ秒単位）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>クライアント.ipaddress </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">http x-forwarded-for セッション作成時のヘッダー値（指定されている場合）、それ以外の場合はリモートアドレス</div>
+        <td style="width:20%"><code translate="No">client.useragent </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">セッション作成時の http ユーザエージェントヘッダー値</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>client.referrer </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">セッション作成時のhttpリファラーヘッダー値（注：正しいスペルです）</div>
+        <td style="width:20%"><code translate="No">client.ipaddress </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">セッション作成時の http x-Forwarded-for ヘッダー値（指定されている場合）。それ以外の場合はリモートアドレス</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>referer </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">セッション作成時のhttpリファラーヘッダ値 (httpスペル)</div>
+        <td style="width:20%"><code translate="No">client.referrer </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">セッション作成時のHTTPリファラーヘッダー値（注：正しい綴りです）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>ipuaid </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">クライアント.ipaddressとクライアント.useragentのハッシュ値</div>
+        <td style="width:20%"><code translate="No">client.referer </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">セッション作成時のHTTPリファラーヘッダー値（http綴り）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreak </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">（現在未使用）</div>
+        <td style="width:20%"><code translate="No">client.ipuaid </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">クライアント.ipaddress と client.useragent のハッシュ値</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreakdurationms </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">広告休憩時間（ミリ秒）</div>
+        <td style="width:20%"><code translate="No">live.adbreak </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">(現在未使用)</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreakduration </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">倍精度浮動小数点数 (秒) での広告ブレーク時間</div>
+        <td style="width:20%"><code translate="No">live.adbreakdurationms</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">広告休憩時間（ミリ秒）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreakdurationint </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">広告休憩時間（整数秒）</div>
+        <td style="width:20%"><code translate="No">live.adbreakduration </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">広告休憩時間（倍精度浮動小数点秒）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreak.timestamputc.wallclock </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">広告サーバーへの呼び出しが行われたときのエポック時間（ミリ秒）</div>
+        <td style="width:20%"><code translate="No">live.adbreakdurationint </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">広告休憩時間（整数秒）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreak.timestamputc.origin </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">オリジンチャンクリストからエポック時間（ミリ秒単位）。 この値は、キューアウトチャンクがオリジンチャンクリストに作成された時間を示します。</div>
+        <td style="width:20%"><code translate="No">live.adbreak.timestamputc.wallclock </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">広告サーバーへの呼び出しが行われたときのエポック時間（ミリ秒単位）</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>live.adbreak.timestamputc.session </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">ssaiチャンクリストからエポック時間（ミリ秒単位）。 この値は、ssai チャンクリスト内のキューアウトチャンクの時間を示します。 adbreakの内容とadbreakギャップは通常同じではないので、最初のadbreakの後、<code> live.adbreak.timestamputc.origin</code> は<code> live.adbreak.timestamputc.session</code> とは異なる。 この値は、<span class="”notranslate”"> SSAI </span> チャンクリストで行われた時間調整を考慮に入れます。</div>
+        <td style="width:20%"><code translate="No">live.adbreak.timestamputc.origin </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">オリジンチャンクリストからのエポック時間（ミリ秒単位）。この値は、キューアウトチャンクがオリジンチャンクリストに作成された時間を示します。</div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:20%"><code translate="No">live.adbreak.timestamputc.session </code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">ssaiチャンクリストからのエポック時間（ミリ秒単位）。この値は、ssai チャンクリストのキューアウトチャンクの時間を示します。アドブレークの内容とアドブレイクギャップは通常同じではないため、最初のアドブレイク後はと異なります<code translate="No">live.adbreak.timestamputc.session </code>。<code translate="No">live.adbreak.timestamputc.origin </code>この値は、<span translate="No">SSAI</span>チャンクリストで行われた時間の調整が考慮されます。</div>
         </td>
       </tr>
     </tbody>
@@ -713,44 +813,51 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   
   <h3>SCTE-35 広告変数</h3>
   
-  <p>S<a href="https://www.scte.org/"> ociety of Cable Telecomision Engineers (SCTE) </a> は、ライブ配信の動的広告挿入の標準を定義している。 次の表は、SCTE-35 広告の設定変数をまとめたものです。</p>
+  <p><a href="https://www.scte.org/">ケーブル通信技術者協会 (SCTE) </a>は、ライブストリームの動的広告挿入の標準を定義しています。次の表は、SCTE-35 広告の設定変数をまとめたものです。</p>
   
   <aside class="bcls-aside bcls-aside--information">
-  <p>SCTE-35 広告パラメータは、現在、RTMP 入力ソースとトランスポートストリーム（TS）入力ソースの両方でサポートされています。リアルタイム転送プロトコル（RTP）は、フォワードエラー訂正（FEC）の有無にかかわらず、リアルタイム転送プロトコル（RTP）を使用します。 RTP には FEC を使用することを強くお勧めします。</p>これらの広告パラメータは、リアルタイムメッセージングプロトコル（RTMP）を使用した入力ストリームでは使用できません。</aside>
+  <p>SCTE-35 広告パラメータは、現在、転送エラー訂正 (FEC) の有無にかかわらず、リアルタイムトランスポートプロトコル (RTP) を使用した RTMP 入力ソースとトランスポートストリーム (TS) 入力ソースの両方でサポートされています。RTP には FEC を使用することを強くお勧めします。</p>
+  これらの広告パラメータは、リアルタイムメッセージングプロトコル (RTMP) を使用する入力ストリームでは使用できません。</aside>
   
   <table class="bcls-table">
-    <caption class="bcls-caption--table">SCTE-35 広告設定変数</caption>
+    <caption class="bcls-caption--table">SCTE-35 広告の設定変数</caption>
     <thead class="bcls-table__head">
       <tr>
-        <th style="width:20%;">変数</th>
-        <th style="width:60%;"><div style="word-wrap:break-word;">説明</div>
+        <th style="width:20%;">可変</th>
+        <th style="width:60%;">
+        <div style="word-wrap:break-word;">説明</div>
         </th>
       </tr>
     </thead>
     <tbody class="bcls-table__body">
       <tr>
-        <td style="width:20%"><code>eventID </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">SCTE35 メッセージとともに渡される一意のイベント ID。</div>
+        <td style="width:20%"><code translate="No">scte35_eventID</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">SCTE35 メッセージで渡された一意のイベント ID。</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>プログラムID </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">SCTE35 メッセージとともに渡された一意のプログラム ID。</div>
+        <td style="width:20%"><code translate="No">scte35_programID</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">SCTE35 メッセージで渡された一意のプログラム ID。</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>AvailNum </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">広告に使用可能な特定のスプライス時間の ID。SCTE35 メッセージを介して送信されます。</div>
+        <td style="width:20%"><code translate="No">scte35_availNum</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">広告で利用可能な特定のスプライスタイムの ID。SCTE35 メッセージ経由で送信します。</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>BreakDuration </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">SCTE35 メッセージとともに渡された、プログラムの 90 kHz クロックのティックを基準とした広告休憩の継続時間。</div>
+        <td style="width:20%"><code translate="No">scte35_breakDuration</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">SCTE35 メッセージで渡されたプログラムの 90 kHz クロックのティックに関して、広告休憩の休憩時間。</div>
         </td>
       </tr>
       <tr>
-        <td style="width:20%"><code>SpliceTime </code></td>
-        <td style="text-align:left;width:60%;"><div style="word-wrap:break-word;">SCTE35 メッセージとともに渡された、プログラムの 90 kHz クロックのティックの観点から、広告休憩のスプライス時間。</div>
+        <td style="width:20%"><code translate="No">scte35_spliceTime</code></td>
+        <td style="text-align:left;width:60%;">
+        <div style="word-wrap:break-word;">SCTE35 メッセージで渡されたプログラムの 90 kHz クロックのティックに関して、広告休憩のスプライスタイム。</div>
         </td>
       </tr>
     </tbody>
@@ -758,316 +865,317 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   </section>
   
   <section class="bcls-section">
-  <h2 id="Managing_beacon_sets">ビーコン・セットの管理</h2>
+  <h2 id="Managing_beacon_sets">ビーコンセットの管理</h2>
   
-  <p>この項では、ビーコン・セットを管理するためのAPIリクエストの詳細について説明します。 ビーコンのタイプと変数については、前のセクションを参照してください。</p>
+  <p>このセクションでは、ビーコンセットを管理するための API リクエストの詳細を示します。ビーコンの種類と変数については、前のセクションを参照してください。</p>
   
-  <p>ライブ・ジョブにビーコン・セットを追加するには、まずビーコン・セットを作成し、ジョブの作成時に次のようにIDを含めます。</p>
+  <p>ライブジョブにビーコンセットを追加するには、まずビーコンセットを作成し、次にジョブの作成時に ID を含めます。</p>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
-「live_stream」: true, 
-「region」:「us-west-2&quot;, 
-「reconnect_time」: 30, 
-「ad_insertion」: true, 
-「beacon_set」: &quot;<span class="bcls-input"> beacon_set_id </span>「,... </code></pre>
+  <code class="language-json" translate="No">{
+  "live_stream": true,
+  "region": "us-west-2",
+  "reconnect_time": 30,
+  "ad_insertion": true,
+  "beacon_set": "<span class="bcls-input">beacon_set_id</span>", ...</code></pre>
   
-  <h3>ビーコン・セットの作成</h3>
+  <h3>ビーコンセットを作成する</h3>
   
-  <p>ビーコン・セットを作成するには、<code> POST</code> リクエストを送信します。</p>
+  <p>ビーコンセットを作成するには、<code translate="No">POST</code>リクエストを送信します。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">POST </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">POST</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http">https://api.bcovlive.io/v1/ssai/beaconsets </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets</code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <h4>サンプルリクエスト本文</h4>
+  <h4>リクエスト本文の例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
- &quot;account_id」: &quot;<span class="bcls-input"> ユーザーのアカウントID [オプション] </span> 
-「,&quot; beacon_urls」: [
- {
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/{{job.job_id}}/load? 位置=load&amp;sid= {{{session.session_id}} &amp;jid= {{job.job_id}} &amp;app= {{application_ad_configuration.description}} &amp;rnd32= {{random.int32}} &amp;rnd64= {{{random.uuid}}} &amp;t= {{{{server.timestamputc}} &amp;ua= {{{client.useragent}} &amp;ip= {{client.ipaddress}} &amp;ref= {{client.referrer}} &amp; ref= {{client.referer}} &amp;ab= {{live.adbreak}} &amp;abd= {{live.adbreakduration}} &amp;abdi= {{live.adbreakdurationint}}, 
- &quot;beacon_type」: &quot;Load&quot; 
-}, 
- {
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/{{job.job_id}}/play? position=play&amp;sid= {{session.session_id}} &amp;jid= {{job.job_id}} &amp;app= {{application_ad_configuration.description}} &amp;rnd32= {{random.int32}} &amp;rnd64= {{{random.uuid}}} &amp;t= {{{{server.timestamputc}} &amp;ua= {{{client.useragent}} &amp;ip= {{client.ipaddress}} &amp;ref= {{client.referrer}} &amp; ref= {{client.referer}} &amp;ab= {{live.adbreak}} &amp;abd= {{live.adbreakduration}} &amp;abdi= {{live.adbreakdurationint}}」, 
-「beacon_type」:「Play&quot; 
-} 
-] 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "account_id": "<span class="bcls-input">User's Account ID [Optional]</span>",
+    "beacon_urls": [
+      {
+        "beacon_url": "https://myserver.com/beaconRX/{{job.job_id}}/load?position=load&amp;sid={{session.session_id}}&amp;jid={{job.job_id}}&amp;app={{application_ad_configuration.description}}&amp;rnd32={{random.int32}}&amp;rnd64={{random.int64}}&amp;bid={{random.uuid}}&amp;t={{server.timestamputc}}&amp;ua={{client.useragent}}&amp;ip={{client.ipaddress}}&amp;ref={{client.referrer}}&amp;ref={{client.referer}}&amp;ab={{live.adbreak}}&amp;abd={{live.adbreakduration}}&amp;abdi={{live.adbreakdurationint}}",
+        "beacon_type": "Load"
+      },
+      {
+        "beacon_url": "https://myserver.com/beaconRX/{{job.job_id}}/play?position=play&amp;sid={{session.session_id}}&amp;jid={{job.job_id}}&amp;app={{application_ad_configuration.description}}&amp;rnd32={{random.int32}}&amp;rnd64={{random.int64}}&amp;bid={{random.uuid}}&amp;t={{server.timestamputc}}&amp;ua={{client.useragent}}&amp;ip={{client.ipaddress}}&amp;ref={{client.referrer}}&amp;ref={{client.referer}}&amp;ab={{live.adbreak}}&amp;abd={{live.adbreakduration}}&amp;abdi={{live.adbreakdurationint}}",
+        "beacon_type": "Play"
+      }
+    ]
+  }</code></pre>
   
-  <aside class="bcls-aside bcls-aside--information"><code>account_id </code> フィールドは、ライブアカウント ID です。 省略すると、要求元のユーザーのアカウント ID が使用されます。</aside>
+  <aside class="bcls-aside bcls-aside--information"><code translate="No">account_id </code>フィールドはライブアカウント ID です。省略すると、要求しているユーザーのアカウント ID が使用されます。</aside>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
- &quot;beacon_set」: {
- &quot;beacon_urls」: [{
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/{{job.job_id}}/load? 位置=load&amp;sid= {{{session.session_id}} &amp;jid= {{job.job_id}} &amp;app= {{application_ad_configuration.description}} &amp;rnd32= {{random.int32}} &amp;rnd64= {{{random.uuid}}} &amp;t= {{{{server.timestamputc}} &amp;ua= {{{client.useragent}} &amp;ip= {{client.ipaddress}} &amp;ref= {{client.referrer}} &amp; ref= {{client.referer}} &amp;ab= {{live.adbreak}} &amp;abd= {{live.adbreakduration}} &amp;abdi= {{live.adbreakdurationint}}, 
- &quot;beacon_type」: &quot;Load&quot; 
-}, 
- {
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/{{job.job_id}}/play? position=play&amp;sid= {{session.session_id}} &amp;jid= {{job.job_id}} &amp;app= {{application_ad_configuration.description}} &amp;rnd32= {{random.int32}} &amp;rnd64= {{{random.uuid}}} &amp;t= {{{{server.timestamputc}} &amp;ua= {{{client.useragent}} &amp;ip= {{client.ipaddress}} &amp;ref= {{client.referrer}} &amp; ref= {{client.referer}} &amp;ab= {{live.adbreak}} &amp;abd= {{live.adbreakduration}} &amp;abdi= {{live.adbreakdurationint 
-}}, 
- &quot;beacon_type」:「再生&quot;}], 
-「ビーコンセットID」:「アカウントID」
-} 
-「挿入されました」：真 
-} 
- </code></pre>
+  <code class="language-json" translate="No">{
+    "beacon_set": {
+      "beacon_urls": [{
+      "beacon_url": "https://myserver.com/beaconRX/{{job.job_id}}/load?position=load&amp;sid={{session.session_id}}&amp;jid={{job.job_id}}&amp;app={{application_ad_configuration.description}}&amp;rnd32={{random.int32}}&amp;rnd64={{random.int64}}&amp;bid={{random.uuid}}&amp;t={{server.timestamputc}}&amp;ua={{client.useragent}}&amp;ip={{client.ipaddress}}&amp;ref={{client.referrer}}&amp;ref={{client.referer}}&amp;ab={{live.adbreak}}&amp;abd={{live.adbreakduration}}&amp;abdi={{live.adbreakdurationint}}",
+      "beacon_type": "Load"
+    },
+    {
+      "beacon_url": "https://myserver.com/beaconRX/{{job.job_id}}/play?position=play&amp;sid={{session.session_id}}&amp;jid={{job.job_id}}&amp;app={{application_ad_configuration.description}}&amp;rnd32={{random.int32}}&amp;rnd64={{random.int64}}&amp;bid={{random.uuid}}&amp;t={{server.timestamputc}}&amp;ua={{client.useragent}}&amp;ip={{client.ipaddress}}&amp;ref={{client.referrer}}&amp;ref={{client.referer}}&amp;ab={{live.adbreak}}&amp;abd={{live.adbreakduration}}&amp;abdi={{live.adbreakdurationint}}",
+      "beacon_type": "Play"
+    }],
+    "beacon_set_id": "Inserted Beacon Set ID",
+    "account_id": "USER's ACCOUNT ID"
+    }
+    "inserted": true
+  }</code></pre>
   
-  <h3>ビーコン・セットの更新</h3>
+  <h3>ビーコンセットの更新</h3>
   
-  <p>ビーコン・セットの更新は、ビーコン・セットの作成に似ています。 <code>PUT </code> リクエストを送信します。</p>
+  <p>ビーコンセットの更新は、ビーコンセットの作成に似ています。<code translate="No">PUT</code>リクエストを送信:</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">PUT </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">PUT</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/ <span class="bcls-input"> beacon_set_id </span> </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/<span class="bcls-input">beacon_set_id</span> </code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <h4>サンプルリクエスト本文</h4>
+  <h4>リクエスト本文の例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
- &quot;account_id」: &quot;<span class="bcls-input"> ユーザーのアカウントID [オプション] </span> 
-「,&quot; beacon_urls」: [
- {
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/load 
-「,&quot; beacon_type」:「ロード」
-}, 
- {
- &quot;beacon_url」: &quot;https://myserver.com/beaconRX/play「, 
-「ビーコンタイプ」:「再生」
-} 
-] 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "account_id": "<span class="bcls-input">User's Account ID [Optional]</span>",
+    "beacon_urls": [
+      {
+      "beacon_url": "https://myserver.com/beaconRX/load",
+      "beacon_type": "Load"
+      },
+      {
+      "beacon_url": "https://myserver.com/beaconRX/play",
+      "beacon_type": "Play"
+      }
+    ]
+  }</code></pre>
   
-  <aside class="bcls-aside bcls-aside--information"><code>account_id </code> フィールドは、ライブアカウント ID です。 省略すると、要求元のユーザーのアカウント ID が使用されます。</aside>
+  <aside class="bcls-aside bcls-aside--information"><code translate="No">account_id </code>フィールドはライブアカウント ID です。省略すると、要求しているユーザーのアカウント ID が使用されます。</aside>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
-「beacon_set」: {
-「アカウントID」:「ユーザーのアカウントID」, 
-「beacon_set_id」:「ビーコンセットID」, 
-「ビーコンURLS」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX/load「, 
-「ビーコン_タイプ」:「ロード」
-}, 
- {
-「ビーコン_url」:」https://myserver.com/beaconRX/play「, 
-「beacon_type」:「再生」
-}], 
-「upded_beacon_set」: {
-「beacon_set_id」:「ビーコンセットID」, 
-「beacon_urls」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX/load&quot;, 
-「beacon_type」:「Load」
-},
-{ 
-「beacon_url」: &quot;https://myserver.com/beaconRX/play 
-「,「beacon_type」:「再生」
-}], 
-「account_id」:「ユーザーのアカウントID」
- 
-} 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "beacon_set": {
+      "account_id": "User's Account ID",
+      "beacon_set_id": "Beacon set ID",
+      "beacon_urls": [{
+        "beacon_url": "https://myserver.com/beaconRX/load",
+        "beacon_type": "Load"
+        },
+        {
+        "beacon_url": "https://myserver.com/beaconRX/play",
+        "beacon_type": "Play"
+      }],
+      "updated_beacon_set": {
+        "beacon_set_id": "Beacon set ID",
+        "beacon_urls": [{
+          "beacon_url": "https://myserver.com/beaconRX/load",
+          "beacon_type": "Load"
+        },
+        {
+          "beacon_url": "https://myserver.com/beaconRX/play",
+          "beacon_type": "Play"
+        }],
+        "account_id": "User's Account ID"
+      }
+    }
+  }</code></pre>
   
-  <h3>ビーコンセットの取得</h3>
+  <h3>ビーコンセットを取得する</h3>
   
-  <p>アカウントのビーコン・セットを取得するには、<code> GET</code> リクエストを送信します。</p>
+  <p>アカウントのビーコンセットを取得するには、<code translate="No">GET</code>次のリクエストを送信します。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">GET </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http">https://api.bcovlive.io/v1/ssai/beaconsets/account/ <span class="bcls-input"> アカウントID </span> </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets/account/<span class="bcls-input">Account ID</span></code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
   <aside class="bcls-aside bcls-aside--information">ここでのアカウント ID はライブアカウント ID です。</aside>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">[ {
-「アカウントID」:「ユーザーのアカウントID」, 
-「beacon_set_id」:「ビーコンセットID1」, 
-「ビーコンURLS」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX/load 
-「,「ビーコンタイプ」:「ロード」
- 
-}], 
- {
-「アカウントID」:「ユーザーのアカウントID」, 
-「beacon_set_id」:「ビーコンセットID2」, 
-「beacon_urls」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX2/load「, 
-「beacon_type」:「ロード」
-}, 
- {
-「beacon_url」: &quot;https://myserver.com/beaconRX2/play「, 
-「beacon_type」:「再生」
-}] 
-}] </code></pre>
+  <code class="language-json" translate="No">[{
+      "account_id": "User's Account ID",
+      "beacon_set_id": "Beacon set ID1",
+      "beacon_urls": [{
+      "beacon_url": "https://myserver.com/beaconRX/load",
+      "beacon_type": "Load"
+    }]
+    },
+    {
+      "account_id": "User's Account ID",
+      "beacon_set_id": "Beacon set ID2",
+      "beacon_urls": [{
+      "beacon_url": "https://myserver.com/beaconRX2/load",
+      "beacon_type": "Load"
+      },
+      {
+      "beacon_url": "https://myserver.com/beaconRX2/play",
+      "beacon_type": "Play"
+      }]
+  }]</code></pre>
   
-  <h3>要求するユーザーのビーコンセットを取得する</h3>
+  <h3>要求しているユーザーのビーコンセットを取得する</h3>
   
-  <p>リクエストURLにアカウントIDを含めずに、リクエストユーザーのアカウントのビーコンセットを取得することもできます。</p>
+  <p>リクエストURLにアカウント ID を含めずに、リクエストユーザーのアカウントのビーコンセットを取得することもできます。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">GET </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http notranslate">https://api.bcovlive.io/v1/ssai/beaconsets </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets</code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">[ {
-「アカウントID」:「ユーザーのアカウントID」, 
-「beacon_set_id」:「ビーコンセットID1」, 
-「ビーコンURLS」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX/load 
-「,「ビーコンタイプ」:「ロード」
- 
-}], 
- {
-「アカウントID」:「ユーザーのアカウントID」, 
-「beacon_set_id」:「ビーコンセットID2」, 
-「beacon_urls」: [{
-「beacon_url」: &quot;https://myserver.com/beaconRX2/load「, 
-「beacon_type」:「ロード」
-}, 
- {
-「beacon_url」: &quot;https://myserver.com/beaconRX2/play「, 
-「beacon_type」:「再生」
-}] 
-}] </code></pre>
+  <code class="language-json" translate="No">[{
+      "account_id": "User's Account ID",
+      "beacon_set_id": "Beacon set ID1",
+      "beacon_urls": [{
+      "beacon_url": "https://myserver.com/beaconRX/load",
+      "beacon_type": "Load"
+    }]
+    },
+    {
+      "account_id": "User's Account ID",
+      "beacon_set_id": "Beacon set ID2",
+      "beacon_urls": [{
+      "beacon_url": "https://myserver.com/beaconRX2/load",
+      "beacon_type": "Load"
+      },
+      {
+      "beacon_url": "https://myserver.com/beaconRX2/play",
+      "beacon_type": "Play"
+      }]
+  }]</code></pre>
   
-  <h3>IDによって設定されたビーコンを取得する</h3>
+  <h3>IDで設定されたビーコンを取得する</h3>
   
-  <p>ID によって設定された単一のビーコンを取得するには、<code> GET </code> リクエストを送信します。</p>
+  <p>ID によって設定された単一のビーコンを取得するには、<code translate="No">GET</code>リクエストを送信します。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">GET </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">GET</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http notranslate">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/ <span class="bcls-input"> beacon_set_id </span> </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/<span class="bcls-input">beacon_set_id</span></code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
-「アカウントID」:「ユーザーアカウントID」, 
-「ビーコンセットID」:「ビーコンセットID」, 
-「ビーコンURLS」: [{
-「ビーコンタイプ」:「ロード」, 
-「ビーコンURL」: &quot;https://myserver.com/beaconRX2/load&quot; 
-}, 
- {
-「ビーコン_タイプ」:「再生」, 
-「ビーコン_URL」:」https://myserver.com/beaconRX2/play &quot;
-}] 
-} </code></pre>
+  <code class="language-json" translate="No">{
+      "account_id": "User account ID",
+      "beacon_set_id": "Beacon set ID",
+      "beacon_urls": [{
+        "beacon_type": "Load",
+        "beacon_url": "https://myserver.com/beaconRX2/load"
+    },
+    {
+      "beacon_type": "Play",
+      "beacon_url": "https://myserver.com/beaconRX2/play"
+    }]
+  }</code></pre>
   
-  <h3>ビーコン・セットの削除</h3>
+  <h3>ビーコンセットの削除</h3>
   
-  <p>最後に、ビーコン・セットを削除するには、<code> DELETE</code> リクエストを送信します。</p>
+  <p>最後に、ビーコンセットを削除するには、<code translate="No">DELETE</code>リクエストを送信します。</p>
   
   <table class="bcls-table">
     <tbody class="bcls-table__body">
       <tr>
-        <th>メソッド</th>
-        <td style="width:80em;"><code class="language-http">削除 </code></td>
+        <th>方法</th>
+        <td style="width:80em;"><code class="language-http" translate="No">DELETE</code></td>
       </tr>
       <tr>
         <th>URL</th>
-        <td><code class="language-http notranslate">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/ <span class="bcls-input"> beacon_set_id </span> </code></td>
+        <td><code class="language-http" translate="No">https://api.bcovlive.io/v1/ssai/beaconsets/beaconset/<span class="bcls-input">beacon_set_id</span></code></td>
       </tr>
       <tr>
         <th>ヘッダー</th>
-        <td><code class="language-http">X-APIキー：<span class="bcls-input"> あなたのAPIキー </span> </code></td>
+        <td><code class="language-http" translate="No">X-API-KEY: <span class="bcls-input">your API KEY</span></code></td>
       </tr>
     </tbody>
   </table>
   
-  <h4>サンプル応答</h4>
+  <h4>レスポンスの例</h4>
   
-  <p>応答は次のようになります。</p>
+  <p>レスポンスは次のようになります。</p>
   
   <pre class="line-numbers">
- <code class="language-json notranslate">{ 
-「ビーコンセットID」：「ビーコンセットID」、
-「削除済み」：真 
-} </code></pre>
+  <code class="language-json" translate="No">{
+    "beacon_set_id": "Beacon set ID",
+    "deleted": true
+  }</code></pre>
   </section>
   
   <section class="bcls-section">
   <h2 id="Appendix">付録</h2>
   
-  <p>以下は、Elemental エンコーダのキューポイント設定例を示すスクリーンショットです。</p>
+  <p>以下に、Elemental エンコーダのキューポイント設定のサンプルを示すスクリーンショットを示します。</p>
   
-  <figure class="bcls-figure"><img class="bcls-image" alt="エレメンタルキューポイントのセットアップ" src="/assets/images/live-api/18835/elemental-screenshot.png" /><figcaption class="bcls-caption--image">エレメンタルキューポイントのセットアップ</figcaption>
+  <figure class="bcls-figure"><img class="bcls-image" alt="エレメントキューポイントのセットアップ" src="/assets/images/live-api/18835/elemental-screenshot.png"/>
+  <figcaption class="bcls-caption--image">エレメントキューポイントのセットアップ</figcaption>
   </figure>
   </section>
   
@@ -1078,8 +1186,8 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     </div>
     <div class="col-sm-2 right-side-bar">
       
-      <nav class="right-side-nav">
-        <h6 class="toc">ページの内容</h6>
+      <nav class="right-side-nav" id="right_side_nav">
+        <h6 class="toc">ページコンテンツ</h6>
         <ul id="in_page_nav" class="list-none"></ul>
       </nav>
       
@@ -1088,7 +1196,9 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
 </div>
 
 <hr>
-<div class="last-updated">ページ最終更新日:2020年5月7日</div>
+<div class="last-updated">
+  ページ最終更新日 2020年9月28日
+</div>
 
 
 
@@ -1097,12 +1207,18 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
     <div class="region region-footer-top-center col-md-12">
       <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
 
-        <h2>ブライトコーブのサポート</h2>
+        <h2>ブライトコーブサポート</h2>
 
         <ul class="menu">
-          <li><a href="https://status.brightcove.com">システムステータス </a></li>
-          <li><a href="https://supportportal.brightcove.com/s/login/?language=en_US">サポートへのお問い合わせ </a></li>
-          <li><a href="https://support.brightcove.com/">ドキュメンテーション </a></li>
+          <li>
+            <a href="https://status.brightcove.com">システムステータス</a>
+          </li>
+          <li>
+            <a href="https://supportportal.brightcove.com/s/login/?">サポートへのお問い合わせ</a>
+          </li>
+          <li>
+            <a href="https://support.brightcove.com/">ドキュメンテーション</a>
+          </li>
         </ul>
 
       </nav>
@@ -1111,19 +1227,29 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
         <h2>トレーニング</h2>
 
         <ul class="menu">
-          <li><a href="https://studio.support.brightcove.com/training/online-training-courses.html">オンラインコース </a></li>
-          <li><a href="https://studio.support.brightcove.com/training/register-training.html">コースへの登録 </a></li>
-          <li><a href="https://university.brightcove.com/">ブライトコーブ大学 </a></li>
+          <li>
+            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">オンラインコース</a>
+          </li>
+          <li>
+            <a href="https://studio.support.brightcove.com/training/register-training.html">コースに登録する</a>
+          </li>
+          <li>
+            <a href="https://university.brightcove.com/">Brightcove University</a>
+          </li>
         </ul>
 
       </nav>
       <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
 
-        <h2>ブライトコーブ</h2>
+        <h2>Brightcove</h2>
 
         <ul class="menu">
-          <li><a href="https://www.brightcove.com">ブライトコーブ </a></li>
-          <li><a href="https://supportportal.brightcove.com/s/login/?language=en_US" data-drupal-link-system-path="https://supportportal.brightcove.com/s/login/?language=en_US">お問い合わせ </a></li>
+          <li>
+            <a href="https://www.brightcove.com">Brightcove.com</a>
+          </li>
+          <li>
+            <a href="https://supportportal.brightcove.com/s/login/?">お問合せ</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -1133,11 +1259,14 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
       <div class="bcls-copyright footer-menu">
         <table>
           <tr>
-            <td><div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;">ブライトコーブ株式会社すべての権利を保有します。</div>
+            <td>
+              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. 全著作権所有。</div>
             </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">プライバシー </a> | <a href="https://www.brightcove.com/en/terms-and-conditions"> 利用規約 </a></td>
-            <td><div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"> <i class="fab fa-linkedin-in" style="font-size: 1.5rem;"> <a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"> <i class="fab fa-twitter" style="font-size: 1.5rem;"> <a href="https://www.facebook.com/Brightcove" title="フェイスブック" newtab="newtab" class="gf-social-facebook"> <i class="fab fa-facebook-f" style="font-size: 1.5rem;"> </i> </a> </i> </a> </i> </a></div>
+            <td><a href="https://www.brightcove.com/en/legal/privacy">プライバシー</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">利用規約</a></td>
+            <td>
+              <div class="gf-links-cols footer-menu">
+                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
+                </div>
               </div>
             </td>
           </tr>
@@ -1147,7 +1276,7 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   </div>
 </footer>
 <div id="talla_wrapper">
-  <p style="text-align: right;position: relative;"><button style="background:rgb(149, 192, 57);color:Snow;padding:.3rem;position:fixed;right:0;bottom:1em;z-index:9999999" onclick="javascript:displayChat()">質問がありますか？ </button></p>
+  <p style="text-align: right;position: relative;"><button style="background:rgb(2, 28, 146);color:Snow;padding:.3rem;position:fixed;right:0;bottom:1em;z-index:9999999" onclick="javascript:displayChat()">質問ですか? </button> </p>
   <div id="talla_chat">
 </div>
 </div>
@@ -1179,9 +1308,7 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   
   <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  
   <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
-  
   <script src="/assets/js/sites_nav.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
