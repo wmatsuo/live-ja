@@ -1,0 +1,1057 @@
+﻿<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  
+  <title>概要: Brightcove ブライブ API</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">  
+  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
+  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
+  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
+  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
+  <link rel="stylesheet" href="/assets/css/local.css">
+  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
+  <script src="/assets/js/sajari-head.js"></script>
+</head>
+
+<body class="body">
+
+<header>
+  <div class="div-header">
+    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Live_Logo.svg" alt="製品ロゴ" style="max-height: 100px;max-width: 232px;"/></a>
+<!-- GTranslate: https://gtranslate.io/ -->
+<select onchange="doGTranslate(this);"><option value="">言語の選択</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
+
+<script>
+/* <![CDATA[ */
+function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
+/* ]]> */
+</script>
+
+
+    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="サポート"/> サポートへのお問い合わせ</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="システムステータス"/> システムステータス</a></span> <br/>
+    
+  </div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb arr-right">
+      
+      <li class="breadcrumb-item"><a href="/">ホーム</a></li>
+      
+      
+      
+      <li class="breadcrumb-item"><a href="/live-api/getting-started/">入門編</a></li>
+      
+      <li class="breadcrumb-item active" aria-current="page">概要: Brightcove ブライブ API</li>
+    </ol>
+  </nav>
+</header>
+<div class="container">
+    <div class="row">
+            <div class="col-sm-3 left-side-bar">
+        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
+          <option value="">Brightcove ブのその他のドキュメント</option>
+          
+            
+              <option value="https://support.brightcove.com">ドキュメントホーム</option>
+            
+          
+            
+              <option value="https://audience.support.brightcove.com">Brightcove Audience</option>
+            
+          
+            
+              <option value="https://beacon.support.brightcove.com">Brightcove ブビーコン</option>
+            
+          
+            
+              <option value="https://campaign.support.brightcove.com">Brightcove ブキャンペーン</option>
+            
+          
+            
+              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
+            
+          
+            
+              <option value="https://live.support.brightcove.com">Brightcove ブ・ライブ</option>
+            
+          
+            
+              <option value="https://gallery.support.brightcove.com">Brightcove ブギャラリー</option>
+            
+          
+            
+              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
+            
+          
+            
+              <option value="https://social.support.brightcove.com">Brightcove ブソーシャル</option>
+            
+          
+            
+              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
+            
+          
+            
+              <option value="https://player.support.brightcove.com">Brightcove ブのプレーヤー開発</option>
+            
+          
+            
+              <option value="https://apis.support.brightcove.com">Video CloudプラットフォームAPI</option>
+            
+          
+            
+              <option value="https://sdks.support.brightcove.com">ビデオクラウドデバイス SDK</option>
+            
+          
+            
+              <option value="https://integrations.support.brightcove.com">統合および CMS コネクタ</option>
+            
+          
+            
+              <option value="https://general.support.brightcove.com">ビデオクラウドの一般情報</option>
+            
+          
+            
+              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
+            
+          
+        </select>
+
+        <nav class="sidenav" id="side_nav">
+          
+            
+            <h5><a href="/index.html">ホーム</a></h5>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/get-started/index.html">入門編 <strong>+</strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcove ブのライブトレーニング動画</a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信</a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティス</a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ:OBS でのライブモジュールの使用</a></li>
+                  
+                
+                  
+                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:Wirecast でのライブモジュールの使用</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/general/index.html">一般情報<strong> + </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/general/live-drm.html">ライブDRM </a></li>
+                  
+                
+                  
+                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス</a></li>
+                  
+                
+                  
+                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集</a></li>
+                  
+                
+                  
+                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
+                  
+                
+                  
+                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされるエンコーダ</a></li>
+                  
+                
+                  
+                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Akamai ストリームのパッケージングとワイヤキャストの使用</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/live-module/index.html">ライブモジュールの使用<strong> + </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">ライブ SSAI を使用したクライアント側のプリロール広告</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">Brightcove ブライブでアバイアカンファレンスの開催について</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex をBrightcove ブライブでホストする</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">Brightcove ブライブにズームをホストする</a></li>
+                  
+                
+                  
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">Brightcove ブライブで INXPO イベントを主催する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告の実装</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-facebook.html">ライブイベントを Facebook に公開する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/publishing-live-event-youtube.html">ライブイベントをYouTubeに公開する</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析のレビュー</a></li>
+                  
+                
+                  
+                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブ RTMP 出力を使用する</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/live-api/index.html">ライブ API の操作<strong> + </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/getting-started/index.html">ライブ API:入門編 <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">概要:ライブ API </a></li>
+                        
+                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">API を使用したライブストリームの作成</a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/code-samples/index.html">ライブ API:コードサンプル <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成</a></li>
+                        
+                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS 入力用のライブジョブを作成する</a></li>
+                        
+                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントでの RTMP 出力の使用</a></li>
+                        
+                        <li><a href="/live-api/code-samples/simulated-live.html">シミュレートされたライブイベント</a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/references/index.html">ライブ API:参考文献 <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/references/live-api-error-messages.html">エラーメッセージ</a></li>
+                        
+                        <li><a href="/live-api/references/live-api-release-notes.html">リリースノート</a></li>
+                        
+                        <li><a href="/live-api/references/reference.html">ライブ API リファレンス</a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/ssai/index.html">ライブ API:SSAI <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAI を使用したキューポイントと広告ビーコン</a></li>
+                        
+                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバー側広告挿入 (SSAI) </a></li>
+                        
+                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化</a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+                  
+                    <li class="submenu-header">
+                      <a href="/live-api/guides/index.html">ライブ API:ガイド <strong>+</strong></a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                        
+                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">Brightcove ブライブのベストプラクティス</a></li>
+                        
+                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcove ブライブプログラム広告メタデータ API </a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度が高いクリップの作成</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">VOD クリップを作成する</a></li>
+                        
+                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたはVODジョブのリストを取得する</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3 時限メタデータの挿入</a></li>
+                        
+                        <li><a href="/live-api/guides/live-drm-live-api.html">ライブ API を介したライブ DRM </a></li>
+                        
+                        <li><a href="/live-api/guides/managing-credentials-live-api.html">ライブ API の認証情報の管理</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-notifications.html">通知</a></li>
+                        
+                        <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP 出力</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント</a></li>
+                        
+                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームでの署名付き URL とトークン認証</a></li>
+                        
+                        <li><a href="/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用</a></li>
+                        
+                        <li><a href="/live-api/guides/live-api-vod-live-event.html">ライブイベントよりVOD </a></li>
+                        
+                      </ul>
+                    </li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/admin/index.html">アカウントの管理 <strong>+</strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルの作成</a></li>
+                  
+                
+                  
+                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブインジェストプロファイルのフィールド</a></li>
+                  
+                
+                  
+                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理</a></li>
+                  
+                
+                  
+                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理</a></li>
+                  
+                
+                  
+                    <li><a href="/admin/standard-live-ingest-profiles.html">標準ライブインジェストプロファイル</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/release-notes/index.html">リリースノート<strong> + </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    <li><a href="/release-notes/live-api-release-notes.html">ライブリリースノート</a></li>
+                  
+                
+                  
+                    <li><a href="/release-notes/known-issues.html">既知の問題</a></li>
+                  
+                
+              </ul>
+            
+          
+            
+              <h5 class="submenu-header"><a href="/support/index.html"><strong>サポート+ </strong></a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                
+                  
+                    
+                  
+                
+                  
+                    <li><a href="/support/viewing-brightcove-system-status-page.html">Brightcove ブのシステムステータスページの表示</a></li>
+                  
+                
+                  
+                    <li><a href="/support/contact-sales.html">営業へのお問い合わせ</a></li>
+                  
+                
+                  
+                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く</a></li>
+                  
+                
+              </ul>
+            
+          
+      </nav>
+    </div>
+    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
+  <!-- bootstrap layout -->
+
+<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="ナビゲーションメニュー"/></p>
+
+<!-- search bar -->
+<div id="nav-search-box" style="margin-top: 1rem;"></div>
+<!-- in-page navigation for narrow screens -->
+<details class="centered-inpage-nav" id="centered_inpage_nav">
+  <summary><h6 class="toc">ページコンテンツ</h6></summary>
+  <nav id="centered_toc"></nav>
+  <ul id="centered_in_page_toc" class="list-none"></ul>
+</details>
+<!-- open in new tab/window -->
+<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="新しいタブで開く" style="margin-top:4em;width: 1.5em;"/></a>
+
+
+
+  
+    
+
+
+<article class="bcls-article">
+  <h1>概要: Brightcove ブライブ API</h1>
+  <summary>この概要では、Live API の用途と使用方法を学習します。このドキュメントに含まれるトピックには、サポートされている AWS リージョンと CDN、ライブチャネルとイベント、ライブストリームへの ID3 時間メタデータの挿入などがあります。</summary>
+  <section class="bcls-section">
+
+    <section class="bcls-section">
+      <h2 id="introduction">はじめに</h2>
+
+      <p><span translate="No">Live API</span>は、ライブストリーミングイベントを作成および管理できる REST ベースの API です。オプション機能は次のとおりです。</p>
+
+      <ul>
+        <li>サーバー側の広告挿入 ( <span translate="No">SSAI</span> )</li>
+        <li><span translate="No">AES-128</span>暗号化</li>
+        <li>ライブストリームから取得したクリップからビデオオンデマンドアセットを作成する</li>
+        <li><span translate="No">DVR</span>能力</li>
+        <li>複数<span translate="No">CDNs</span></li>
+      </ul>
+
+      <p>「<a href="/live-api/references/reference.html"> API リファレンス</a>」も参照してください。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="baseURL">ベース URL</h2>
+
+      <p>のベース URL <span translate="No">Live API</span>は次のとおりです。</p>
+
+      <pre>
+      <code class="language-http" translate="No">https://api.bcovlive.io
+      </code>
+      </pre>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="authentication">ヘッダー</h2>
+
+      <p>すべてのリクエストは、アカウントのセットアップ時に提供される API キーを使用して認証されます。<code translate="No">X-API-KEY </code>キーはヘッダーで渡されます。<code translate="No">Content-Type </code>ヘッダーも必要です。</p>
+
+      <pre>
+      <code class="language-bash" translate="No">X-API-KEY : <span class="bcls-input" translate="No">YOUR_APIKey</span>
+      Content-Type: application/json
+      </code>
+      </pre>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Support_aws_regions">サポートされている AWS リージョン</h2>
+
+      <p>次の AWS リージョンがサポートされています。</p>
+
+      <table class="bcls-table">
+        <caption class="bcls-caption--table">サポートされている AWS リージョン</caption>
+        <thead class="bcls-table__head">
+          <tr>
+            <th>場所</th>
+            <th>AWS 名</th>
+            <th>SSAI サポート</th>
+          </tr>
+        </thead>
+        <tbody class="bcls-table__body">
+          <tr>
+            <td >オレゴン</td>
+            <td ><span translate="No">us-west-2</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >ヴァージニア</td>
+            <td ><span translate="No">us-east-1</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >東京</td>
+            <td ><span translate="No">ap-northeast-1</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >シンガポール</td>
+            <td ><span translate="No">ap-southeast-1</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >シドニー</td>
+            <td ><span translate="No">ap-southeast-2</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >ムンバイ</td>
+            <td ><span translate="No">ap-south-1</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/x16.png"/></td>
+          </tr>
+          <tr>
+            <td >フランクフルト</td>
+            <td ><span translate="No">eu-central-1</span></td>
+            <td style="text-align: center;"><img alt="はい" src="//learning-services-media.brightcove.com/doc-assets/general/images/check16.png"/></td>
+          </tr>
+          <tr>
+            <td >アイルランド</td>
+            <td ><span translate="No">eu-west-1</span></td>
+            <td style="text-align: center;"><img alt="いいえ" src="//learning-services-media.brightcove.com/doc-assets/general/images/x16.png"/></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>SEP ジョブは、標準制限が 3 のアカウントによって制限されます。ただし、<strong> us-west-2 </strong>の制限は最大 10 です。すべての制限は、地域ごとではなく、アカウントによって設定されます。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Supported_cdns">サポートされるCDN</h2>
+
+      <p>ライブストリーミングでは、次の CDN がサポートされています。</p>
+
+      <ul>
+        <li><span translate="No">Akamai</span></li>
+        <li><span translate="No">Cloudfront</span></li>
+      </ul>
+
+      <p>他のファイルベースの CDN は機能するはずですが、テストされておらず、アクティブにはサポートされていません。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Channels_and_hours">チャンネルとイベント時間</h2>
+
+      <p>ライブ購入には、次の 2 つのオプションがあります。</p>
+
+      <ul>
+        <li>ストリーミング時間のイベント時間を購入する</li>
+        <li>ストリーミングチャンネルの購入</li>
+      </ul>
+
+      <p>また、イベントのストリーミング時間とチャンネルの両方を購入することもできます。オファリングの詳細については、担当のアカウントマネージャにお問い合わせください。</p>
+
+      <aside class="bcls-aside bcls-aside--information"><strong>イベントのストリーミング時間とチャンネルの両方を購入した場合は</strong>、次の点に注意する必要があります。
+
+        <ul>
+          <li>デフォルトでは、ライブジョブはイベントストリーミング時間に対して課金されます。</li>
+          <li>代わりにジョブをチャネルジョブとして請求する場合は、<strong>ライブジョブの作成時にリクエスト本文に次のフィールドを含める必要があります</strong>。
+            <p><code translate="No">"channel_type": "24x7"</code></p>
+          </li>
+          <li>ライブジョブを作成するときに、チャネルのみの顧客は、要求本文に常に次のフィールドを含める必要があります。
+            <p><code translate="No">"channel_type": "24x7"</code></p>
+          </li>
+          <li>ストリーミング時間のイベント時間のみを購入したお客様は、リクエストに<strong></strong><code translate="No">"channel_type": "24x7"</code>を含めないでください。</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="token_authentication">トークン認証</h2>
+
+      <p>Brightcove ブでは、ライブ動画ストリームの再生 URL にトークン認証を追加するオプションを提供しています。トークン認証を追加する場合は、<a href="https://supportportal.brightcove.com/s/login/?language=en_US">Brightcove ブサポートにお問い合わせください</a>。トークン認証の設定には、最大 3 日かかる場合があります。</p>
+
+      <p>トークンの TTL (存続可能時間) は、1 時間から 365 日の任意の値に設定できます。TTL を設定する期間は、デプロイするライブストリームの種類によって異なります。ただし、TTL はアカウント全体の設定であり、すべてのライブストリームに適用されます。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="dvr_capability"><span translate="No">DVR</span>能力</h2>
+
+      <p><span translate="No">DVR</span>Brightcove ブのライブストリームには機能があります。この機能を使用するには、次のことが必要です。</p>
+
+      <ul>
+        <li>再生に<code translate="No">playback_url_dvr</code> URL を使用する</li>
+        <li><a href="https://player.support.brightcove.com/general/playing-live-streams.html">DVR </span>機能を持つプレーヤーを使用する</a></li>
+      </ul>
+
+      <p>DVR 機能は 86,400 秒に制限されています。</p>
+
+      <p><span translate="No">DVR</span>このストリームは、ライブ配信が完了してから7日間利用可能です。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="endpoints">エンドポイントとオペレーション</h2>
+
+      <p><span translate="No">Live API</span>の主な操作は、ライブストリームの作成と管理と、ライブストリームから VOD クリップを生成します。これらの操作は、ドキュメントの残りの部分で詳しく説明されている次のエンドポイントへの要求を介して実行されます。</p>
+
+      <aside class="bcls-aside bcls-aside--information">Brightcove ブライブには、他のアカウント ID とは別に独自のアカウント ID があります。API オペレーションでは、<strong>ライブアカウント ID <code translate="No">account_id</code></strong>を参照します。</aside>
+
+      <h3><a href="#Creating_and_managing_jobs">ジョブの作成と管理</a></h3>
+
+      <ul>
+        <li><a href="#Create_a_Live_Job">ライブジョブの作成</a></li>
+        <li><a href="#List_Live_Jobs">ライブジョブをリストする</a></li>
+        <li><a href="#Get_Live_Job_Details">ライブジョブの詳細を取得</a></li>
+        <li><a href="#Manual_Ad_Cue_Point_Insertion">広告キューポイントの手動挿入</a></li>
+        <li><a href="#Stop_a_Live_Job">ライブジョブの停止</a></li>
+      </ul>
+
+      <h3><a href="#Creating_clips">クリップを作成する</a></h3>
+
+      <ul>
+        <li><a href="#Create_VOD_Clip">VOD クリップの作成</a></li>
+      </ul>
+
+      <h3><a href="#Managing_SSAI">SSAIの管理</a></h3>
+
+      <ul>
+        <li><a href="#Get_Account_Ad_Configurations">アカウント広告設定の取得</a></li>
+        <li><a href="#Create_Ad_Configuration">広告設定の作成</a></li>
+        <li><a href="#Get_Ad_Configuration">広告設定の取得</a></li>
+        <li><a href="#Update_Ad_Configuration">広告設定の更新</a></li>
+        <li><a href="#Get_Slate_Media_Source_Assets">スレートメディアソースアセットを入手する</a></li>
+        <li><a href="#Ingest_Slate_Media_Source_Asset">スレートメディアソースアセットを取り込み</a></li>
+        <li><a href="#Delete_Slate_Media_Source_Asset">スレートメディアソースアセットを削除</a></li>
+      </ul>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Creating_and_managing_jobs">ジョブの作成と管理</h2>
+
+      <p>これらの操作では、ライブジョブを作成し、その詳細を取得し、停止することができます。また、広告休憩のキューポイントを作成するエンドポイントもあります。</p>
+
+      <h3 id="Create_a_Live_Job">ライブジョブの作成</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">POST</span> https://api.bcovlive.io/v1/jobs
+        </code></pre>
+
+      <p>このエンドポイントは、<code translate="No">POST </code>リクエストを介してライブストリームを作成するために使用されます。リクエストは、ライブストリーム自体のプロパティを指定するだけでなく、ライブストリームから生成する VOD クリップを指定することもできます（<a href="#vod">これは後でエンドポイント経由でも実行できます</a>）。リクエスト本文に含めることができるフィールドの詳細は、<a href="/live-api/references/reference.html#operation/CreateALiveJob"> API リファレンスに記載されています</a>。</p>
+
+      <section class="bcls-subsection">
+        <h4 id="input_protocol">入力プロトコル</h4>
+
+        <p>Brightcove ブライブは、複数の入力プロトコルをサポートしています。ジョブを作成するときに、<code translate="No">protocol</code>リクエストボディのフィールドを使用して、使用するジョブを指定します。サポートされている値は、次のとおりです。</p>
+
+        <ul>
+          <li><code translate="No">rtmp</code> ( デフォルト)</li>
+          <li><code translate="No">rtp</code></li>
+          <li><code translate="No">rtp-fec</code></li>
+          <li><code translate="No">srt</code></li>
+        </ul>
+
+        <p>RTMP プロトコルは、FLV 形式でストリームを配信するためのプロトコルです。その他のプロトコルは、MPEG2-TS を配信するためのプロトコルです。</p>
+
+        <p><code translate="No">rtp</code>、<code translate="No">rtp-fec<code translate="No">srt</code></code>またはを使用する場合は、も指定する必要があります<code translate="No">cidr_whitelist</code>（<a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">クラスレスドメイン間ルーティングを参照）</a> )。</p>
+
+        <p>を使用する場合は<code translate="No">rtmp</code>、<code translate="No">ip_whitelist</code>代わりに入力にを指定できますが、これは必須ではありません。</p>
+
+        <p>RTP+FEC ジョブのリクエストボディの例:</p>
+
+<pre class="line-numbers">
+<code class="language-json" translate="No">{
+    "live_stream":true,
+    "region":"us-west-2",
+    "reconnect_time":300,
+    "outputs":[
+      {
+        "label": "hls720p",
+        "live_stream": true,
+        "height": 720,
+        "video_bitrate": 800,
+        "segment_seconds": 6,
+        "keyframe_interval": 90
+      }
+    ],
+    "protocol": "rtp-fec",
+    "cidr_whitelist": ["127.0.0.1/32"]
+}</code></pre>
+      </section>
+
+      <p><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html"><span translate="No">Live API</span>クイックスタートでは</a>、ライブストリームジョブを作成し、そのジョブを再生するための Brightcove Player をセットアップする手順を説明します。</p>
+
+      <h3 id="List_Live_Jobs">ライブジョブの一覧表示</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">GET</span> https://api.bcovlive.io/v1/jobs
+        </code></pre>
+
+      <p>このエンドポイントは、<code translate="No">GET </code>リクエストを介してライブストリームを一覧表示するために使用されます。エンドポイントは、ページネーション、ソート、検索フィルタリングをサポートしています。リクエスト本文に含めることができるフィールドの詳細は<a href="/live-api/references/reference.html#/Live_Jobs/ListLiveJobs"> API リファレンスに記載されています</a>。追加情報の一部は、<a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブジョブまたは VOD ジョブのリストの取得を参照してください</a>。</p>
+
+      <h3 id="Get_Live_Job_Details">ライブジョブの詳細を取得</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">GET</span> https://api.bcovlive.io/v1/jobs/<span class="bcls-input" translate="No">:jobId</span>
+        </code></pre>
+
+      <p>このエンドポイントを使用すると、ライブストリームに関する詳細情報を取得できます。ライブストリームは、ジョブを最初に作成したときにも返されます。レスポンスフィールドの詳細については、<a href="/live-api/references/reference.html#/Live_Jobs/GetLiveJobDetails"> API リファレンスを参照してください</a>。</p>
+
+      <h3 id="Manual_Ad_Cue_Point_Insertion">広告キューポイントの手動挿入</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">POST</span> https://api.bcovlive.io/v1/jobs/<span class="bcls-input" translate="No">:jobId</span>/cuepoint
+        </code></pre>
+
+      <p>通常、エンコーダーは広告ブレイク用のキューポイントを送信しますが、このエンドポイントにリクエストを送信することで、すぐに広告ブレイクを作成することもできます。詳細については、<a href="/live-api/references/reference.html#/Live_Jobs/ManualAdCuePointInsertion"> API リファレンスを参照してください</a>。</p>
+
+      <p><code translate="No">timecode</code>キューポイントには<code translate="No">DD:HH:MM:SS</code>、フォームの「」が必要です。</p>
+
+      <h3 id="Stop_a_Live_Job">ライブジョブの停止</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">PUT</span> https://api.bcovlive.io/v1/jobs/<span class="bcls-input" translate="No">:jobId</span>/cancel
+        </code></pre>
+
+      <p>このエンドポイントを使用して、ライブストリームを直ちに停止します。一度キャンセルすると、ライブストリームを再開できなくなります。詳細については、<a href="/live-api/references/reference.html#/Live_Jobs/CancelLiveJob"> API リファレンスを参照してください</a>。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Creating_clips">クリップを作成する</h2>
+
+      <p>ライブストリームからビデオオンデマンドクリップを作成し、Video Cloud アカウントに保存したり、S3 バケットまたは FTP アドレスに送信したりできます。ライブストリームの作成時にクリップを定義することも、後述するエンドポイントを使用して後で作成することもできます。また、『<a href="/live-api/guides/live-api-creating-vod-clips.html">クリップを作成する</a>』マニュアルも参照してください。</p>
+
+      <h3 id="Create_VOD_Clip">VOD クリップの作成</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">POST</span> https://api.bcovlive.io/v1/vods
+        </code></pre>
+
+      <p>クリップの開始点と終了点は、ストリームの開始点または UNIX タイムスタンプからのオフセットで定義できます。リクエスト本文フィールドの詳細は、<a href="/live-api/references/reference.html#/Clips/CreateVodClip"> API リファレンスに記載されています</a>。</p>
+
+      <aside class="bcls-aside bcls-aside--information">ライブストリームからのクリップは、<strong>イベント終了後最大 7 日間作成できます</strong>。</aside>
+
+      <h3>VOD（クリップ）ジョブのリストを取得する</h3>
+
+      <p>クリップの VOD ジョブのリストを取得するには、「<a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブジョブまたは VOD ジョブのリストの取得</a>」および「<a href="/live-api/references/reference.html#/Clips/ListVodClips"> API リファレンス</a>」を参照してください。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Managing_SSAI">管理する<span translate="No">SSAI</span></h2>
+
+      <p>サーバー側の広告挿入 ( <span translate="No">SSAI</span> ) を使用すると、ライブストリームに広告区切りをいくつでも挿入できます。また、スレートアセット（VOD クリップ）を取り込んで未使用の広告時間に、右バックメッセージや好きなものを埋め込むこともできます。</p>
+
+      <p><span translate="No">SSAI</span>設定の詳細については、「<a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html"> Brightcove を使用したサーバーサイド広告挿入」<span translate="No">Live API</span></a>および「<a href="/live-api/references/reference.html#api-SSAI"> API リファレンス」を参照してください</a>。</p>
+
+      <h3 id="Get_Account_Ad_Configurations">アカウント広告設定の取得</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">GET</span> https://api.bcovlive.io/v1/ssai/applications/<span class="bcls-input" translate="No">:account_id</span>
+        </code></pre>
+
+      <p>このエンドポイントでは、アカウントに設定されているすべての広告設定を取得できます。レスポンスフィールドの詳細は、<a href="/live-api/references/reference.html#api-SSAI-Get_Account_Ad_Configurations"> API リファレンスに記載されています</a>。</p>
+
+      <h3 id="Create_Ad_Configuration">広告設定の作成</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">POST</span> https://api.bcovlive.io/v1/ssai/application
+        </code></pre>
+
+      <p>広告の取得方法を定義する広告設定を作成します<span translate="No">SSAI</span>。リクエスト本文フィールドの詳細は、<a href="/live-api/references/reference.html#/SSAI/CreateAdConfiguration"> API リファレンスに記載されています。</a></p>
+
+      <h3 id="Get_Ad_Configuration">広告設定の取得</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">GET</span> https://api.bcovlive.io/v1/ssai/application/<span class="bcls-input" translate="No">:application_id</span></code>
+      </pre>
+
+      <p>このエンドポイントを使用して、作成した広告設定の詳細を取得します。レスポンスフィールドの詳細は、<a href="/live-api/references/reference.html#/SSAI/GetuserAdConfigurations"> API リファレンスに記載されています</a>。</p>
+
+      <h3 id="Update_Ad_Configuration">広告設定の更新</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">PUT</span> https://api.bcovlive.io/v1/ssai/application/account/<span class="bcls-input" translate="No">:application_id</span></code>
+      </pre>
+
+      <p>広告設定の詳細を更新します。リクエスト本文フィールドの詳細は、<a href="/live-api/references/reference.html#/SSAI/UpdateAdConfiguration"> API リファレンスに記載されています</a>。</p>
+
+      <h3 id="Get_Slate_Media_Source_Assets">スレートメディアソースアセットを入手する</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">GET</span> https://api.bcovlive.io/v1/ssai/slates/<span class="bcls-input" translate="No">:ACCOUNT_ID</span></code>
+      </pre>
+
+      <p>アカウントに対して定義されたスレートメディアアセットを取得します。スレートメディアアセットは、広告によって埋められない広告休憩時間を埋めるために使用されます。レスポンスフィールドの詳細は、<a href="/live-api/references/reference.html#/SSAI/GetUserSlateMediaSourceAssets"> API リファレンスに記載されています</a>。</p>
+
+      <h3 id="Ingest_Slate_Media_Source_Asset">スレートメディアソースアセットを取り込み</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">POST</span> https://api.bcovlive.io/v1/ssai/slates
+        </code></pre>
+
+      <p>スラートのメディアアセットを追加して、広告休憩時間を埋めます。リクエスト本文フィールドの詳細は、<a href="/live-api/references/reference.html#/SSAI/IngestSlateMediaSourceAsset"> API リファレンスに記載されています</a>。</p>
+
+      <h3 id="Delete_Slate_Media_Source_Asset">スレートメディアソースアセットを削除</h3>
+
+      <pre>
+      <code translate="No"><span class="bcls-highlight">DELETE</span> https://api.bcovlive.io/v1/ssai/slates/<span class="bcls-input" translate="No">:SLATE_MSA_ID</span>
+        </code></pre>
+
+      <p>スレートメディアアセットを削除します。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Static_entry_points">静的エントリポイント</h2>
+
+      <p>静的エントリポイント (SEP) 機能を使用すると、エントリポイント URL と再生 URL を静的に保ち、再利用可能な状態で、長時間実行されるライブジョブをアクティブ化および非アクティブ化できます。この機能により、お客様は施設または現場でエンコーダを設定し、ライブチャネルまたはプログラム用に独自のスケジューリングロジックを作成できます。詳細については、<a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイントを参照してください</a>。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="captions">キャプション</h2>
+
+      <p>キャプションが h264 入力信号 (user_data パケットで正しくシグナル) 内にある場合、これらのキャプションは h264 出力に渡されます。</p>
+
+      <p>ブロードキャストElemental ライブエンコーダーを使用している場合は、SDI (EIA-608/CEA-608) またはその他のソース (SCTE-20、SCC、文字放送、DVB-Sub、付属、ARB、TTML、SCTE-27、STL、SRT、SMI) からキャプションを取得して、送信する h264 ストリームに入れることができます。他の放送グレードのエンコーダでも同じことができるかもしれませんが、正式にテストされていません。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Insert_ID3_timed_metadata">ID3 時限メタデータの挿入</h2>
+
+      <p>この情報は、<a href="/live-api/guides/live-api-insert-id3-timed-metadata.html"> [ID3 時限メタデータを挿入] </a>に移動されました。</p>
+    </section>
+
+    <section class="bcls-section">
+      <h2 id="Limitations">制約事項</h2>
+
+      <ul>
+        <li>
+          API <a href="/live-module/creating-and-managing-live-events-using-live-module.html">を使用して作成されたライブジョブを表示してライブモジュールで使用できないようにするには</a>、<code translate="No">videocloud</code>ジョブの作成時にリクエストボディにオブジェクトを含める必要があります。
+          <p>例は次のとおりです。</p>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+  "live_stream": true,
+  "region": "eu-central-1",
+  "reconnect_time": 1800,
+  "live_sliding_window_duration_ms": 0,
+  "outputs": [
+    { "label": "hls720p", "live_stream": true, "width": 1280, "height": 720, "video_codec": "h264", "h264_profile": "high", "video_bitrate": 2100, "segment_seconds": 4, "keyframe_interval": 60 }
+    ,
+    { "label": "hls540p", "live_stream": true, "width": 960, "height": 540, "video_codec": "h264", "h264_profile": "main", "video_bitrate": 1500, "segment_seconds": 4, "keyframe_interval": 60 }
+    ,
+    { "label": "hls360p", "live_stream": true, "width": 640, "height": 360, "video_codec": "h264", "h264_profile": "main", "video_bitrate": 800, "segment_seconds": 4, "keyframe_interval": 60 }
+  ],
+  "<span class="bcls-highlight">videocloud</span>": {
+    "video":
+      { "name": "live event UI", "description": "live event UI", "long_description": "", "tags": [], "reference_id": "", "state": "ACTIVE" }
+    }
+  }</code></pre>
+        </li>
+        <li>エンコーダからの最初の接続は、ライブプレイリストを使用して作成される帯域幅情報を提供します。最初の接続が低い場合、ジョブ構成に高い出力があった場合でも、次の処理が行われるまで、プレイリストは同じ情報を再生リスト上で維持します。
+          <ul>
+            <li>エンコーダが再起動される</li>
+            <li>CDNキャッシュもクリアする必要があるかもしれません</li>
+          </ul>
+        </li>
+        <li>現在、入力ストリームのフレームレートは 30 FPS に制限されています。より高いフレームレートの使用に興味がある場合は、サポートにお問い合わせください。</li>
+        <li>デフォルトでは、入力ストリームの分解能は1080pに制限されています。</li>
+        <li>切断および再接続時には、同じストリーム設定にしておく必要があります。音声チャンネル数、解像度またはコーデック設定などを変更すると、予測できない動作の原因となります。</li>
+        <li>Video Cloud ビデオのリモートソースには DASH と MP4 を追加できますが、Live <strong translate="No">HLS</strong>は現在のみをサポートしています。</li>
+        <li>入力ストリームでは AAC オーディオのみがサポートされます。</li>
+        <li><strong>アクティブな待機中の未開始ジョブは、</strong>いつでも 5 つまで許可されます。
+          <p>同時ジョブの追加制限:</p>
+
+          <ul>
+            <li><code translate="No">channel</code>（24x7）ジョブの数は、リージョンごとに0または低い数に制限されます（アカウントの種類によって異なります）。</li>
+            <li><strong></strong><code translate="No">event</code>同時に実行されているジョブの数は地域によって制限され 、通常は 100 に制限されます。</li>
+            <li><strong></strong><code translate="No">event</code>同時に接続するジョブの数は5に制限されています 。</li>
+            <li>リージョンごとの SEP ジョブ数は 3 または 10 に制限されています（「<a href="#Support_aws_regions">サポートされている AWS リージョン</a>」を参照）。</li>
+          </ul>
+
+          <p>これらの制限は、サポートがアカウントレベルで調整できます。追加の容量が必要な場合は、アカウントマネージャーにお問い合わせください。</p>
+        </li>
+        <li><code translate="No">stream_url</code>ライブジョブ用にとして返される「RTMP」アドレスは Akamai HD ライブストリームであり、レガシー FMS RTMP ストリームではありません。Internet Explorer の古いバージョンではサポートされていません。</li>
+        <li>ライブストリームは HTTPS 経由で配信されます。Brightcove ブアカウントで HTTPS が有効になっていない場合、Brightcove ブプレーヤーはライブストリームの読み込みに失敗します。アカウントでオリジンサービスの HTTPS サポートが有効になっていない場合は、<a href="https://supportportal.brightcove.com/s/login/?language=en_US">Brightcove ブサポートに連絡して</a>、オリジンサービスの HTTPS サポートを有効にして、再生の問題を回避してください。</li>
+        <li>マルチビットレート HLS 出力内で変換されたレンディションを使用する場合、<code translate="No">segment_size</code>変換時にを含めることができますが、<code translate="No">GOP</code>入力ストリームのサイズの倍数になるように設定する必要があります。したがって、入力が 30 fps で 60 フレームごとにキーフレームが設定されている場合、<code translate="No">GOP</code>サイズは 2 秒で、セグメントサイズは 2 の倍数にする必要があります。これを行わないと、ストリームセグメントのサイズは変化します。
+          <p>また、<code translate="No">keyframe_interval</code><strong>はどの出力にも指定しないでください</strong>。</p>
+        </li>
+        <li>独自の FTP または S3 オリジンロケーションを使用する場合は、オリジンロケーションにフォールバックするように CDN を設定する必要があります。Brightcove Live システムは、ジョブリクエストで指定された CDN のオリジンロケーションを検証しません。</li>
+      </ul>
+    </section>
+</article>
+<!-- complete bootstrap layout -->
+    </div>
+    <div class="col-sm-2 right-side-bar">
+      
+      <nav class="right-side-nav" id="right_side_nav">
+        <h6 class="toc">ページコンテンツ</h6>
+        <ul id="in_page_nav" class="list-none"></ul>
+      </nav>
+      
+    </div>
+  </div>
+</div>
+
+<hr>
+<footer class="bcls-footer" role="contentinfo">  <div class="row">
+    <div class="region region-footer-top-center col-md-12">
+      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
+
+        <h2>Brightcove ブサポート</h2>
+
+        <ul class="menu">
+          <li>
+            <a href="https://status.brightcove.com">システムステータス</a>
+          </li>
+          <li>
+            <a href="https://supportportal.brightcove.com/s/login/?">サポートへのお問い合わせ</a>
+          </li>
+          <li>
+            <a href="https://support.brightcove.com/">ドキュメンテーション</a>
+          </li>
+        </ul>
+
+      </nav>
+      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
+
+        <h2>トレーニング</h2>
+
+        <ul class="menu">
+          <li>
+            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">オンラインコース</a>
+          </li>
+          <li>
+            <a href="https://studio.support.brightcove.com/training/register-training.html">コースに登録する</a>
+          </li>
+          <li>
+            <a href="https://university.brightcove.com/">Brightcove University</a>
+          </li>
+        </ul>
+
+      </nav>
+      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
+
+        <h2>Brightcove</h2>
+
+        <ul class="menu">
+          <li>
+            <a href="https://www.brightcove.com">Brightcove.com</a>
+          </li>
+          <li>
+            <a href="https://supportportal.brightcove.com/s/login/?">お問合せ</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="region region-footer-bottom-center col-md-12">
+      <div class="bcls-copyright footer-menu">
+        <table>
+          <tr>
+            <td>
+              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. 全著作権所有。</div>
+            </td>
+            <td><a href="https://www.brightcove.com/en/legal/privacy">プライバシー</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">利用規約</a></td>
+            <td>
+              <div class="gf-links-cols footer-menu">
+                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+      
+  var searchBox = sajari.init({
+    mode: "search-box",
+    project: "1588255093746585379", // Set this to your project.
+    collection: "brightcove-documenation", // Set this to your collection.
+    instantPipeline: "autocomplete", // Pipeline used as you type
+    inputPlaceholder: "Search", // Input element placeholder
+    maxSuggestions: 5, // Maximum number of suggestions to show
+    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
+  });
+  
+    searchBox("sub", "pipeline.search-sent", function (_, query) {
+      window.location = "/search.html?q=" + encodeURIComponent(query.q);
+    });
+  
+
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
+  
+  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
+  
+  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
+  <script src="/assets/js/sites_nav.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
+  <script src="/assets/js/feedback.js"></script>
+  
+  <script src="/assets/js/sajari-search-foot.js"></script>
+  
+  <!-- <script src="/assets/js/sajari-index.js"></script> -->
+  <style>
+    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
+      background-color: lightblue;
+    }
+    div.sj-tabs__tab {
+      margin-top: 3rem;
+      margin-left: .3rem;
+      border-top-left-radius: .4rem;
+      border-top-right-radius: .4rem;
+      background-color:#e8e8e8;
+    }
+
+    div.sj-tabs__tab.sj-tabs__tab--selected {
+      border-bottom-color: crimson;
+      background-color: #f8f8f8;
+    }
+
+    p.sj-results__result__description.css-p9jvyt {
+      font-size: 1rem;
+    }
+
+    .sj-result__text.css-31l7gp h3 {
+      color: navy;
+      font-size: 1.4rem;
+    }
+    </style>
+
+</body>
+
+</html>
