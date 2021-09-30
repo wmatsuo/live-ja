@@ -1,0 +1,81 @@
+---
+title: 多言語オーディオ
+parent: General Information
+layout: staging 
+---
+
+<article class="bcls-article">
+  <h1>多言語オーディオ</h1>
+  <summary>この機能により、複数のオーディオ言語、記述的またはアンビエントオーディオエクスペリエンストラックを取り込んで、ライブ再生に利用できるようになります。</summary>
+  <section class="bcls-section">
+
+    <h2 id="Prerequisites">前提条件:</h2>
+    <ul>
+        <li><strong>エンコーダ内の各オーディオトラックの PID（パケット識別子）</strong>を定義します。</li>
+        <li>現時点では、RTP 入力形式のみがサポートされています。このセクションを [ <strong>ライブイベントの作成]</strong>ページで有効にするには、[ <strong>詳細オプション]</strong>セクションに移動し、[ <strong>リアルタイムトランスポートプロトコル (RTP)] を選択します。</strong> [ <strong>入力形式]</strong>セレクターの下にあります。 </li>
+        <li>[ <strong>CIDR ホワイトリスト]</strong>セクションで、IP を入力します。<strong>0.0.0.0/0</strong>を使用して RTP エンドポイントに接続します。入力形式がRTPに設定されていない場合、[多言語]ボタンは無効になります。 </li>
+
+
+        <aside class="bcls-aside bcls-aside--information">注意: 
+            <ul>
+            
+            <li><strong>PID (パケット識別子) の定義方法については</strong>、オーディオトラックの Encoder のマニュアルを参照してください。 </li>
+            <li>SRT のサポートは近い将来追加されます。</li>
+            <li>RTP 入力の設定方法の詳細については、「<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html#advanced" target="_blank">詳細オプションの構成」ドキュメントを参照してください</a>。
+            </li>
+        </ul>
+        
+        </aside>
+    </ul>
+
+
+    </section>
+    <section class="bcls-section">
+
+        <h2 id="add-audio">ライブイベントへのオーディオトラックの追加 </h2>
+
+        <p>新しいライブイベントを作成する場合:</p>
+
+    <ol class="bcls-tasklist-restart">
+
+        <li><strong></strong>オーディオトラックセクションを開きます。</li>
+        <li>[ <strong>オーディオトラックを追加</strong> ] ボタンをクリックします。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/general/multi-language-audio/audio-track-section.png" /></figure>
+
+        </li>
+        <li>フィールドに入力して、新しいオーディオトラックを追加します。アスタリスク（*）の付いたフィールドは必須です。
+         <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/general/multi-language-audio/audio-track-fields.png" /></figure>
+            <ul>
+                <li><strong>デフォルト</strong>：デフォルトのオーディオトラックを選択します。</li>
+                <li><strong>言語*</strong> :新しいオーディオトラックの言語コードを入力します。例：en、es、cy-GBなど</li>
+                <li><strong>PID*</strong> :エンコーダで以前に定義した PID コードを入力して、受信ストリームのオーディオトラックを正しい言語とバリアントに同期します。注:オーディオトラックごとに固有の PID が必要です。 </li>
+                <li><strong>バリアント</strong> :オーディオトラックのバリアントを表します。これらは、<strong>メイン、解説、代替、キャプション、サブタイトル、補足、</strong>ダブです。 </li>
+                <li><strong>ラベル</strong> :トラックの名前を入力します。例:英語、スペイン語などラベルフィールドは空のままにしておくと、言語コードがラベルとして使用されます。</li>
+            </ul>
+        </li>
+        <li>[ <strong>+]</strong>および [ <strong>-]</strong>ボタンをクリックすると、オーディオトラックを追加または削除できます。<aside class="bcls-aside bcls-aside--information">注:最大 6 つのオーディオトラックを追加できます。さらにトラックを追加する必要がある場合は、サポートにお問い合わせください。</aside>
+        
+        </li>
+    
+    </ol>
+
+    </section>
+
+    <section class="bcls-section">
+
+        <h2 id="change-audio">オーディオトラックの変更</h2>
+
+        <ol class="bcls-tasklist-restart">
+            <li>マルチオーディオトラックが正しく設定されている場合、プレーヤーには、トラックを切り替えるために使用できるヘッドフォンアイコンが表示されます。
+
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/general/multi-language-audio/player-multi-language.png" /></figure>
+
+            </li>
+
+        </ol>
+
+        </section>
+
+
+
+</article>

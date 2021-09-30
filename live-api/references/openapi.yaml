@@ -14,16 +14,16 @@ servers:
 tags:
   - name: Live Jobs
     description: |-
-      Operations for creating live jobs, listing live jobs, getting job details, and canceling live jobs. There are also operations for activating and deactivating SEP jobs, and for inserting cuepoints or ID3 timed metadata.
+      Operations for creating live jobs, listing live jobs, getting job details, and canceling live jobs. There are also operations for activating and deactivating SEP jobs, scheduling activation and deactivation of SEP jobs, and for inserting cuepoints or ID3 timed metadata.
   - name: Redundant Groups
     description: >-
       Operations for creating redundant groups of live jobs for failover in case one stream fails
   - name: RTMP Outputs
     description: >-
       Operations for creating and managing RTMP outputs. Note that RTMP output hours will be billed against event hours.
-  - name: Clips
+  - name: Live Job Clip
     description: >-
-      Operations for creating and managing VOD clips
+      Operations for creating and managing VOD clips, including scheduling clips for SEP jobs
   - name: SSAI
     description: Operations for managing server-side ad insertion with live streams.
   - name: Credentials
@@ -55,18 +55,18 @@ paths:
                 $ref: '#/components/schemas/LiveJob'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -107,15 +107,15 @@ paths:
                 $ref: '#/components/schemas/ListLiveJobsResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for more details
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -143,13 +143,13 @@ paths:
                 $ref: '#/components/schemas/Job'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-             INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -188,13 +188,13 @@ paths:
                 $ref: '#/components/schemas/PlaybackToken'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-             INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+             INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -222,13 +222,13 @@ paths:
                 $ref: '#/components/schemas/ActivateSepStreamResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -256,13 +256,13 @@ paths:
                 $ref: '#/components/schemas/DeactivateSepStreamResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -298,16 +298,16 @@ paths:
                 $ref: '#/components/schemas/ManualAdCuePointInsertionResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for more details
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: DB getItem, no results found - see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: DB getItem, no results found - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -339,16 +339,16 @@ paths:
           description: '200'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for more details
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: DB getItem, no results found - see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: DB getItem, no results found - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -372,16 +372,16 @@ paths:
           description: '204 NO CONTENT'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for more details
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: DB getItem, no results found - see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: DB getItem, no results found - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -424,16 +424,16 @@ paths:
                 $ref: '#/components/schemas/InsertId3TimedMetadataResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for more details
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -461,14 +461,14 @@ paths:
                 $ref: '#/components/schemas/CancelLiveJob'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -496,13 +496,13 @@ paths:
                 $ref: '#/components/schemas/StopLiveJob'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -530,13 +530,13 @@ paths:
                 $ref: '#/components/schemas/ListRTMPOutputs'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -568,15 +568,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateRTMPOutputResponse'
+        '400':
+          description: >-
+            BAD_REQUEST: Bad Request - RTMP outputs limit reached, failed to add (most likely you have reached the limit of active RTMP outputs for your account; the default limit is 5)
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -605,13 +608,13 @@ paths:
                 $ref: '#/components/schemas/StopRTMPOutputResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more details
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '404':
           description: >-
-            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see Live API Error Messages for more details
+            RESOURCE_NOT_FOUND: The api could not find the resource you requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
           description: >-
-            INTERNAL_SERVER_ERROR: see Live API Error Messages for more details
+            INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
       deprecated: false
       security: []
       x-operation-settings:
@@ -645,18 +648,18 @@ paths:
                 $ref: '#/components/schemas/CreateRedundantGroupResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -684,18 +687,18 @@ paths:
                 $ref: '#/components/schemas/GetRedundantGroupResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -726,18 +729,18 @@ paths:
           description: A success response will just contain the group id
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -764,18 +767,18 @@ paths:
           description: 204 NO_CONTENT
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -803,18 +806,18 @@ paths:
                 $ref: '#/components/schemas/GetStatusRedundantGroupResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -839,18 +842,18 @@ paths:
           description: '204 NO_CONTENT'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -891,18 +894,18 @@ paths:
                     description: ID of the redundant group
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -938,18 +941,18 @@ paths:
                 $ref: '#/components/schemas/RedundantGroupCuePointInsertionResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -960,7 +963,7 @@ paths:
   /vods:
     post:
       tags:
-        - Clips
+        - Live Job Clip
       summary: Create VOD Clip
       description: 'Create VOD clips from a Live Stream. '
       operationId: CreateVodClip
@@ -983,18 +986,18 @@ paths:
                 $ref: '#/components/schemas/CreateVodJobResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1005,7 +1008,7 @@ paths:
   '/vods/{jvod_id}':
     get:
       tags:
-        - Clips
+        - Live Job Clip
       summary: Get VOD Clip Job
       description: 'Get a VOD clip job by id. '
       operationId: GetVodClipJob
@@ -1022,18 +1025,57 @@ paths:
                 $ref: '#/components/schemas/GetVodJob'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
+      deprecated: false
+      security: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  '/vods/{jvod_id}/cancel':
+    put:
+      tags:
+        - Live Job Clip
+      summary: Cancel a VOD Clip Job
+      description: 'Cancel a VOD clip job by id. '
+      operationId: CancelVodClipJob
+      parameters:
+        - $ref: '#/components/parameters/ContentType'
+        - $ref: '#/components/parameters/XAPIKEY'
+        - $ref: '#/components/parameters/jvod_id'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetVodJob'
+        '400':
+          description: >-
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
+            more details
+        '401':
+          description: >-
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
+            details
+        '404':
+          description: >-
+            RESOURCE_NOT_FOUND: The api could not find the resource you
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
+        '500':
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1044,7 +1086,7 @@ paths:
   '/jobs/{job_id}/vods':
     get:
       tags:
-        - Clips
+        - Live Job Clip
       summary: List VOD Clip Jobs
       description: >-
         List VOD clips for a Live Stream - for additional useful information on
@@ -1075,18 +1117,18 @@ paths:
                 $ref: '#/components/schemas/ListVodJobs'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1096,7 +1138,7 @@ paths:
         IsMultiContentStreaming: false
     post:
       tags:
-        - Clips
+        - Live Job Clip
       summary: 'Create VOD Clip (Alternate)'
       description: >-
         Create VOD clips from a Live Stream. This is operation is identical to
@@ -1123,18 +1165,18 @@ paths:
                 $ref: '#/components/schemas/VodJobs'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1148,9 +1190,9 @@ paths:
         - SSAI
       summary: Create Ad Configuration
       description: |-
-       Create a configuration for server-side ad application.
+        Create a configuration for server-side ad application.
 
-       **Note: SSAI is supported for the following regions:**
+        **Note: SSAI is supported for the following regions:**
           - us-west-2
           - us-east-1
           - ap-southeast-2
@@ -1177,18 +1219,18 @@ paths:
                 $ref: '#/components/schemas/Application'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1214,18 +1256,18 @@ paths:
                 $ref: '#/components/schemas/Application'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1253,14 +1295,14 @@ paths:
                 $ref: '#/components/schemas/Application'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1288,14 +1330,14 @@ paths:
                 $ref: '#/components/schemas/Application'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1329,18 +1371,18 @@ paths:
                 $ref: '#/components/schemas/Application'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1367,14 +1409,14 @@ paths:
                 $ref: '#/components/schemas/DeleteAdConfigurationResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1412,18 +1454,18 @@ paths:
                 $ref: '#/components/schemas/CreateBeaconSetResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1449,14 +1491,14 @@ paths:
                 $ref: '#/components/schemas/BeaconSets'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1491,18 +1533,18 @@ paths:
                 $ref: '#/components/schemas/BeaconSet'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1529,14 +1571,14 @@ paths:
                 $ref: '#/components/schemas/DeleteBeaconSetResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1564,14 +1606,14 @@ paths:
                 $ref: '#/components/schemas/BeaconSet'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1605,18 +1647,18 @@ paths:
                 $ref: '#/components/schemas/IngestSlateMediaSourceAssetResponse'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1642,14 +1684,14 @@ paths:
                 $ref: '#/components/schemas/GetSlateMediaSourceAssetsResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1677,14 +1719,14 @@ paths:
                 $ref: '#/components/schemas/DeleteSlateMediaSourceAssetResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1712,14 +1754,14 @@ paths:
                 $ref: '#/components/schemas/GetSlateMediaSourceAssetsResponse'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1748,14 +1790,14 @@ paths:
                 $ref: '#/components/schemas/ListCredentials'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1788,18 +1830,18 @@ paths:
                 $ref: '#/components/schemas/CreateCredential'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1834,18 +1876,18 @@ paths:
                 $ref: '#/components/schemas/UpdateCredential'
         '400':
           description: >-
-            BAD_REQUEST: Invalid input value - see Live API Error Messages for
+            BAD_REQUEST: Invalid input value - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for
             more details
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -1868,14 +1910,14 @@ paths:
           description: 'NO_CONTENT: the credential was deleted'
         '401':
           description: >-
-            UNAUTHORIZED: Unauthorized - see Live API Error Messages for more
+            UNAUTHORIZED: Unauthorized - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more
             details
         '404':
           description: >-
             RESOURCE_NOT_FOUND: The api could not find the resource you
-            requested - see Live API Error Messages for more details
+            requested - see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details
         '500':
-          description: 'INTERNAL_SERVER_ERROR: see Live API Error Messages for more details'
+          description: 'INTERNAL_SERVER_ERROR: see [Live API Error Messages](/live-api/references/live-api-error-messages.html) for more details'
       deprecated: false
       security: []
       x-operation-settings:
@@ -2441,7 +2483,7 @@ components:
         application_id:
           description: The ad application id
           type: string
-        description:
+        description: 
           description: The ad application description
           type: string
       required:
@@ -2453,7 +2495,7 @@ components:
       type: object
     Application.applicationAdConfiguration:
       properties:
-        ad_configuration_description:
+        ad_configuration_description: 
           description: The ad configuration description
           type: string
         ad_configuration_strategy:
@@ -2565,7 +2607,7 @@ components:
         application_ad_configuration:
           $ref: >-
             #/components/schemas/CreateAdConfigurationbody.applicationAdConfiguration
-        application_description:
+        application_description: 
           description: Human readable description of the ad application.
           type: string
       required:
@@ -2575,7 +2617,7 @@ components:
       type: object
     CreateAdConfigurationbody.applicationAdConfiguration:
       properties:
-        ad_configuration_description:
+        ad_configuration_description: 
           description: Human readable description of the configuration.
           type: string
         ad_configuration_expected_response_type:
@@ -2843,7 +2885,7 @@ components:
         event_length:
           default: 0
           description: >-
-            Used to preset and define an end time for the live event. At any point within the specified `event_length` you may reconnect to your stream. The `event_length` setting goes into effect as soon as streaming begins. In case the encoder stops, the live stream will be kept available for the **remainder** of the `event_length` or the `reconnect_time`, whichever is *greater* (so if `event_length` is not set, its value is `0`, and `reconnect_time` will determine how long the stream is kept available)
+            Used to preset and define an end time for the live event. At any point within the specified `event_length` you may reconnect to your stream. The `event_length` setting goes into effect as soon as streaming begins. In case the encoder stops, the live stream will be kept available for the duration of the `reconnect_time
           maximum: 93600
           minimum: 0
           type: integer
@@ -3139,7 +3181,7 @@ components:
         audio_codec:
           default: aac
           description: >-
-             The output audio codec to use. Note: Only `aac` is supported.
+            The output audio codec to use. Note: Only `aac` is supported.
           enum:
             - aac
           type: string
@@ -3211,7 +3253,7 @@ components:
           minimum: 1
           type: integer
         label:
-          description: Label for the live or VOD asset.
+          description: Label for the live or VOD asset. Each label **must be unique** for the job.
           type: string
         playlist_label:
           type: string
@@ -3288,7 +3330,7 @@ components:
             - h264
           type: string
         videocloud:
-          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud'
+          $ref: '#/components/schemas/CreateLiveJob.outputs.videocloud'
       required:
         - label
         - live_stream
@@ -3322,7 +3364,6 @@ components:
           $ref: '#/components/schemas/CreateLiveJobRequestBody.videocloud.video'
       required:
         - video
-        - ingest
       title: Create_Live_Job_Request_Body.videocloud
       type: object
       description: >-
@@ -3339,7 +3380,7 @@ components:
           description: >-
             An object whose properties are `field_name`:`value` pairs - be sure to the *internal* name of the field
           type: object
-        description:
+        description: 
           description: Video short description
           type: string
         drm_disabled:
@@ -3354,7 +3395,7 @@ components:
             - FREE
         geo:
           $ref: '#/components/schemas/CreateLiveJobRequestBody.videocloud.video.geo'
-        long_description:
+        long_description: 
           description: A longer description of the video
           type: string
         name:
@@ -3509,87 +3550,7 @@ components:
         - outputs
       title: Create_VOD_ClipBody
       type: object
-    CreateVodClipbody.outputs:
-      properties:
-        credentials:
-          description: >-
-            The name of the credentials configured in your Live account for this destination. Not required if using the default Video Cloud account associated with your Live account.
-          type: string
-        notifications:
-          description: |-
-            'Array of notification destination objects or strings - notifications defined here are for job-level events.  A notification will be sent to the destination when selected event occurs. You can use a simple string with a url: &quot;http://log:pass@httpbin.org/post&quot;, or you can use an object. See [Events](/live-api/guides/live-api-notifications.html#Events) for an explanation of the events reported in `state_changed` notifications. <br> Retry strategy: In the event of a failed request to send a notification, the default retry strategy is to retry 50 times with an exponential delay between attempts: <br> `max_retry_times = 50` <br> `delay_delta_s = 5` <br> `next_retry = now_s + retry_count * delay_delta_s`
-
-            **Note:** notifications are *not* supported for instant mode VODs.'
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/Notification'
-              - type: string
-                description: A URL to send notifications to
-          type: array
-        duration:
-          description: |-
-            Duration of the clip in seconds. The <code>duration</code> must be used alone to define a clip that will be made of the final <code>{duration}</code> seconds of the stream. <code>duration</code>
-
-            **Note:** the duration parameter is not available for instant mode VODs.
-          maximum: 172800
-          minimum: 0
-          type: integer
-        remove_ads:
-          description: >-
-            Remove content processed during the duration of cue points received while streaming.
-          type: boolean
-          default: false
-        start_time:
-          description: >-
-            Start time for the clip in Epoch (Unix) time (seconds), <code>start_time</code> must be used alone or with <code>end_time</code>.
-          type: integer
-        end_time:
-          description: >-
-            End time for the clip in Epoch (Unix) time (seconds), <code>end_time</code> must be used alone or with <code>start_time</code>.
-          type: integer
-        stream_start_time:
-          description: >-
-            Start time in seconds for the clip relative to the start time of the live stream, <code>stream_start_time</code> must be used alone or with <code>stream_end_time</code>.
-          maximum: 2147483647
-          minimum: 0
-          type: integer
-        stream_end_time:
-          description: >-
-            End time in seconds for the clip relative to the start time of the live stream, <code>stream_end_time</code> must be used alone or with <code>stream_start_time</code>.
-          type: integer
-        stream_start_timecode:
-          description: >-
-            Start time for a frame-accurate clip in an SMPTE-formatted (HH:MM:SS:FF) timecode from the start of the stream, <code>stream_start_timecode</code> must be used alone or with <code>stream_end_timecode</code>. Requires that the encoder is sending timecodes.
-          type: string
-        stream_end_timecode:
-          description: >-
-            End time for a frame-accurate clip in an SMPTE-formatted (HH:MM:SS:FF) timecode from the end of the stream, <code>stream_end_timecode</code> must be
-            used alone or with <code>stream_start_timecode</code>. Requires that the encoder is sending timecodes.
-          type: string
-        label:
-          description: Label for the output
-          type: string
-        mode:
-          type: string
-          description: >-
-            Expedite clip publishing by leveraging existing live renditions and segment boundaries
-          enum:
-            - instant
-        playlist_label:
-          type: string
-          description: >-
-            Only applicable for `instant` mode VODs. Indicates which playlist to use to create a VOD output (from the live job). Only necessary if custom playlists were defined at live job creation.
-        url:
-          description: >-
-            `url` is mandatory (**unless** the destination is `videocloud`, in which case you dod **not** include the `url`) and sets the destination of the final asset destination. For access restricted origins, the credentials a can be passed along with the URL or stored within the Brightcove system. For Live, this is reserved for future use.
-          type: string
-        videocloud:
-          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud'
-      required:
-        - label
-      title: Create_VOD_ClipBody.outputs
-      type: object
-    CreateVodClipbody.outputs.videocloud:
+    CreateLiveJob.outputs.videocloud:
       properties:
         account_id:
           description: >-
@@ -3606,129 +3567,6 @@ components:
       title: Create_VOD_ClipBody.outputs.videocloud
       description: An object containing inputs for Video Cloud ingestion
       type: object
-    CreateVodClipbody.outputs.videocloud.ingest:
-      properties:
-        callbacks:
-          description: >-
-            An array of URLs that notifications for the ingest job should be sent to
-          items:
-            type: string
-          type: array
-        capture-images:
-          description: >-
-            'Whether poster and thumbnail should be captured during transcoding; defaults to `true` if the the profile has image renditions, `false` if it does not - see [Images and the Dynamic Ingest API](https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/images-and-dynamic-ingest-api.html) for more information'
-          example: true
-          type: boolean
-        profile:
-          description: >-
-            The ingest profile to use - we recommend that you do **not** include this field and use the account default profile instead
-          type: string
-      title: Create_VOD_ClipBody.outputs.videocloud.ingest
-      description: >-
-        An object containing inputs for Video Cloud video ingestion - see the [Dynamic Ingest Reference](https://apis.support.brightcove.com/dynamic-ingest/references/reference.html#operation/AccountsVideosIngestRequestsByAccountIdAndVideoIdPost) - do not include the master field, as that information will be provided by the Live API. If no ingest profile is specified, the account default profile will be used.
-      type: object
-    CreateVodClipbody.outputs.videocloud.video:
-      properties:
-        cue_points:
-          description: Array of cuepoint objects
-          items:
-            $ref: >-
-              #/components/schemas/CreateVodClipbody.outputs.videocloud.video.cuePoint
-          type: array
-        custom_fields:
-          description: >-
-            An object whose properties are `field_name`:`value` pairs - be sure to the *internal* name of the field
-          type: object
-        description:
-          description: Video short description
-          type: string
-        drm_disabled:
-          description: >-
-            Use to disable DRM packaging for this video - applies only to DRM-enabled accounts
-          type: boolean
-        economics:
-          type: string
-          description: whether the video supports ads
-          enum:
-            - AD_SUPPORTED
-            - FREE
-        geo:
-          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud.video.geo'
-        long_description:
-          description: A longer description of the video
-          type: string
-        name:
-          description: Title of the video clip
-          type: string
-        reference_id:
-          description: Reference id for the clip - must be unique within the account
-          type: string
-        schedule:
-          $ref: >-
-            #/components/schemas/CreateVodClipbody.outputs.videocloud.video.schedule
-        state:
-          type: string
-          description: Whether the video should be active or inactive
-          example: ACTIVE
-          enum:
-            - ACTIVE
-            - INACTIVE
-        tags:
-          description: >-
-            Array of tags for the video - note that  tags are string that may not contain a comma
-          type: object
-      required:
-        - name
-      title: Create_VOD_ClipBody.outputs.videocloud.video
-      description: >-
-        'An object containing inputs for Video Cloud video object creation - see the [CMS API Reference](https://apis.support.brightcove.com/cms/references/reference.html#operation/CreateVideo)'
-      type: object
-    CreateVodClipbody.outputs.videocloud.video.cuePoint:
-      properties:
-        force-stop:
-          description: whether video is force-stopped at the cue point
-          type: boolean
-        metadata:
-          description: optional metadata string (512 single-byte characters maximum)
-          type: string
-        name:
-          description: cue point name
-          type: string
-        time:
-          description: 'time of the cue point in seconds; example: 10.527'
-          type: number
-        type:
-          description: cue point type
-          enum:
-            - AD
-            - CODE
-          example: AD
-          type: string
-      required:
-        - time
-        - type
-      title: Create_VOD_ClipBody.outputs.videocloud.video.cue_point
-      type: object
-    CreateVodClipbody.outputs.videocloud.video.geo:
-      properties:
-        countries:
-          description: >-
-            array of ISO 3166 list of [2-letter codes](https://www.iso.org/obp/ui/#home) (search for &quot;country codes&quot;)
-          type: string
-        exclude_countries:
-          description: >-
-            if true, country array is treated as a list of countries excluded from viewing
-          type: boolean
-        restricted:
-          description: whether geo-restriction is enabled for this video
-          type: boolean
-      required:
-        - countries
-        - exclude_countries
-        - restricted
-      title: Create_VOD_ClipBody.outputs.videocloud.video.geo
-      type: object
-      description: map of geo-filtering properties
     CreateVodClipbody.outputs.videocloud.video.schedule:
       properties:
         ends_at:
@@ -3984,7 +3822,7 @@ components:
         media_source_asset_default:
           description: Whether this is the default media source asset
           type: boolean
-        media_source_asset_description:
+        media_source_asset_description: 
           description: User identifiable description for the slate
           type: string
         media_source_asset_id:
@@ -4031,7 +3869,7 @@ components:
           description: Whether this is the default media source asset
           type: boolean
           readOnly: true
-        media_source_asset_description:
+        media_source_asset_description: 
           description: User identifiable description for the slate
           type: string
         media_source_asset_id:
@@ -4055,7 +3893,7 @@ components:
         account_id:
           description: 'The Live account id (if left blank, the request will still work)'
           type: string
-        source_description:
+        source_description: 
           description: User identifiable description for the slate
           type: string
         source_url:
@@ -5661,7 +5499,7 @@ components:
         application_ad_configuration:
           $ref: >-
             #/components/schemas/UpdateAdConfigurationbody.applicationAdConfiguration
-        application_description:
+        application_description: 
           description: Human readable description of the ad application.
           type: string
       required:
@@ -5671,7 +5509,7 @@ components:
       type: object
     UpdateAdConfigurationbody.applicationAdConfiguration:
       properties:
-        ad_configuration_description:
+        ad_configuration_description: 
           description: Human readable description of the configuration.
           type: string
         ad_configuration_expected_response_type:
@@ -5920,7 +5758,530 @@ components:
         - label
       title: vod_jobs2
       type: object
-
+    CreateJobStartStopRequestBody:
+      properties:
+        job_id:
+          description: >-
+            Live Job ID to schedule activation and deactivation for.
+            Job must be a static Job.
+          type: string
+        activation:
+          $ref: '#/components/schemas/CreateJobStartStopRequestBody.TaskInfo'
+        deactivation:
+          $ref: '#/components/schemas/CreateJobStartStopRequestBody.TaskInfo'
+        description: 
+          description: >-
+            JobStartStop workflow description.
+          type: string
+        notification_url:
+          description: >-
+            URL to send notifications for activation and deactivation.
+            Required if a pre-notification is configured for activation or deactivation.
+          type: string
+      required:
+        - job_id
+        - activation
+        - deactivation
+      title: Create_JobStartStop_Body
+      type: object
+      example: {
+        "job_id": "481ff4cf0bf74956bc2ec6e126588080",
+        "activation": {
+          "time_utc": 1611178000,
+          "notification": 300
+        },
+        "deactivation": {
+          "time_utc": 1611188000,
+          "notification": 300
+        },
+        "description": "My JobStartStop workflow",
+        "notification_url": "http://example.com/live/jobstartstop/callbacks"
+      }
+    CreateJobStartStopRequestBody.TaskInfo:
+      properties:
+        time_utc:
+          description: >-
+            UTC time to perform task. Value must be unix timestamp in seconds.
+          type: number
+        notification:
+          description: >-
+            Duration in seconds before time_utc to send a notification for the upcoming task.
+          type: number
+      required:
+        - time_utc
+      title: Create_JobStartStop_Body.task_info
+      type: object
+    JobStartStop:
+      properties:
+        job_id:
+          description: >-
+            Live Job ID to schedule activation and deactivation for.
+            Job must be a static Job.
+          type: string
+        activation:
+          $ref: '#/components/schemas/JobStartStop.TaskInfo'
+        deactivation:
+          $ref: '#/components/schemas/JobStartStop.TaskInfo'
+        workflow_id:
+          description: ID of the JobStartStop workflow
+          type: string
+        account_id:
+          description: Live Account ID
+          type: string
+        type:
+          description: Workflow type jobstartstop
+          type: string
+          enum:
+            - jobstartstop
+        description: 
+          description: >-
+            JobStartStop workflow description.
+          type: string
+        notification_url:
+          description: >-
+            URL to send notifications for activation and deactivation.
+            Required if a pre-notification is configured for activation or deactivation.
+          type: string
+      required:
+        - job_id
+        - activation
+        - deactivation
+        - workflow_id
+        - account_id
+        - type
+      title:  JobStartStop
+      type: object
+    JobStartStop.TaskInfo:
+      properties:
+        time_utc:
+          description: >-
+            UTC time to perform task. Value must be unix timestamp in seconds.
+          type: number
+        notification:
+          description: >-
+            Duration in seconds before time_utc to send a notification for the upcoming task.
+          type: number
+        state:
+          description: Task state
+          type: string
+          enum:
+            - pending
+            - cancelled
+            - failed
+            - finished
+      required:
+        - time_utc
+        - state
+      title: JobStartStop.task_info
+      type: object
+    ListJobStartStopResponse:
+      properties:
+        workflows:
+          description: >-
+            List of JobStartStop workflows
+          items:
+            $ref: '#/components/schemas/JobStartStop'
+          type: array
+        next_token:
+          description: >-
+            Token to include in next request in StartToken query param.
+          type: string
+      required:
+        - workflows
+      title: List_JobStartStop_Response
+      type: object
+    UpdateJobStartStopRequestBody:
+      properties:
+        activation:
+          $ref: '#/components/schemas/CreateJobStartStopRequestBody.TaskInfo'
+        deactivation:
+          $ref: '#/components/schemas/CreateJobStartStopRequestBody.TaskInfo'
+      title: Update_JobStartStop_Body
+      type: object
+      example: {
+        "activation": {
+          "time_utc": 1611178000,
+          "notification": 300
+        },
+        "deactivation": {
+          "time_utc": 1611188000,
+          "notification": 300
+        }
+      }
+    CreateClipRequestBody:
+      properties:
+        job_id:
+          description: >-
+            Live Job ID to schedule Clip for.
+          type: string
+        clip:
+          $ref: '#/components/schemas/CreateClipRequestBody.ClipInfo'
+        description: 
+          description: >-
+            Clip workflow description.
+          type: string
+        notification_url:
+          description: >-
+            URL to send notifications for clip.
+            Required if a pre-notification is configured for clip.
+          type: string
+      required:
+        - job_id
+        - clip
+      title: Create_Clip_Body
+      type: object
+      example: {
+        "job_id": "481ff4cf0bf74956bc2ec6e126588080",
+        "clip": {
+          "output": {
+            "label": "My Scheduled Clip",
+            "start_time": 1612878900,
+            "end_time": 1612879800,
+            "videocloud": {
+              "video": {
+                "name": "My Scheduled Clip"
+              }
+            }
+          },
+          "time_utc": 1612879800
+        },
+        "description": "My JobStartStop workflow",
+        "notification_url": "http://example.com/live/jobstartstop/callbacks"
+      }
+    Clip:
+      properties:
+        job_id:
+          description: >-
+            Live Job ID to schedule clip for.
+          type: string
+        clip:
+          $ref: '#/components/schemas/Clip.ClipInfo'
+        workflow_id:
+          description: ID of the Clip workflow
+          type: string
+        account_id:
+          description: Live Account ID
+          type: string
+        type:
+          description: Workflow type clip
+          type: string
+          enum:
+            - clip
+        description: 
+          description: >-
+            Clip workflow description.
+          type: string
+        notification_url:
+          description: >-
+            URL to send notifications for clip.
+            Required if a pre-notification is configured for clip.
+          type: string
+      required:
+        - job_id
+        - clip
+        - workflow_id
+        - account_id
+        - type
+      title:  Clip
+      type: object
+    Clip.ClipInfo:
+      properties:
+        time_utc:
+          description: >-
+            UTC time to perform task. Value must be unix timestamp in seconds.
+          type: number
+        notification:
+          description: >-
+            Duration in seconds before time_utc to send a notification for the upcoming task.
+          type: number
+        state:
+          description: Task state
+          type: string
+          enum:
+            - pending
+            - cancelled
+            - failed
+            - finished
+        output:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs'
+      required:
+        - time_utc
+        - state
+        - output
+      title: Clip.clip_info
+      type: object
+    ListClipResponse:
+      properties:
+        workflows:
+          description: >-
+            List of Clip workflows
+          items:
+            $ref: '#/components/schemas/Clip'
+          type: array
+        next_token:
+          description: >-
+            Token to include in next request in StartToken query param.
+          type: string
+      required:
+        - workflows
+      title: List_Clip_Response
+      type: object
+    UpdateClipRequestBody:
+      properties:
+        clip:
+          $ref: '#/components/schemas/CreateClipRequestBody.ClipInfo'
+      title: Update_Clip_Body
+      type: object
+      example: {
+        "clip": {
+          "output": {
+            "label": "My Scheduled Clip",
+            "start_time": 1612878900,
+            "end_time": 1612879500,
+            "videocloud": {
+              "video": {
+                "id": "70702010152202",
+                "name": "My Scheduled Clip"
+              }
+            }
+          },
+          "time_utc": 1612879500
+        }
+      }
+    CreateClipRequestBody.ClipInfo:
+      properties:
+        time_utc:
+          description: >-
+            UTC time to perform task. Value must be unix timestamp in seconds.
+          type: number
+        notification:
+          description: >-
+            Duration in seconds before time_utc to send a notification for the upcoming task.
+          type: number
+        output:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs'
+      required:
+        - time_utc
+        - output
+      title: Create_Clip_Body.clip_info
+      type: object
+    CreateVodClipbody.outputs:
+      properties:
+        credentials:
+          description: >-
+            The name of the credentials configured in your Live account for this destination. Not required if using the default Video Cloud account associated with your Live account.
+          type: string
+        notifications:
+          description: |-
+            'Array of notification destination objects or strings - notifications defined here are for job-level events.  A notification will be sent to the destination when selected event occurs. You can use a simple string with a url: &quot;http://log:pass@httpbin.org/post&quot;, or you can use an object. See [Events](/live-api/guides/live-api-notifications.html#Events) for an explanation of the events reported in `state_changed` notifications. <br> Retry strategy: In the event of a failed request to send a notification, the default retry strategy is to retry 50 times with an exponential delay between attempts: <br> `max_retry_times = 50` <br> `delay_delta_s = 5` <br> `next_retry = now_s + retry_count * delay_delta_s`
+            **Note:** notifications are *not* supported for instant mode VODs.'
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Notification'
+              - type: string
+                description: A URL to send notifications to
+          type: array
+        duration:
+          description: |-
+            Duration of the clip in seconds. The <code>duration</code> must be used alone to define a clip that will be made of the final <code>{duration}</code> seconds of the stream. <code>duration</code>
+            **Note:** the duration parameter is not available for instant mode VODs.
+          maximum: 172800
+          minimum: 0
+          type: integer
+        remove_ads:
+          description: >-
+            Remove content processed during the duration of cue points received while streaming.
+          type: boolean
+          default: false
+        start_time:
+          description: >-
+            Start time for the clip in Epoch (Unix) time (seconds), <code>start_time</code> must be used alone or with <code>end_time</code>.
+          type: integer
+        end_time:
+          description: >-
+            End time for the clip in Epoch (Unix) time (seconds), <code>end_time</code> must be used alone or with <code>start_time</code>.
+          type: integer
+        stream_start_time:
+          description: >-
+            Start time in seconds for the clip relative to the start time of the live stream, <code>stream_start_time</code> must be used alone or with <code>stream_end_time</code>.
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+        stream_end_time:
+          description: >-
+            End time in seconds for the clip relative to the start time of the live stream, <code>stream_end_time</code> must be used alone or with <code>stream_start_time</code>.
+          type: integer
+        stream_start_timecode:
+          description: >-
+            Start time for a frame-accurate clip in an SMPTE-formatted (HH:MM:SS:FF) timecode from the start of the stream, <code>stream_start_timecode</code> must be used alone or with <code>stream_end_timecode</code>. Requires that the encoder is sending timecodes.
+          type: string
+        stream_end_timecode:
+          description: >-
+            End time for a frame-accurate clip in an SMPTE-formatted (HH:MM:SS:FF) timecode from the end of the stream, <code>stream_end_timecode</code> must be
+            used alone or with <code>stream_start_timecode</code>. Requires that the encoder is sending timecodes.
+          type: string
+        label:
+          description: Label for the output
+          type: string
+        mode:
+          type: string
+          description: >-
+            Expedite clip publishing by leveraging existing live renditions and segment boundaries
+          enum:
+            - instant
+        playlist_label:
+          type: string
+          description: >-
+            Only applicable for `instant` mode VODs. Indicates which playlist to use to create a VOD output (from the live job). Only necessary if custom playlists were defined at live job creation.
+        url:
+          description: >-
+            `url` is mandatory (**unless** the destination is `videocloud`, in which case you dod **not** include the `url`) and sets the destination of the final asset destination. For access restricted origins, the credentials a can be passed along with the URL or stored within the Brightcove system. For Live, this is reserved for future use.
+          type: string
+        videocloud:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud'
+      required:
+        - label
+      title: Create_VOD_ClipBody.outputs
+      type: object
+    CreateVodClipbody.outputs.videocloud:
+      properties:
+        account_id:
+          description: >-
+            The Video Cloud Account ID the clip should be ingested to. Only required if using Video Cloud Account ID other than the default configured in your Live account. If set, you must also set the
+            `credentials` property on the output.
+          type: string
+        ingest:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud.ingest'
+        video:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud.video'
+      required:
+        - video
+      title: Create_VOD_ClipBody.outputs.videocloud
+      description: An object containing inputs for Video Cloud ingestion
+      type: object
+    CreateVodClipbody.outputs.videocloud.ingest:
+      properties:
+        callbacks:
+          description: >-
+            An array of URLs that notifications for the ingest job should be sent to
+          items:
+            type: string
+          type: array
+        capture-images:
+          description: >-
+            'Whether poster and thumbnail should be captured during transcoding; defaults to `true` if the the profile has image renditions, `false` if it does not - see [Images and the Dynamic Ingest API](https://apis.support.brightcove.com/dynamic-ingest/ingest-guides/images-and-dynamic-ingest-api.html) for more information'
+          example: true
+          type: boolean
+        profile:
+          description: >-
+            The ingest profile to use - we recommend that you do **not** include this field and use the account default profile instead
+          type: string
+      title: Create_VOD_ClipBody.outputs.videocloud.ingest
+      description: >-
+        An object containing inputs for Video Cloud video ingestion - see the [Dynamic Ingest Reference](https://apis.support.brightcove.com/dynamic-ingest/references/reference.html#operation/AccountsVideosIngestRequestsByAccountIdAndVideoIdPost) - do not include the master field, as that information will be provided by the Live API. If no ingest profile is specified, the account default profile will be used.
+      type: object
+    CreateVodClipbody.outputs.videocloud.video:
+      properties:
+        cue_points:
+          description: Array of cuepoint objects
+          items:
+            $ref: >-
+              #/components/schemas/CreateVodClipbody.outputs.videocloud.video.cuePoint
+          type: array
+        custom_fields:
+          description: >-
+            An object whose properties are `field_name`:`value` pairs - be sure to the *internal* name of the field
+          type: object
+        description: 
+          description: Video short description
+          type: string
+        drm_disabled:
+          description: >-
+            Use to disable DRM packaging for this video - applies only to DRM-enabled accounts
+          type: boolean
+        economics:
+          type: string
+          description: whether the video supports ads
+          enum:
+            - AD_SUPPORTED
+            - FREE
+        geo:
+          $ref: '#/components/schemas/CreateVodClipbody.outputs.videocloud.video.geo'
+        long_description: 
+          description: A longer description of the video
+          type: string
+        name:
+          description: Title of the video clip
+          type: string
+        reference_id:
+          description: Reference id for the clip - must be unique within the account
+          type: string
+        schedule:
+          $ref: >-
+            #/components/schemas/CreateVodClipbody.outputs.videocloud.video.schedule
+        state:
+          type: string
+          description: Whether the video should be active or inactive
+          example: ACTIVE
+          enum:
+            - ACTIVE
+            - INACTIVE
+        tags:
+          description: >-
+            Array of tags for the video - note that  tags are string that may not contain a comma
+          type: object
+      required:
+        - name
+      title: Create_VOD_ClipBody.outputs.videocloud.video
+      description: >-
+        'An object containing inputs for Video Cloud video object creation - see the [CMS API Reference](https://apis.support.brightcove.com/cms/references/reference.html#operation/CreateVideo)'
+      type: object
+    CreateVodClipbody.outputs.videocloud.video.cuePoint:
+      properties:
+        force-stop:
+          description: whether video is force-stopped at the cue point
+          type: boolean
+        metadata:
+          description: optional metadata string (512 single-byte characters maximum)
+          type: string
+        name:
+          description: cue point name
+          type: string
+        time:
+          description: 'time of the cue point in seconds; example: 10.527'
+          type: number
+        type:
+          description: cue point type
+          enum:
+            - AD
+            - CODE
+          example: AD
+          type: string
+      required:
+        - time
+        - type
+      title: Create_VOD_ClipBody.outputs.videocloud.video.cue_point
+      type: object
+    CreateVodClipbody.outputs.videocloud.video.geo:
+      properties:
+        countries:
+          description: >-
+            array of ISO 3166 list of [2-letter codes](https://www.iso.org/obp/ui/#home) (search for &quot;country codes&quot;)
+          type: string
+        exclude_countries:
+          description: >-
+            if true, country array is treated as a list of countries excluded from viewing
+          type: boolean
+        restricted:
+          description: whether geo-restriction is enabled for this video
+          type: boolean
+      required:
+        - countries
+        - exclude_countries
+        - restricted
+      title: Create_VOD_ClipBody.outputs.videocloud.video.geo
+      type: object
+      description: map of geo-filtering properties
   parameters:
     ContentType:
       name: Content-Type
@@ -5940,6 +6301,15 @@ components:
       required: true
       style: simple
       explode: false
+      schema:
+        type: string
+    job_id:
+      name: job_id
+      in: query
+      description: >-
+        Filter results by particular Job.
+      style: form
+      explode: true
       schema:
         type: string
     live_account_id:
@@ -6148,6 +6518,15 @@ components:
           - processing
           - standby
           - waiting
+    scheduler_account_id:
+      name: account_id
+      in: query
+      description: >-
+        Filter results by particular account. Default value is account API key belongs to
+      style: form
+      explode: true
+      schema:
+        type: string
     state:
       name: state
       in: query
@@ -6339,3 +6718,49 @@ components:
       explode: false
       schema:
         type: string
+    WorkflowId:
+      name: workflow_id
+      in: path
+      description: Scheduler Workflow ID
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    scheduler_state:
+      name: state
+      in: query
+      description: >-
+        Filter results by particular workflow state. Select multiple states with comma
+        separated list
+      style: form
+      explode: true
+      schema:
+        type: string
+        enum:
+          - pending
+          - finished
+          - failed
+          - cancelled
+    start:
+      name: start
+      in: query
+      description: >-
+        Filter results by limiting range of query. Value should be unix time in seconds.
+        Workflows with a workflow_start_time_utc value greater than this will be returned.
+        Can be used with end param.
+      style: form
+      explode: true
+      schema:
+        type: number
+    end:
+      name: end
+      in: query
+      description: >-
+        Filter results by limiting range of query. Value should be unix time in seconds.
+        Workflows with a workflow_start_time_utc value less than this will be returned.
+        Can be used with start param.
+      style: form
+      explode: true
+      schema:
+        type: number

@@ -1,1182 +1,535 @@
-<!doctype html>
-<html lang="en-us">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  
-  <title>Brightcove Icons</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
-  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
-  <link rel="stylesheet" href="/assets/css/local.css">
-  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
-  <script src="/assets/js/sajari-head.js"></script>
-</head>
-
-<body class="body">
-
-<header>
-  <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/logo-bc-live.svg" alt="product logo" style="max-height: 100px;max-width: 232px;"></a>
-<!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">Select Language</option><option value="en|en">English</option><option value="en|zh-TW">繁體中文</option><option value="en|fr">Français</option><option value="en|de">Deutsch</option><option value="en|ja">日本語</option><option value="en|ko">한국어</option><option value="en|es">Español</option></select>
-
-<script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
-</script>
-
-    <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-      <option value="">Other Brightcove Docs</option>
-      
-        
-          <option value="https://support.brightcove.com">Documentation Home</option>
-        
-      
-        
-          <option value="https://audience.support.brightcove.com">Brightcove Audience</option>
-        
-      
-        
-          <option value="https://beacon.support.brightcove.com">Brightcove Beacon</option>
-        
-      
-        
-          <option value="https://campaign.support.brightcove.com">Brightcove Campaign</option>
-        
-      
-        
-          <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-        
-      
-        
-          <option value="https://live.support.brightcove.com">Brightcove Live</option>
-        
-      
-        
-          <option value="https://gallery.support.brightcove.com">Brightcove Gallery</option>
-        
-      
-        
-          <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-        
-      
-        
-          <option value="https://social.support.brightcove.com">Brightcove Social</option>
-        
-      
-        
-          <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-        
-      
-        
-          <option value="https://player.support.brightcove.com">Brightcove Player Development</option>
-        
-      
-        
-          <option value="https://apis.support.brightcove.com">Video Cloud Platform APIs</option>
-        
-      
-        
-          <option value="https://sdks.support.brightcove.com">Video Cloud Device SDKs</option>
-        
-      
-        
-          <option value="https://integrations.support.brightcove.com">Integration / CMS Connectors</option>
-        
-      
-        
-          <option value="https://general.support.brightcove.com">Video Cloud General</option>
-        
-      
-        
-          <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-        
-      
-    </select>
-
-
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?language=en_US"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="support"> Contact Support</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="system status"> System Status</a></span>
-    <br>
-    
-  </div>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      
-      
-      
-      <li class="breadcrumb-item active" aria-current="page">Brightcove Icons</li>
-    </ol>
-  </nav>
-</header>
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Brightcove ブのその他のドキュメント</option>
-          
-            
-              <option value="https://support.brightcove.com">ドキュメントホーム</option>
-            
-          
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Audience</option>
-            
-          
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove ブビーコン</option>
-            
-          
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove ブキャンペーン</option>
-            
-          
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
-          
-            
-              <option value="https://live.support.brightcove.com">Brightcove ブ・ライブ</option>
-            
-          
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove ブギャラリー</option>
-            
-          
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
-          
-            
-              <option value="https://social.support.brightcove.com">Brightcove ブソーシャル</option>
-            
-          
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
-          
-            
-              <option value="https://player.support.brightcove.com">Brightcove ブのプレーヤー開発</option>
-            
-          
-            
-              <option value="https://apis.support.brightcove.com">Video CloudプラットフォームAPI</option>
-            
-          
-            
-              <option value="https://sdks.support.brightcove.com">ビデオクラウドデバイス SDK</option>
-            
-          
-            
-              <option value="https://integrations.support.brightcove.com">統合および CMS コネクタ</option>
-            
-          
-            
-              <option value="https://general.support.brightcove.com">ビデオクラウドの一般情報</option>
-            
-          
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
-          
-        </select>
-
-        <nav class="sidenav">
-          
-            
-            <h5><a href="/">Home</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/get-started/">Getting Started <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcove Live Training Videos</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/delivering-live-streams.html">Delivering Live Streams</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">Live Module Guidelines and Best Practices</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Step-by-Step: Using the Live Module with OBS</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Step-by-Step: Using the Live Module with Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/">General Information <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/live-drm.html">Live DRM</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-platforms-comparison-matrix.html">Live Platforms Comparison Matrix</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-video-glossary.html">Live Video Glossary</a></li>
-                  
-                
-                  
-                    <li><a href="/general/reducing-latency-live-streams.html">Reducing Latency for Live Streams</a></li>
-                  
-                
-                  
-                    <li><a href="/general/supported-encoders-live-events.html">Supported Encoders for Live Events</a></li>
-                  
-                
-                  
-                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Using Akamai Stream Packaging and Wirecast</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-module/">Using the Live Module <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-video-clip-using-live-module.html">Creating a Video Clip</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/host-cisco-webex-conference-brightcove-live.html">Host Cisco Webex to Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/host-zoom-conference-brightcove-live.html">Host Zoom to Brightcove Live</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">Implementing Server-Side Ads</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/live-redundancy.html">Live Redundancy</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-facebook.html">Publishing a Live Event to Facebook</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-youtube.html">Publishing a Live Event to YouTube</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/reviewing-live-analytics.html">Reviewing Live Analytics</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">Using Live RTMP Outputs</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-api/">Working with the Live API <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/getting-started/">Live API: Getting Started <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">Overview: Live API</a></li>
-                        
-                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">Creating a Live Stream using the API</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/code-samples/">Live API: Code Samples <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">Create a Live Job</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">Create a Live Job for MPEG2-TS Input</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">Using RTMP Outputs for Live Events</a></li>
-                        
-                        <li><a href="/live-api/code-samples/simulated-live.html">Simulated Live Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/references/">Live API: References <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/references/live-api-error-messages.html">Error Messages</a></li>
-                        
-                        <li><a href="/live-api/references/live-api-release-notes.html">Release Notes</a></li>
-                        
-                        <li><a href="/live-api/references/reference.html">Live API Reference</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/ssai/">Live API: SSAI <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">Cue Points and Ad Beacons with SSAI</a></li>
-                        
-                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">Server-Side Ad Insertion (SSAI)</a></li>
-                        
-                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">Overview: Player Enhancements for Live SSAI</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/guides/">Live API: Guides <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">Brightcove Live Best Practices</a></li>
-                        
-                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcove Live Program Ad Metadata API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">Creating a Frame-Accurate Clip</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">Creating VOD Clips</a></li>
-                        
-                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">Getting a List of Live or VOD Jobs</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">Insert ID3 timed metadata</a></li>
-                        
-                        <li><a href="/live-api/guides/live-drm-live-api.html">Live DRM via the Live API</a></li>
-                        
-                        <li><a href="/live-api/guides/managing-credentials-live-api.html">Managing Credentials for the Live API</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-notifications.html">Notifications</a></li>
-                        
-                        <li><a href="/general/reducing-latency-live-streams.html">Reducing Latency for Live Streams</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP Outputs</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-static-entry-points.html">Static Entry Points</a></li>
-                        
-                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">Signed URLs and Token Auth with a Live Stream</a></li>
-                        
-                        <li><a href="/live-api/guides/using-live-redundancy.html">Using Live Redundancy</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-vod-live-event.html">VOD from Live Event</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/admin/">Administering Accounts <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">Creating Custom Live Ingest Profiles</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">Fields for Custom Live Ingest Profiles</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-live-settings.html">Managing Live Settings</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-api-authentication-credentials.html">Managing API Authentication Credentials</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/standard-live-ingest-profiles.html">Standard Live Ingest Profiles</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/release-notes/">Release Notes <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/release-notes/known-issues.html">Known Issues</a></li>
-                  
-                
-                  
-                    <li><a href="/release-notes/live-api-release-notes.html">Live API Release Notes</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/">Support <strong>+</strong></a></h5>            
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">Opening a Support Case</a></li>
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Viewing the Brightcove System Status Page</a></li>
-                  
-                
-              </ul>
-            
-          
-      </nav>
-    </div>
-    <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
-  <!-- bootstrap layout -->
-
-<!-- search bar -->
-<div id="nav-search-box" style="margin-top: 1rem;"></div>
-  
-    
-
-
+---
+title: ブライトコーブのアイコン
+parent: Home —
 <style>
-  td i.fas,
-  td i.fab,
-  td i.far,
-  td i.fal,
-  td img {
-    font-size: 2rem;
-
-    color: rgb(149, 192, 57);
-  }
+  td i.fas、td i.fab、td i.far、td i.fal、td img { font-size: 2rem; color: rgb(1, 5, 14); }
 </style>
 <meta name="robots" content="noindex" />
 <article class="landing-page-wrapper">
-  <h1>Standard Icons</h1>
-  <p>You can set the color and size of the icon using the style attribute - for example:</p>
-  <pre class="line-numbers"><code class="language-html">&lt;i class=&quot;fal fa-tools&quot; style="font-size:2rem;color:#33333;"&gt;&lt;/i&gt;</code></pre>
+  <h1>標準アイコン</h1>
+  <p>style 属性を使用して、アイコンの色とサイズを設定できます。次に例を示します。</p>
+  <pre class="line-numbers"><code class="language-html" translate="No">&lt;i class=&quot;fal fa-tools&quot; style="font-size:2rem;color:#33333;"&gt;&lt;/i&gt;</code></pre>
   <section class="bcls-section">
-    <h2 id="Fontawesome_icons">Fontawesome icons</h2>
+    <h2 id="Fontawesome_icons">フォンタウェソームアイコン</h2>
     <table class="bcls-table">
-      <caption class="bcls-caption--table">Fontawesome Icons</caption>
+      <caption class="bcls-caption--table">フォンタウェソームアイコン</caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Icon</th>
-          <th>Code</th>
-          <th>Standard Use</th>
+          <th>アイコン</th>
+          <th>コード</th>
+          <th>標準使用</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
-          <td><i class="fal fa-tools"></i></td>
-          <td><code>&lt;i class="&gt;fal fa-tools"&gt;&lt;/i&gt;</code></td>
-          <td>Administration</td>
+          <td><i data-feather="tool"></i></td>
+          <td><code translate="No">&lt;i class="&gt;fal fa-tools"&gt;&lt;/i&gt;</code></td>
+          <td>管理</td>
         </tr>
         <tr>
-          <td><i class="far fa-ad"></i></td>
-          <td><code>&lt;i class="&gt;far fa-ad"&gt;&lt;/i&gt;</code></td>
-          <td>Advertising</td>
+          <td><i data-feather="dollar-sign"></i></td>
+          <td><code translate="No">&lt;i class="&gt;far fa-ad"&gt;&lt;/i&gt;</code></td>
+          <td>広告</td>
         </tr>
         <tr>
-          <td><i class="far fa-chart-bar"></i></td>
-          <td><code>&lt;i class="far fa-chart-bar"&gt;&lt;/i&gt;</code></td>
-          <td>Analytics</td>
+          <td><i data-feather="bar-chart-2"></i></td>
+          <td><code translate="No">&lt;i class="far fa-chart-bar"&gt;&lt;/i&gt;</code></td>
+          <td>アナリティクス</td>
         </tr>
         <tr>
         <tr>
-          <td><i class="far fa-shapes"></i>/td>
-          <td><code>&lt;i class="far fa-shapes"&gt;&lt;/i&gt;</code></td>
-          <td>Basics</td>
+          <td><i data-feather="sunrise"></i>/td &gt;
+          <td><code translate="No">&lt;i class="far fa-shapes"&gt;&lt;/i&gt;</code></td>
+          <td>基本</td>
         </tr>
         <tr>
           <td><i class="far fa-brackets-curly"></i></td>
-          <td><code>&lt;i class="far fa-brackets-curly"&gt;&lt;/i&gt;</code></td>
-          <td>Code</td>
+          <td><code translate="No">&lt;i class="far fa-brackets-curly"&gt;&lt;/i&gt;</code></td>
+          <td>コード</td>
         </tr>
         <tr>
           <td><i class="fab fa-connectdevelop"></i></td>
-          <td><code>&lt;i class="fab fa-connectdevelop"&gt;&lt;/i&gt;</code></td>
-          <td>Code Solutions</td>
+          <td><code translate="No">&lt;i class="fab fa-connectdevelop"&gt;&lt;/i&gt;</code></td>
+          <td>コードソリューション</td>
         </tr>
         <tr>
           <td><i class="fas fa-mobile-android-alt"></i></td>
-          <td><code>&lt;i class="fas fa-mobile-android-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Create Mobile App</td>
+          <td><code translate="No">&lt;i class="fas fa-mobile-android-alt"&gt;&lt;/i&gt;</code></td>
+          <td>モバイルアプリの作成</td>
         </tr>
         <tr>
-          <td><i class="far fa-browser"></i></td>
-          <td><code>&lt;i class="far fa-browser"&gt;&lt;/i&gt;</code></td>
-          <td>Create a Web App</td>
+          <td><i data-feather="image"></i></td>
+          <td><code translate="No">&lt;i class="far fa-browser"&gt;&lt;/i&gt;</code></td>
+          <td>Web アプリを作成する</td>
         </tr>
         <tr>
-          <td><i class="far fa-edit"></i></td>
-          <td><code>&lt;i class="far fa-edit"&gt;&lt;/i&gt;</code></td>
-          <td>Create App Design</td>
+          <td>&lt;<i data-feather="edit"></i></td>
+          <td><code translate="No">&lt;i class="far fa-edit"&gt;&lt;/i&gt;</code></td>
+          <td>アプリデザインの作成</td>
         </tr>
         <tr>
           <td><i class="far fa-phone-laptop"></i></td>
-          <td><code>&lt;i class="far fa-phone-laptop"&gt;&lt;/i&gt;</code></td>
-          <td>Create Experience</td>
+          <td><code translate="No">&lt;i class="far fa-phone-laptop"&gt;&lt;/i&gt;</code></td>
+          <td>エクスペリエンスの作成</td>
         </tr>
         <tr>
           <td><i class="fal fa-users-medical"></i></td>
-          <td><code>&lt;i class="fal fa-users-medical"&gt;&lt;/i&gt;</code></td>
-          <td>Create Users</td>
+          <td><code translate="No">&lt;i class="fal fa-users-medical"&gt;&lt;/i&gt;</code></td>
+          <td>ユーザーの作成</td>
         </tr>
         <tr>
           <td><i class="fal fa-phone-laptop"></i></td>
-          <td><code>&lt;i class="fal fa-phone-laptop"&gt;&lt;/i&gt;</code></td>
-          <td>Creating Apps</td>
+          <td><code translate="No">&lt;i class="fal fa-phone-laptop"&gt;&lt;/i&gt;</code></td>
+          <td>アプリを作成する</td>
         </tr>
         <tr>
-          <td><i class="fal fa-rocket-launch"></i></td>
-          <td><code>&lt;i class="fal fa-rocket-launch"&gt;&lt;/i&gt;</code></td>
-          <td>Creating your Application</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/send.svg"></td>
+          <td><code translate="No">&lt;i class="fal fa-rocket-launch"&gt;&lt;/i&gt;</code></td>
+          <td>アプリケーションの作成</td>
         </tr>
         <tr>
           <td><i class="fas fa-th-list"></i></td>
-          <td><code>&lt;i class="fas fa-th-list"&gt;&lt;/i&gt;</code></td>
-          <td>Create Playlist</td>
+          <td><code translate="No">&lt;i class="fas fa-th-list"&gt;&lt;/i&gt;</code></td>
+          <td>プレイリストの作成</td>
         </tr>
         <tr>
           <td><i class="far fa-tachometer-fast"></i></td>
-          <td><code>&lt;i class="far fa-tachometer-fast"&gt;&lt;/i&gt;</code></td>
-          <td>Dashboard</td>
+          <td><code translate="No">&lt;i class="far fa-tachometer-fast"&gt;&lt;/i&gt;</code></td>
+          <td>ダッシュボード</td>
         </tr>
         <tr>
           <td><i class="fal fa-filter"></i></td>
-          <td><code>&lt;i class="fal fa-filter"&gt;&lt;/i&gt;</code></td>
-          <td>Data Collection</td>
+          <td><code translate="No">&lt;i class="fal fa-filter"&gt;&lt;/i&gt;</code></td>
+          <td>データ収集</td>
         </tr>
         <tr>
-          <td><i class="far fa-pencil-ruler"></i></td>
-          <td><code>&lt;i class="far fa-pencil-ruler"&gt;&lt;/i&gt;</code></td>
-          <td>Design Considerations</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/pen-tool.svg"></td>
+          <td><code translate="No">&lt;i class="far fa-pencil-ruler"&gt;&lt;/i&gt;</code></td>
+          <td>設計上の考慮事項</td>
         </tr>
         <tr>
           <td><i class="fal fa-code-merge"></i></td>
-          <td><code>&lt;i class="fal fa-code-merge"&gt;&lt;/i&gt;</code></td>
-          <td>Delivery System</td>
+          <td><code translate="No">&lt;i class="fal fa-code-merge"&gt;&lt;/i&gt;</code></td>
+          <td>デリバリーシステム</td>
         </tr>
         <tr>
           <td><i class="fal fa-code"></i></td>
-          <td><code>&lt;i class="fal fa-code"&gt;&lt;/i&gt;</code></td>
-          <td>Developer</td>
+          <td><code translate="No">&lt;i class="fal fa-code"&gt;&lt;/i&gt;</code></td>
+          <td>開発者</td>
         </tr>
         <tr>
           <td><i class="fal fa-file-alt"></i></td>
-          <td><code>&lt;i class="fal fa-file-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Documentation</td>
+          <td><code translate="No">&lt;i class="fal fa-file-alt"&gt;&lt;/i&gt;</code></td>
+          <td>ドキュメンテーション</td>
         </tr>
         <tr>
           <td><i class="fas fa-fast-forward"></i></td>
-          <td><code>&lt;i class="fas fa-fast-forward"&gt;&lt;/i&gt;</code></td>
-          <td>Encoding Guides</td>
+          <td><code translate="No">&lt;i class="fas fa-fast-forward"&gt;&lt;/i&gt;</code></td>
+          <td>エンコーディングガイド</td>
         </tr>
         <tr>
           <td><i class="fal fa-cogs"></i></td>
-          <td><code>&lt;i class="fal fa-cogs"&gt;&lt;/i&gt;</code></td>
-          <td>Encoding Settings</td>
+          <td><code translate="No">&lt;i class="fal fa-cogs"&gt;&lt;/i&gt;</code></td>
+          <td>エンコーディング設定</td>
         </tr>
         <tr>
           <td><i class="fal fa-exclamation-triangle"></i></td>
-          <td><code>&lt;i class="fal fa-exclamation-triangle"&gt;&lt;/i&gt;</code></td>
-          <td>Errors/Troubleshooting</td>
+          <td><code translate="No">&lt;i class="fal fa-exclamation-triangle"&gt;&lt;/i&gt;</code></td>
+          <td>エラー/トラブルシューティング</td>
         </tr>
         <tr>
           <td><i class="far fa-external-link-square-alt"></i></td>
-          <td><code>&lt;i class="far fa-external-link-square-alt"&gt;&lt;/i&gt;</code></td>
-          <td>External Link</td>
+          <td><code translate="No">&lt;i class="far fa-external-link-square-alt"&gt;&lt;/i&gt;</code></td>
+          <td>外部リンク</td>
         </tr>
         <tr>
-          <td><i class="far fa-info-circle"></i></td>
-          <td><code>&lt;i class="far fa-info-circle"&gt;&lt;/i&gt;</code></td>
-          <td>General Information</td>
+          <td><i data-feather="info"></i></td>
+          <td><code translate="No">&lt;i class="far fa-info-circle"&gt;&lt;/i&gt;</code></td>
+          <td>一般情報</td>
         </tr>
         <tr>
-          <td><i class="far fa-location-arrow"></i></td>
-          <td><code>&lt;i class="far fa-location-arrow"&gt;&lt;/i&gt;</code></td>
-          <td>Getting Started</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/play.svg"></td>
+          <td><code translate="No">&lt;i class="far fa-location-arrow"&gt;&lt;/i&gt;</code></td>
+          <td>新しいVideo Cloud Studioの基礎</td>
         </tr>
         <tr>
           <td><i class="fal fa-map-signs"></i></td>
-          <td><code>&lt;i class="fal fa-map-signs"&gt;&lt;/i&gt;</code></td>
-          <td>Guides</td>
+          <td><code translate="No">&lt;i class="fal fa-map-signs"&gt;&lt;/i&gt;</code></td>
+          <td>ガイド</td>
         </tr>
         <tr>
-          <td><i class="fal fa-project-diagram"></i></td>
-          <td><code>&lt;i class="fal fa-project-diagram"&gt;&lt;/i&gt;</code></td>
-          <td>Implementation Phases</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/share-2.svg"></td>
+          <td><code translate="No">&lt;i class="fal fa-project-diagram"&gt;&lt;/i&gt;</code></td>
+          <td>実装フェーズ</td>
         </tr>
         <tr>
           <td><i class="fab fa-ioxhost"></i></td>
-          <td><code>&lt;i class="fab fa-ioxhost"&gt;&lt;/i&gt;</code></td>
-          <td>Ingest Profiles</td>
+          <td><code translate="No">&lt;i class="fab fa-ioxhost"&gt;&lt;/i&gt;</code></td>
+          <td>トランスコードプロファイル</td>
         </tr>
         <tr>
-          <td><i class="far fa-plug"></i></td>
-          <td><code>&lt;i class="far fa-plug"&gt;&lt;/i&gt;</code></td>
-          <td>Install Chrome Plugin</td>
+          <td><i data-feather="log-in"></i></td>
+          <td><code translate="No">&lt;i class="far fa-plug"&gt;&lt;/i&gt;</code></td>
+          <td>Chrome プラグインをインストールする</td>
         </tr>
         <tr>
           <td><i class="fas fa-mobile-alt"></i></td>
-          <td><code>&lt;i class="fas fa-mobile-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Install on your device</td>
+          <td><code translate="No">&lt;i class="fas fa-mobile-alt"&gt;&lt;/i&gt;</code></td>
+          <td>デバイスにインストールする</td>
         </tr>
         <tr>
           <td><i class="far fa-handshake-alt"></i></td>
-          <td><code>&lt;i class="far fa-handshake-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Integration</td>
+          <td><code translate="No">&lt;i class="far fa-handshake-alt"&gt;&lt;/i&gt;</code></td>
+          <td>統合</td>
         </tr>
         <tr>
-          <td><i class="far fa-book-reader"></i></td>
-          <td><code>&lt;i class="far fa-book-reader"&gt;&lt;/i&gt;</code></td>
-          <td>Learning Guide</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/book-open.svg"></td>
+          <td><code translate="No">&lt;i class="far fa-book-reader"&gt;&lt;/i&gt;</code></td>
+          <td>学習ガイド</td>
         </tr>
         <tr>
           <td><i class="fas fa-satellite-dish"></i></td>
-          <td><code>&lt;i class="fas fa-satellite-dish"&gt;&lt;/i&gt;</code></td>
-          <td>Live Video</td>
+          <td><code translate="No">&lt;i class="fas fa-satellite-dish"&gt;&lt;/i&gt;</code></td>
+          <td>ライブ動画</td>
         </tr>
         <tr>
-          <td><i class="fas fa-film"></i></td>
-          <td><code>&lt;i class="fas fa-film"&gt;&lt;/i&gt;</code></td>
-          <td>Managing Videos</td>
+          <td><img class="bcls-icon" src="/assets/images/feather/film.svg"></td>
+          <td><code translate="No">&lt;i class="fas fa-film"&gt;&lt;/i&gt;</code></td>
+          <td>ビデオを管理する</td>
         </tr>
         <tr>
           <td><i class="far fa-compass"></i></td>
-          <td><code>&lt;i class="far fa-compass"&gt;&lt;/i&gt;</code></td>
-          <td>Navigate the UI</td>
+          <td><code translate="No">&lt;i class="far fa-compass"&gt;&lt;/i&gt;</code></td>
+          <td>UI をナビゲートする</td>
         </tr>
         <tr>
-          <td><i class="fal fa-play-circle"></i></td>
-          <td><code>&lt;i class="fal fa-play-circle"&gt;&lt;/i&gt;</code></td>
-          <td>Playback</td>
+          <td><i data-feather="play-circle"></i></td>
+          <td><code translate="No">&lt;i class="fal fa-play-circle"&gt;&lt;/i&gt;</code></td>
+          <td>再生</td>
         </tr>
         <tr>
           <td><i class="fal fa-bring-front"></i></td>
-          <td><code>&lt;i class="fal fa-bring-front"&gt;&lt;/i&gt;</code></td>
-          <td>Playback API</td>
+          <td><code translate="No">&lt;i class="fal fa-bring-front"&gt;&lt;/i&gt;</code></td>
+          <td>再生API</td>
         </tr>
         <tr>
           <td><i class="fal fa-photo-video"></i></td>
-          <td><code>&lt;i class="fal fa-photo-video"&gt;&lt;/i&gt;</code></td>
-          <td>Player Management API</td>
+          <td><code translate="No">&lt;i class="fal fa-photo-video"&gt;&lt;/i&gt;</code></td>
+          <td>プレーヤー管理API</td>
         </tr>
         <tr>
-          <td><i class="far fa-plug"></i></td>
-          <td><code>&lt;i class="far fa-plug"&gt;&lt;/i&gt;</code></td>
-          <td>Plugins</td>
+          <td><i data-feather="log-in"></i></td>
+          <td><code translate="No">&lt;i class="far fa-plug"&gt;&lt;/i&gt;</code></td>
+          <td>プラグイン</td>
         </tr>
         <tr>
           <td><i class="fal fa-key"></i></td>
-          <td><code>&lt;i class="fal fa-key"&gt;&lt;/i&gt;</code></td>
-          <td>Policy API</td>
+          <td><code translate="No">&lt;i class="fal fa-key"&gt;&lt;/i&gt;</code></td>
+          <td>ポリシーAPI</td>
         </tr>
         <tr>
-          <td><i class="far fa-browser"></i></td>
-          <td><code>&lt;i class="far fa-browser"&gt;&lt;/i&gt;</code></td>
-          <td>Publish</td>
+          <td><i data-feather="image"></i></td>
+          <td><code translate="No">&lt;i class="far fa-browser"&gt;&lt;/i&gt;</code></td>
+          <td>公開</td>
         </tr>
         <tr>
           <td><i class="fal fa-books"></i></td>
-          <td><code>&lt;i class="fal fa-books"&gt;&lt;/i&gt;</code></td>
-          <td>References</td>
+          <td><code translate="No">&lt;i class="fal fa-books"&gt;&lt;/i&gt;</code></td>
+          <td>参考文献</td>
         </tr>
         <tr>
-          <td><i class="far fa-bell"></i></td>
-          <td><code>&lt;i class="far fa-bell"&gt;&lt;/i&gt;</code></td>
-          <td>Release Notes</td>
+          <td><i data-feather="bell"></i></td>
+          <td><code translate="No">&lt;i class="far fa-bell"&gt;&lt;/i&gt;</code></td>
+          <td>リリースノート</td>
         </tr>
         <tr>
           <td><i class="fal fa-search"></i></td>
-          <td><code>&lt;i class="fal fa-search"&gt;&lt;/i&gt;</code></td>
-          <td>Search</td>
+          <td><code translate="No">&lt;i class="fal fa-search"&gt;&lt;/i&gt;</code></td>
+          <td>検索</td>
         </tr>
         <tr>
           <td><i class="fal fa-lock-alt"></i></td>
-          <td><code>&lt;i class="fal fa-lock-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Security, OAuth, DRM</td>
+          <td><code translate="No">&lt;i class="fal fa-lock-alt"&gt;&lt;/i&gt;</code></td>
+          <td>セキュリティ、OAuth、DRM</td>
         </tr>
         <tr>
-          <td><i class="far fa-hat-wizard"></i></td>
-          <td><code>&lt;i class="far fa-hat-wizard"&gt;&lt;/i&gt;</code></td>
-          <td>Styling</td>
+          <td><i data-feather="zap"></i></td>
+          <td><code translate="No">&lt;i class="far fa-hat-wizard"&gt;&lt;/i&gt;</code></td>
+          <td>スタイル設定</td>
         </tr>
         <tr>
-          <td><i class="far fa-question-circle"></i></td>
-          <td><code>&lt;i class="far fa-question-circle"&gt;&lt;/i&gt;</code></td>
-          <td>Support</td>
+          <td><i data-feather="help-circle"></i></td>
+          <td><code translate="No">&lt;i class="far fa-question-circle"&gt;&lt;/i&gt;</code></td>
+          <td>サポート</td>
         </tr>
         <tr>
           <td><i class="far fa-sync"></i></td>
-          <td><code>&lt;i class="far fa-sync"&gt;&lt;/i&gt;</code></td>
-          <td>Syncing</td>
+          <td><code translate="No">&lt;i class="far fa-sync"&gt;&lt;/i&gt;</code></td>
+          <td>同期中</td>
         </tr>
         <tr>
           <td><i class="fal fa-rss"></i></td>
-          <td><code>&lt;i class="fal fa-rss"&gt;&lt;/i&gt;</code></td>
-          <td>Syndication</td>
+          <td><code translate="No">&lt;i class="fal fa-rss"&gt;&lt;/i&gt;</code></td>
+          <td>シンジケーション</td>
         </tr>
         <tr>
-          <td><i class="far fa-exclamation-triangle"></i></td>
-          <td><code>&lt;i class="far fa-exclamation-triangle"&gt;&lt;/i&gt;</code></td>
-          <td>Troubleshooting</td>
+          <td><i data-feather="alert-triangle"></i></td>
+          <td><code translate="No">&lt;i class="far fa-exclamation-triangle"&gt;&lt;/i&gt;</code></td>
+          <td>トラブルシューティング</td>
         </tr>
         <tr>
           <td><i class="far fa-cloud-upload-alt"></i></td>
-          <td><code>&lt;i class="far fa-cloud-upload-alt"&gt;&lt;/i&gt;</code></td>
-          <td>Upload</td>
+          <td><code translate="No">&lt;i class="far fa-cloud-upload-alt"&gt;&lt;/i&gt;</code></td>
+          <td>アップロード</td>
         </tr>
         <tr>
           <td><img src="https://support.brightcove.com/site-assets/images/site/product-logos/beacon-nut.svg"></td>
-          <td><code>&lt;img src="https://support.brightcove.com/site-assets/images/site/product-logos/beacon-nut.svg"&gt;</code></td>
-          <td>Using {product} (need to create the icon)</td>
+          <td><code translate="No">&lt;img src="https://support.brightcove.com/site-assets/images/site/product-logos/beacon-nut.svg"&gt;</code></td>
+          <td>使用{product} (アイコンを作成する必要がある)</td>
         </tr>
       </tbody>
     </table>
   </section>
   <section class="bcls-section">
-    <h2 id="bc_icons">Brightcove.com icons</h2>
+    <h2 id="bc_icons">Brightcove.com アイコン</h2>
     <table class="bcls-table">
-      <caption class="bcls-caption--table">BC Icons</caption>
+      <caption class="bcls-caption--table">BCアイコン</caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Icon</th>
-          <th>Code</th>
+          <th>アイコン</th>
+          <th>コード</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
           <td><i class="icon-enterprise"></i></td>
-          <td><code>&lt;i class=&quot;icon-enterprise&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-enterprise&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-ad-insertion"></i></td>
-          <td><code>&lt;i class=&quot;icon-ad-insertion&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-ad-insertion&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-add"></i></td>
-          <td><code>&lt;i class=&quot;icon-add&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-add&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-advertising"></i></td>
-          <td><code>&lt;i class=&quot;icon-advertising&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-advertising&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-analytics"></i></td>
-          <td><code>&lt;i class=&quot;icon-analytics&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-analytics&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-arrow-left-inverted"></i></td>
-          <td><code>&lt;i class=&quot;icon-arrow-left-inverted&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-arrow-left-inverted&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-arrow-left"></i></td>
-          <td><code>&lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-arrow-right-inverted"></i></td>
-          <td><code>&lt;i class=&quot;icon-arrow-right-inverted&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-arrow-right-inverted&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-arrow-right"></i></td>
-          <td><code>&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-automation"></i></td>
-          <td><code>&lt;i class=&quot;icon-automation&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-automation&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-badge"></i></td>
-          <td><code>&lt;i class=&quot;icon-badge&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-badge&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-calendar"></i></td>
-          <td><code>&lt;i class=&quot;icon-calendar&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-calendar&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-case-study"></i></td>
-          <td><code>&lt;i class=&quot;icon-case-study&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-case-study&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-cdn"></i></td>
-          <td><code>&lt;i class=&quot;icon-cdn&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-cdn&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-chat"></i></td>
-          <td><code>&lt;i class=&quot;icon-chat&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-chat&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-check-mark"></i></td>
-          <td><code>&lt;i class=&quot;icon-check-mark&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-check-mark&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-chevron-down"></i></td>
-          <td><code>&lt;i class=&quot;icon-chevron-down&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-chevron-down&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-close"></i></td>
-          <td><code>&lt;i class=&quot;icon-close&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-close&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-connected-tv"></i></td>
-          <td><code>&lt;i class=&quot;icon-connected-tv&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-connected-tv&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-delivery"></i></td>
-          <td><code>&lt;i class=&quot;icon-delivery&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-delivery&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-desktop-player"></i></td>
-          <td><code>&lt;i class=&quot;icon-desktop-player&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-desktop-player&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-discover"></i></td>
-          <td><code>&lt;i class=&quot;icon-discover&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-discover&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-distribution"></i></td>
-          <td><code>&lt;i class=&quot;icon-distribution&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-distribution&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-document"></i></td>
-          <td><code>&lt;i class=&quot;icon-document&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-document&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-ecommerce"></i></td>
-          <td><code>&lt;i class=&quot;icon-ecommerce&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-ecommerce&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-education"></i></td>
-          <td><code>&lt;i class=&quot;icon-education&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-education&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-folder"></i></td>
-          <td><code>&lt;i class=&quot;icon-folder&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-folder&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-food"></i></td>
-          <td><code>&lt;i class=&quot;icon-food&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-food&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-gallery"></i></td>
-          <td><code>&lt;i class=&quot;icon-gallery&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-gallery&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-health"></i></td>
-          <td><code>&lt;i class=&quot;icon-health&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-health&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-hex"></i></td>
-          <td><code>&lt;i class=&quot;icon-hex&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-hex&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-idea"></i></td>
-          <td><code>&lt;i class=&quot;icon-idea&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-idea&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-ingest"></i></td>
-          <td><code>&lt;i class=&quot;icon-ingest&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-ingest&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-laptop"></i></td>
-          <td><code>&lt;i class=&quot;icon-laptop&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-laptop&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-location"></i></td>
-          <td><code>&lt;i class=&quot;icon-location&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-location&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-loyalty"></i></td>
-          <td><code>&lt;i class=&quot;icon-loyalty&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-loyalty&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-mobile-video"></i></td>
-          <td><code>&lt;i class=&quot;icon-mobile-video&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-mobile-video&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-mobile"></i></td>
-          <td><code>&lt;i class=&quot;icon-mobile&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-mobile&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-monetize"></i></td>
-          <td><code>&lt;i class=&quot;icon-monetize&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-monetize&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-multi-platform"></i></td>
-          <td><code>&lt;i class=&quot;icon-multi-platform&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-multi-platform&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-news"></i></td>
-          <td><code>&lt;i class=&quot;icon-news&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-news&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-ott"></i></td>
-          <td><code>&lt;i class=&quot;icon-ott&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-ott&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-recommendation"></i></td>
-          <td><code>&lt;i class=&quot;icon-recommendation&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-recommendation&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-schedule"></i></td>
-          <td><code>&lt;i class=&quot;icon-schedule&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-schedule&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-search"></i></td>
-          <td><code>&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-security"></i></td>
-          <td><code>&lt;i class=&quot;icon-security&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-security&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-settings"></i></td>
-          <td><code>&lt;i class=&quot;icon-settings&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-settings&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-social"></i></td>
-          <td><code>&lt;i class=&quot;icon-social&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-social&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-speaker"></i></td>
-          <td><code>&lt;i class=&quot;icon-speaker&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-speaker&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-star"></i></td>
-          <td><code>&lt;i class=&quot;icon-star&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-star&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-stream"></i></td>
-          <td><code>&lt;i class=&quot;icon-stream&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-stream&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-subtract"></i></td>
-          <td><code>&lt;i class=&quot;icon-subtract&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-subtract&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-tablet"></i></td>
-          <td><code>&lt;i class=&quot;icon-tablet&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-tablet&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-touch"></i></td>
-          <td><code>&lt;i class=&quot;icon-touch&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-touch&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-user"></i></td>
-          <td><code>&lt;i class=&quot;icon-user&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-user&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-users"></i></td>
-          <td><code>&lt;i class=&quot;icon-users&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-users&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
         <tr>
           <td><i class="icon-video"></i></td>
-          <td><code>&lt;i class=&quot;icon-video&quot;&gt;&lt;/i&gt;</code></td>
+          <td><code translate="No">&lt;i class=&quot;icon-video&quot;&gt;&lt;/i&gt;</code></td>
         </tr>
       </tbody>
     </table>
   </section>
 </article>
-<!-- complete bootstrap layout -->
-    </div>
-    <div class="col-sm-2 right-side-bar">
-      
-      <nav class="right-side-nav">
-        <h6 class="toc">Page Contents</h6>
-        <ul id="in_page_nav" class="list-none"></ul>
-      </nav>
-      
-    </div>
-  </div>
-</div>
-
-<hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
-    <div class="region region-footer-top-center col-md-12">
-      <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
-
-        <h2>Brightcove Support</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://status.brightcove.com">System Status</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?language=en_US">Contact Support</a>
-          </li>
-          <li>
-            <a href="https://support.brightcove.com/">Documentation</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-training-menu" id="block-training" class="footer-menu">
-
-        <h2>Training</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://studio.support.brightcove.com/training/online-training-courses.html">Online Courses</a>
-          </li>
-          <li>
-            <a href="https://studio.support.brightcove.com/training/register-training.html">Register for a course</a>
-          </li>
-          <li>
-            <a href="https://university.brightcove.com/">Brightcove University</a>
-          </li>
-        </ul>
-
-      </nav>
-      <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
-
-        <h2>Brightcove</h2>
-
-        <ul class="menu">
-          <li>
-            <a href="https://www.brightcove.com">Brightcove.com</a>
-          </li>
-          <li>
-            <a href="https://supportportal.brightcove.com/s/login/?language=en_US" data-drupal-link-system-path="https://supportportal.brightcove.com/s/login/?language=en_US">Contact Us</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
-    <div class="region region-footer-bottom-center col-md-12">
-      <div class="bcls-copyright footer-menu">
-        <table>
-          <tr>
-            <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. All rights reserved.</div>
-            </td>
-            <td><a href="https://www.brightcove.com/en/legal/privacy">Privacy</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">Terms &amp; Conditions</a></td>
-            <td>
-              <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</footer>
-<div id="talla_wrapper">
-  <p style="text-align: right;position: relative;"><button style="background:rgb(149, 192, 57);color:Snow;padding:.3rem;position:fixed;right:0;bottom:1em;z-index:9999999" onclick="javascript:displayChat()">Have a question? </button> </p>
-  <div id="talla_chat">
-</div>
-</div>
-<script>
-      
-  var searchBox = sajari.init({
-    mode: "search-box",
-    project: "1588255093746585379", // Set this to your project.
-    collection: "brightcove-documenation", // Set this to your collection.
-    instantPipeline: "autocomplete", // Pipeline used as you type
-    inputPlaceholder: "Search", // Input element placeholder
-    maxSuggestions: 5, // Maximum number of suggestions to show
-    attachSearchBox: document.getElementById("nav-search-box") // DOM element to attach to
-  });
-  
-    searchBox("sub", "pipeline.search-sent", function (_, query) {
-      window.location = "/search.html?q=" + encodeURIComponent(query.q);
-    });
-  
-
-</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/setDate.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
-  
-  <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
-  
-  <script src="/assets/js/sites_nav.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
-  <script src="/assets/js/feedback.js"></script>
-  
-  <script src="/assets/js/sajari-search-foot.js"></script>
-  
-  <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
-    a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
-      background-color: lightblue;
-    }
-    div.sj-tabs__tab {
-      margin-top: 3rem;
-      margin-left: .3rem;
-      border-top-left-radius: .4rem;
-      border-top-right-radius: .4rem;
-      background-color:#e8e8e8;
-    }
-
-    div.sj-tabs__tab.sj-tabs__tab--selected {
-      border-bottom-color: crimson;
-      background-color: #f8f8f8;
-    }
-
-    p.sj-results__result__description.css-p9jvyt {
-      font-size: 1rem;
-    }
-
-    .sj-result__text.css-31l7gp h3 {
-      color: navy;
-      font-size: 1.4rem;
-    }
-    </style>
-
-</body>
-
-</html>

@@ -1,0 +1,54 @@
+- Home:
+  name: ドキュメンテーションホーム
+  url: 'https://support.brightcove.com' 
+- VideoCloud:
+  name: -ビデオクラウド-
+  url: '' 
+- Studio:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドスタジオ'
+  url: 'https://studio.support.brightcove.com' 
+- Player:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブプレイヤー開発'
+  url: 'https://player.support.brightcove.com' 
+- APIs:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドプラットフォームAPI'
+  url: 'https://apis.support.brightcove.com' 
+- SDKs:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドデバイスSDK'
+  url: 'https://sdks.support.brightcove.com' 
+- Integration:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;統合とCMSコネクタ'
+  url: 'https://integrations.support.brightcove.com' 
+- General:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドの一般情報'
+  url: 'https://general.support.brightcove.com' 
+- VideoEssentials:
+  name: -ビデオエッセンシャル-
+  url: '' 
+- Beacon:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブビーコン'
+  url: 'https://beacon.support.brightcove.com' 
+- Live:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブライブ'
+  url: 'https://live.support.brightcove.com' 
+- Zencoder:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp; Zencoder'
+  url: 'https://zencoder.support.brightcove.com' 
+- VideoCloudAddOns:
+  name: -ビデオクラウドアドオン-
+  url: '' 
+- Campaign:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブキャンペーン'
+  url: 'https://campaign.support.brightcove.com' 
+- Engage:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブエンゲージ'
+  url: 'https://engage.support.brightcove.com' 
+- Gallery:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブギャラリー'
+  url: 'https://gallery.support.brightcove.com' 
+- Social:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブソーシャル'
+  url: 'https://studio.support.brightcove.com/social/index.html' 
+- SSAI:
+  name: '&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブSSAI'
+  url: 'https://ssai.support.brightcove.com' 

@@ -1,0 +1,138 @@
+---
+title: 'ライブストリームのクリップ生成のスケジュール'
+description: 'クリップエンドポイントを使用すると、既存のライブジョブのクリップイベントをスケジュールできます。指定された時間に、ユーザーの代わりにクリップジョブを開始するために必要なAPI呼び出しが実行されます。'
+parent: Guides 
+grandparent: Live API
+layout: staging
+---
+
+<!-- Remember to change API reference links when going live -->
+
+<h1>{{ page.title }}</h1>
+<article class="bcls-article">
+  <summary>{{ page.description }}</summary>
+	<section class="bcls-section">
+		<h2 id="Requirements">要件</h2>
+		<ul>
+			<li>アカウントのライブ API キー。</li>
+			<li>ライブアカウントでは、スケジューラオーバーライドを有効にする必要があります。</li>
+		</ul>
+	</section>
+	<section class="bcls-section">
+		<h2 id="Create_a_Clip_scheduler_workflow">クリップスケジューラワークフローを作成する</h2>
+		<p>クリップを作成するときは、クリップ要求を行うために、クリップ時間の境界（<code translate="no"></code>出力フィールド）とスケジュールされた時間（<code translate="no">time_utc</code>フィールド）の両方を指定する必要があります。</p>
+		<p><code translate="no"></code>リクエストボディの出力フィールドは、標準 VOD <code translate="no"></code>エンドポイントの出力フィールドの同じフィールドをすべてサポートします。ただし、<strong>スケジュールされたクリップでは、リストではなく 1</strong>つの出力しかサポートされません。使用可能なフィールドの詳細については、<a href="/live-api/guides/live-api-creating-vod-clips.html"> VOD</a>クリッピングサポートドキュメントを参照してください。</p>
+		<p>通常、<code translate="no"> time_utc</code>はクリップの終了境界に一致するように設定します。スケジュールされた時刻は、<strong></strong>クリップの終了境界より後になければなりません。そうしないと、スケジュールされた時間にクリップ要求が失敗します。</p>
+		<p><code translate="no">time_utc</code>フィールドのタイムスタンプは、UNIX タイムスタンプとして秒単位の UTC 形式にする必要があります。<a href="https://www.unixtimestamp.com/" rel="nofollow">https://www.unixtimestamp.com/</a>で変換できます。</p>
+		<p><code translate="no">2021-02-09T 13:55 + 00:00</code>から始まる15分のクリップをスケジュールするとします。<code translate="no">output.start_time</code>と<code translate="no"> output.end_time</code>を使用して、クリップの境界を秒単位の UNIX 時間として指定できます。（繰り返しますが、を参照してください<a href="/live-api/guides/live-api-creating-vod-clips.html">VODクリッピングサポートドキュメント</a>利用可能なフィールドの詳細については）。</p>
+		<pre><code translate="no">始まる時間：2021-02-09T13：55：00 + 00：00 = 1612878900 end_time：2021-02-09T 14:10:00 + 00:00 = 1612879800</code></pre>
+		<p>スケジューラーはクリップ要求をスケジュールするための時間も必要とするため、と同じ値を使用できます。<code translate="no">終了時間</code>また、秒単位のUNIX時間であるためです。</p>
+		<p>また、クリップの Videoclud Video を作成したいので、<code translate="no">それを出力に含めます</code>。Videocloud Videoはワークフローのスケジュール時に作成され、そのIDが応答で返されるため、クリップが作成される前にビデオIDを知ることができます。後でクリップリクエストをキャンセルした場合、またはスケジュールされた時間にクリップリクエストが失敗した場合、Videocoud 動画はアカウントから削除されません。</p>
+		<h3>要求</h3>
+		<p>ワークフローを作成するには、次の<code translate="no"> POST</code>リクエストを実行します。</p>
+		<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip</code></pre>
+		
+		<h3>ヘッダー</h3>
+		
+<pre><code translate="no">コンテンツタイプ：application / json X-API-KEY：APIキー</code></pre>
+		
+		<h3>リクエスト本文</h3>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"job_id":  "your Job ID",
+	"description": "My Scheduled Clip",
+	"clip": {
+		"output": {
+			"label": "My Scheduled Clip",
+			"start_time": 1612878900,
+			"end_time": 1612879800,
+			"videocloud": {
+				"video": {
+					"name": "My Scheduled Clip"
+				}
+			}
+		},
+		"time_utc": 1612879800
+	}
+}</code></pre>
+		
+<details>
+	<summary>レスポンスの例</summary>
+<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "pending", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879800, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" } }}、 "time_utc"：1612879800} "workflow_id"： "d44cf29f4f184757ac0995beb8a0097e"、}</code></pre>
+</details>		
+		<p><code translate="no">clip.output.videocloud.video.id</code>には、新しく作成されたビデオクラウドビデオのIDが含まれていることに注意してください。<code translate="no">time_utc</code>では、取り込んだクリップでビデオソースが更新されます。</p>
+		</section>
+		<section class="bcls-section">
+			<h2 id="Update_a_Clip_scheduler_workflow">クリップスケジューラワークフローを更新する</h2>
+			<p><code translate="no"></code>クリップの出力と<code translate="no"> time_utc</code>の両方を更新できます。これらは、ジョブが保留中の状態 (「state」: <code translate="no">「pending」)</code>の場合にのみ更新できます。</p>
+			<p>前の例に従って、クリップを計画より5分短くする必要があります。<code translate="no"></code>出力フィールドを更新するときは、変更だけでなく、完全なオブジェクトを指定する必要があります。これには、上記のcreate呼び出しによって返されたVideocloud VideoIDが含まれます。</p>
+			<p>この例では、両方を更新したことに注意してください<code translate="no">終了時間</code>と<code translate="no">time_utc</code> 5分の短縮を反映します。</p>
+			<h3>要求</h3>
+			<p>ワークフローを更新するには、次の<code translate="no"></code> PUT リクエストを実行します。</p>
+			<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip/ <span class="bcls-input">{workflow_id}</span></code></pre>
+			
+			<h3>ヘッダー</h3>
+			
+	<pre><code translate="no">コンテンツタイプ：application / json X-API-KEY：APIキー</code></pre>
+			
+			<h3>リクエスト本文</h3>
+	<pre class="line-numbers"><code class="language-json" translate="No">{
+		"clip": {
+			"output": {
+				"label": "My Scheduled Clip",
+				"start_time": 1612878900,
+				"end_time": 1612879500,
+				"videocloud": {
+					"video": {
+						"id": "70702010152202",
+						"name": "My Scheduled Clip"
+					}
+				}
+			},
+			"time_utc": 1612879500
+		}
+	}</code></pre>
+			
+	<details>
+		<summary>レスポンスの例</summary>
+	<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "pending", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879500, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" } }}、 "time_utc"：1612879500} "workflow_id"： "d44cf29f4f184757ac0995beb8a0097e"、}</code></pre>
+	</details>		
+	</section>
+	<section class="bcls-section">
+		<h2 id="Cancel_a_Clip_scheduler_workflow">クリップスケジューラワークフローをキャンセルする</h2>
+		<p><code translate="no">DELETE</code>リクエストでクリップをキャンセルできます。</p>
+		<p>注:クリップワークフローをキャンセルする場合、スケジューリング時に作成された Videocloud Video <strong></strong>はバックエンドによって削除されません。孤立した動画は、Videocloud アカウントから手動で削除する必要があります。</p>
+		<h3>要求</h3>
+		<p>ワークフローを更新するには、次の<code translate="no"> DELETE</code>リクエストを実行します。</p>
+		<pre><code class="language-http" translate="no">https://api.bcovlive.io/v1/scheduler/clip/ <span class="bcls-input">{workflow_id}</span></code></pre>
+		
+		<h3>ヘッダー</h3>
+		
+X-API-KEY: あなたの API キー</code></pre>
+		
+		<h3>リクエスト本文</h3>
+		<p>このリクエストにはリクエスト本文がありません。</p>		
+<details>
+	<summary>レスポンスの例</summary>
+<pre><code class="language-json" translate="no">{ "account_id": "your Account ID", "description": "My Tuesday Clip", "type": "clip", "job_id": "your Job ID", "clip": { "state": "cancelled", "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879500, "videocloud": { "video": { "id": "70702010152202", "name": "My Scheduled Clip" } }}、 "time_utc"：1612879500} "workflow_id"： "d44cf29f4f184757ac0995beb8a0097e"、}</code></pre>
+</details>		
+</section>
+<section class="bcls-section">
+  <h2 id="notifications">通知</h2>
+  <p>オプションで、ワークフローの作成時に通知を構成できます。<code translate="no">POSTするサービスの URL</code>を提供する必要があります。スケジューラーがクリップ呼び出しを行うと、通知が送信されます。クリップの<code translate="no"> n</code>秒前に通知を受信するように構成することもできます。詳細については、<a href="/live-api/guides/live-scheduler-notifications.html"></a>ライブスケジューラ通知を参照してください。</p>
+	<details>
+		<summary>リクエスト本文の例</summary>
+	<pre><code class="language-json" translate="no">{"job_id"： "あなたのジョブID"、 "説明"：「マイスケジュールクリップ」, <span class="bcls-highlight">「notification_url」: "http://example.com/live/clip/callbacks"</span> ,「クリップ」: { "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879800, "videocloud": { "video": { "name": "My Scheduled Clip" } },「time_utc」: 1612879800, <span class="bcls-highlight">「通知」:600</span> }}</code></pre>
+	</details>
+</section>
+<section class="bcls-section">
+	<h2 id="related_topics">関連トピック</h2>
+	<ul>
+		<li><a href="/live-api/guides/live-scheduler.html">概要:ライブスケジューラ</a></li>
+		<li><a href="/live-api/guides/live-scheduler-stop-start.html">SEP ストリームのアクティブ化/非アクティブ化のスケジューリング</a></li>
+		<li><a href="/live-api/guides/live-scheduler-notifications.html">ライブスケジューラ通知</a></li>
+		<li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント (SEP) ジョブ</a></li>
+		<li><a href="/live-api/references/reference-staging.html">ライブ API リファレンス</a></li>
+		<li><a href="/live-module/scheduling-live-event.html">コントロールルームでのライブイベントの自動開始/停止</a></li>
+	</ul>
+</section>
+</article>

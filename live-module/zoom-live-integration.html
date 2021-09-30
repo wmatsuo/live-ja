@@ -1,0 +1,144 @@
+---
+title: ブライトコーブライブ-ズームインテグレーション
+parent: Live Module
+---
+
+<article class="bcls-article">
+  <h1>ズーム会議をBrightcoveLiveに統合する</h1>
+  <summary><p>Brightcove Live Zoomの統合により、BrightcoveLiveを使用してZoom会議を簡単にブロードキャストできます。</p></summary>
+
+  <section class="bcls-section">
+    <h2 id="schedule">前提条件</h2>
+    <h3>ズームマーケットプレイスで</h3>
+    <p>ブライトコーブライブとのズーム統合は、<strong></strong>ズームマーケットプレイスのブライトコーブライブコネクトアプリによって管理されます。これは、ライセンスされた所有者または管理者レベルのZoomアカウントで使用するためのアカウントレベルのアプリです。Zoom アカウントに、統合をサポートする正しい権限があることを確認してください。</p>
+
+    <h3>ブライトコーブの動画クラウドで</h3>
+    <p>統合を開始する前に、イベントが Zoom からストリーミングされているかどうかを追跡するカスタムメタデータフィールドが必要です。これにより、セッション間の統合の状態が追跡されます。つまり、イベントが現在 Zoom ミーティングにリンクされている場合です。カスタムメタデータフィールドの追加方法の詳細については、<a href="https://studio.support.brightcove.com/admin/creating-custom-metadata-fields.html" target="_blank">次のドキュメントを参照してください</a>。 </p>
+    <ol class="bcls-tasklist-restart">
+        <li><strong>Video Cloud Studio</strong> &gt; <strong>管理者</strong> &gt; <strong>ビデオフィールド</strong> &gt; <strong>カスタムフィールドの追加に移動します。</strong></li>。
+        <li><strong></strong>カスタムメタデータフィールドの表示名を記述します。</li>
+        <li>[ <strong>内部名</strong> ] フィールドには、次のように記述する必要があります。<strong> bc_meeting_id</strong>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/1-id-meeting-field.png" /></figure>
+        <aside class="bcls-aside bcls-aside--information">カスタムフィールドに外部ズームIDまたはデータを追加しないでください。</aside>
+
+        </li>
+        <li>書く<strong>説明</strong>カスタムメタデータフィールド用。</li>
+
+    </ol>
+    <h3>ベストプラクティス</h3>
+    <p>最良の結果を得るには、以下の指示に従ってください。</p>
+    <ol class="bcls-tasklist-restart">
+      <li>使用<strong>始める</strong>と<strong>やめる</strong>ホストのズームプレーヤーではなく、コントロールルームのブロードキャストボタン。</li>
+      <li>単一のアカウントで複数のZoomミーティングを同時にストリーミングすることは避けてください。</li>
+    </ol>
+    
+  </section>
+
+  <section class="bcls-section">
+
+    <h2 id="schedule">ズームミーティングの作成</h2>
+
+  <ol class="bcls-tasklist-restart">
+  <li>まず、<a href="https://zoom.us/" target="_blank"> Zoom アカウントにアクセスし</a>、Zoom ミーティングを作成します。Zoom ミーティングの作成方法については、<a href="https://support.zoom.us/hc/en-us/articles/201362413-Scheduling-meetings" target="_blank"> Zoom のドキュメントを参照してください</a>。 </li>
+  <li>Zoom で、<strong> [設定]</strong> &gt; [ <strong>ミーティング (詳細設定)]</strong> &gt; [ <strong>ライブストリーミングミーティング]</strong>の順に選択します。 </li>
+  <li>Zoom <strong></strong>アカウント設定でカスタムライブストリーミングサービスが有効になっていることを確認します。
+<figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/2-zoom-service-enabled.png" /></figure>
+
+    </li>
+</ol>
+
+</section>
+
+<section class="bcls-section">
+
+    <h2 id="schedule">ZoomアカウントとBrightcoveLiveの統合</h2>
+
+    <p>Zoom アカウントを Brightcove Live と統合するには、次の手順に従います。</p>
+
+    <ol class="bcls-tasklist-restart">
+        <li>ビデオクラウドスタジオにログインします。</li>
+        <li>ナビゲーションヘッダーの [ <strong>Admin</strong> ] ボタンをクリックします。</li>
+        <li>ドロップダウンメニューから [ <strong>統合]</strong>オプションを選択します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/3-Integrations-UI-Admin.png" /></figure>
+        </li>
+        <li>[ <strong>統合を追加]</strong>ボタンをクリックして、1 つまたは複数の Zoom アカウントをブライトコーブビデオクラウドにリンクします。</li>
+        <li>Zoom アカウントへのアクセスを要求するポップアップウィンドウが表示されます。[ <strong>承認]</strong>ボタンをクリックします。</li>
+        <li>Zoom 認証情報を入力して、アカウントを統合します。</li>
+        
+    </ol>
+</section>
+
+<section class="bcls-section">
+
+    <h2 id="schedule">ブライトコーブのライブイベントへのズームインテグレーションの追加</h2>
+
+    <p>Brightcove ライブイベントに Zoom インテグレーションを追加するには、次の手順に従います。</p>
+
+    <ol class="bcls-tasklist-restart">
+    <li>Video Cloud の<a href="https://studio.brightcove.com/" target="_blank"> Live</a>モジュールに移動します。</li>
+    <li>[ <strong>ライブイベントの管理]</strong>ページの [ <strong>イベントを作成</strong> ] ボタンをクリックします。ライブイベントの作成方法の詳細については、「<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html#create" target="_blank">ライブモジュールを使用したライブイベントの作成と管理」</a>を参照してください。</li>
+    <li>「<strong>統合」</strong>セクションに到達するまで、ライブイベントの詳細を通常どおり入力します。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="600" height="500" src="/assets/images/general/live-zoom-integration/4-add_integration_button.png" /></figure>
+
+    </li>
+    <li>[ <strong>統合の追加</strong> ] ボタンをクリックします。</li>
+    <li>アクティブなZoom会議とスケジュールされたZoom会議のリストを見ることができます。</li>
+    <li>ドロップダウンメニューをクリックします。</li>
+    <li>会議を選択します。この例では、<strong>テストドキュメント会議を選択します</strong>。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="500" height="400" src="/assets/images/general/live-zoom-integration/5-added-integration.png" /></figure>
+    <aside class="bcls-aside bcls-aside--information">イベントに一度に追加できる統合は 1 つだけです。統合をクリアするには、[ <strong>統合の削除</strong> ] ボタンをクリックします。複数のアカウントを使用する場合は、[ <a href="https://studio.brightcove.com/products/videocloud/admin/integrations" target="_blank">管理] &gt;</a> [統合] パネルでこれを行うことができます。</aside>
+    </li>
+    <li>ライブイベントを作成する準備ができたら、[ <strong>イベントを作成]</strong>ボタンをクリックします。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="200" height="100" src="/assets/images/general/live-zoom-integration/6-create-event-button.png" /></figure>
+
+    </li>
+    <li><strong>コントロールルームには</strong>、Zoom から会議をストリーミングするためのタブ付きオプションがあります。統合ソースを使用したくない場合は、左上の[URLの取り込み]タブに戻ります。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/7-control_room.png" /></figure>
+
+    </li>
+    <li>Zoomミーティングが最近作成された場合は、<strong>同期</strong>ボタン。<aside class="bcls-aside bcls-aside--information">同期しても会議が表示されない場合は、会議が表示されていることを確認してください<strong>予定</strong> Zoomで、スケジュールされている会議が30未満であること。</aside>
+    </li>
+    <li><a href="https://zoom.us/meeting" target="_blank">Zoom</a>ミーティングアカウントにアクセスしてください。</li>
+    <li>青い [ <strong>開始</strong> ] ボタンをクリックして、会議を開始します。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/8-zoom-start-event.png" /></figure>
+    <aside class="bcls-aside bcls-aside--information">ズームの制限により、ズーム会議をBrightcove Liveにブロードキャストする前に、ズーム会議を開始する必要があります。</aside>
+    </li>
+    <li><strong>戻るブライトコーブのライブコントロールルームで</strong>、[ <strong>ブロードキャストを開始]</strong>ボタンをクリックします。
+    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/general/live-zoom-integration/9-start_broadcasting_button.png" /></figure>
+
+    </li>
+    <li>最後の手順の後、<strong>コントロールルームで Zoom Meeting を見ることができます</strong>。<aside class="bcls-aside bcls-aside--warning">
+        <ul>
+          <li>ズームミーティング中はいつでも、ブロードキャストを停止および再開できます。ただし、アクティブにブロードキャストしていない場合、ギャップがイベントの再接続時間を超えると、イベントがタイムアウトすることがあります。</li>
+          <li>ブライトコーブでのズームブロードキャストは、約 20 秒遅れます。</li>
+          <li>Zoom ミーティングが 20 秒経過してもストリーミングが開始されない場合は、[ <strong></strong>ブロードキャストを停止] をクリックしてから [ <strong>ブロードキャストを開始]</strong>をもう一度クリックします。</li>
+          <li>Zoomストリームはサードパーティのサービスであるため、SSAIなどの一部の高度なライブ機能がサポートされていない場合があります。</li>
+        </ul>
+      </aside>
+    </li>
+    </ol>
+</section>
+<section class="bcls-section">
+  <h2 id="Uninstalling_the_Zoom_Integration">ズーム統合のアンインストール</h2>
+  <h3>ビデオクラウドからインテグレーションを削除する</h3>
+  <p>ブライトコーブのアカウントから Zoom インテグレーションを削除するには:</p>
+  <ol class="bcls-tasklist-restart">
+      <li><strong></strong>ビデオクラウドスタジオにログインします。</li>
+      <li>ナビゲーションヘッダーの [ <strong>Admin</strong> ] ボタンをクリックします。</li>
+      <li>ドロップダウンメニューから [ <strong>統合]</strong>オプションを選択します。</li>
+      <li><strong></strong>ゴミ箱アイコンをクリックします。</li>
+      <li>確認を求められたら、[ <strong>確認]</strong>ボタンをクリックします。</li>
+  </ol>
+    <h3>Zoom アカウントからブライトコーブライブコネクトを削除するには</h3>
+    <p>Zoom に接続すると、Zoom <strong></strong>アカウントからブライトコーブライブコネクトアプリを完全に削除できます。</p>
+    <ol class="bcls-tasklist">
+        <li>Zoom アカウントにログインし、<strong> Zoom</strong>アプリマーケットプレイスにナビゲートします。</li>
+        <li><strong>管理 &gt;</strong>インストール済みアプリをクリックするか、<strong></strong>ブライトコーブアプリを検索します。</li>
+        <li><strong></strong>ブライトコーブアプリをクリックします。</li>
+        <li>[ <strong>アンインストール] をクリックします</strong>。</li>
+    </ol>
+</section>
+
+
+
+</article>

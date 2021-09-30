@@ -1,0 +1,171 @@
+---
+title: 'ステップバイステップ：セキュアで信頼性の高いトランスポート (SRT) ライブイベントのストリーミング'
+parent: Getting Started 
+---
+
+<article class="bcls-article">
+  <h1>ステップバイステップ:セキュア信頼性の高いトランスポート (SRT) ライブイベントのストリーミング</h1>
+  <summary>このクイックスタートの目的は、Video CloudLiveモジュールとOpenBroadcaster Software（OBS）を使用してSRTライブイベントをブロードキャストする方法を示すことです。</summary>
+  <section class="bcls-section">
+    <p>ライブモジュールで使用できるすべての機能については、「<a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブモジュールを使用したライブイベントの作成と管理」を参照してください</a>。高品質で安定したライブストリーミング体験を保証するための一連のベストプラクティスと推奨事項については、<a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティスを参照してください</a>。ライブストリーミングビデオを配信するための Brightcove で利用可能なすべてのオプションのリストについては、<a href="/get-started/delivering-live-streams.html">ライブストリームの配信を参照してください</a>。</p>
+    <aside class="bcls-aside bcls-aside--information">注:ライブストリーミングのサポートは、Video Cloud Enterprise パブリッシャーでのみ利用できます。</aside>
+    <p>このクイックスタートを完了すると、次の事項ができるようになります。</p>
+    <ul>
+      <li>Video Cloud ライブモジュールを使用して SRT ライブイベントを作成する</li>
+      <li>SRT ライブイベント用にエンコーダを設定する</li>
+      <li>イベントをトリミングして、Video Cloud アカウントに VOD アセットとして保存する</li>
+    </ul>
+    <p>このクイックスタートは、Open Broadcaster Software (OBS) Studio を使用して、ライブイベントをさまざまなデバイスにブロードキャストするのに役立ちます。OBSは、ビデオ録画およびライブストリーミング用のオープンソースソフトウェアであり、<a href="https://obsproject.com">ここからダウンロードできます</a>。ライブモジュールでは、他のエンコーダも使用できます。</p>
+  </section>
+  <section class="bcls-section">
+    <h2 id="audience">聴衆</h2>
+    <p>Video Cloud Live モジュールを使用してライブストリーミングイベントをブロードキャストする必要がある Video Cloud パブリッシャー。</p>
+  </section>
+  <section class="bcls-section">
+    <h2 id="prereq">前提条件</h2>
+    <ul>
+      <li>ライブモジュールにアクセスできるビデオクラウドエンタープライズアカウント</li>
+      <li>イベントをブロードキャストするカメラ</li>
+      <li>独自のエンコーディングソフトウェアが必要です。<a href="https://obsproject.com">このクイックスタートは無料でダウンロードできるOBS</a> Studioを使用します（<a href="/general/supported-encoders-live-events.html">サポートされているエンコーダのリストを参照</a>）。</li>
+    </ul>
+  </section>
+  <section class="bcls-section">
+    <h2 id="limitations">制限事項</h2>
+    <ul>
+      <li>エンコーダは RTMP または SRT ストリームを出力する必要があります</li>
+      <li>ライブブロードキャストでは 20～30 秒の遅延が発生します。</li>
+      <li>ストリーミングは、イベント開始から 30 分以内に開始する必要があります (既定のアカウント設定)</li>
+    </ul>
+  </section>
+  <section class="bcls-section">
+    <h2 id="steps">ライブイベントをブロードキャストする手順</h2>
+    <p>ライブモジュールを使用してライブイベントをストリーミングするには、以下のタスクを実行します。</p>
+    <ul>
+      <li><a href="#newevent">Video Cloud Live モジュールを使用して新しいイベントを作成する</a></li>
+      <li><a href="#encoder">エンコーダを構成する</a></li>
+      <li><a href="#publish">ライブストリームを公開する</a></li>
+      <li><a href="#clip">ライブイベントからクリップを作成する</a></li>
+    </ul>
+  </section>
+  <section class="bcls-section">
+    <h2 id="newevent">新しいライブイベントを作成する</h2>
+    <ol class="bcls-tasklist-restart">
+      <li>ブラウザウィンドウで、<a href="https://studio.brightcove.com"> Video Cloud Studio に移動します</a>。</li>
+      <li>Video Cloud のログイン認証情報を入力し、[ <strong>サインイン] をクリックします。</strong></li>
+      <li>ページの右上隅に現在の Video Cloud アカウント名が表示されます。複数のアカウントがある場合は、アカウント選択ドロップダウンをクリックし、ライブアセットを保存するアカウントを選択します。Liveが選択したアカウントでまだ有効でない場合、Liveモジュールがトライアルモードで開きます。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="600"  src="/assets/images/get-started/10821/node10820-account-selector.png" /></figure>
+      </li>
+      <li>クリック<strong>住む</strong>ナビゲーションヘッダー内。</li>
+      <li>[ <strong>イベントを作成]</strong>ボタンをクリックして、新しいイベントを作成します。</li>
+      <li><strong>イベント名を入力します</strong>。</li>
+      <li><strong></strong>イベントのタグを入力します。</li>
+      <li>アカウントに必須のカスタムフィールドが設定されている場合は、カスタムフィールドに値が割り当てられていることを確認してください。</li>
+      <li><strong></strong>ドロップダウンリストからライブインジェストプロファイルを選択します。ライブ取り込みプロファイルは、作成されるライブレンディションの数と品質を制御します。</li>
+      <li>完了したら、[ <strong>イベントをビデオアセットに変換] を選択します</strong>。これにより、イベントがビデオとして Media モジュールに保存されます。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-create-live-event.png" /></figure>
+      </li>
+      
+      <li><strong>お住まいの場所に最も近い地域を選択します</strong>。</li>
+      <li>[ <strong>詳細オプション]</strong>リンクをクリックして、詳細オプションを展開します。</li>
+      <li>[ <strong>再接続時間]</strong>を 10 分 (デフォルト) に設定します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-srt-options.png" /></figure>
+      </li>
+      <li>[ <strong>入力形式]</strong>ドロップダウンメニューから [ <strong>セキュア信頼性の高いトランスポート (SRT)</strong> ] を選択します。</li>
+      <li>[ <strong>CIDR ホワイトリスト]</strong>セクションで、SRT エンドポイントへの接続を許可する IP アドレスのセットを入力します。これにより、SRT エンドポイントに接続できるユーザーを制御します。注:このオプションは、<strong></strong>入力形式が RTP または SRT の場合にのみ表示されます。<code translate="No">0.0.0.0/0</code>すべてのネットワークを許可するように指定できます。</li>
+      <li>[ <strong>ストリーミングを開始] をクリックします</strong>。Live <strong>モジュールはストリームエンドポイント (SRT URL) を返します</strong>。SRT URL は、OBS で使用可能なエンコーダ設定で [ <strong>ストリーム設定サービス]</strong>の [ <strong>カスタム] を選択し</strong>、<code translate="No">srt://</code>パスを [サーバー] ボックスに入力します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/control-room-srt.png" /></figure>
+      </li>
+    </ol>
+  </section>
+  <section class="bcls-section">
+    <h2 id="encoder">エンコーダの設定</h2>
+    <p>このセクションでは、OBS Studio エンコーダを構成し、ライブストリーミングイベントをサポートします。OBS Studio ソフトウェアは、カメラからの入力をキャプチャし、CDN によって配信できるストリームを生成するデスクトップアプリケーションです。ライブストリーミングイベントの配信に適したハードウェアやその他のソフトウェアベースのエンコーディングソリューションもあります。OBS Studio <a href="https://obsproject.com">ソフトウェアはこちらからダウンロードできます</a>。</p>
+    <aside class="bcls-aside bcls-aside--information">注:続行する前に、OBS ソフトウェアをインストールし、カメラをコンピュータに接続しておく必要があります。</aside><aside class="bcls-aside bcls-aside--information">注:この例では、Blackmagic Design UltraStudio ミニレコーダーを使用してラップトップに接続したデジタル一眼レフカメラを使用しています。</aside><aside class="bcls-aside bcls-aside--information">注:OBS には、ストリームのローカルコピーを記録する機能があります。これを選択すると、イベントのブロードキャスト中にネットワークの問題が発生した場合に備えて、ストリームのローカルコピーが作成され、そこからクリップを作成できます。ローカルファイルの記録方法については、<a href="https://obsproject.com/docs/index.html"> OBS のドキュメントを参照してください</a>。</aside>
+    <ol class="bcls-tasklist-restart">
+      <li>OBSスタジオを開きます。</li>
+      <li>[ <strong>ソース]</strong>セクションで、[ <strong>+</strong> ] をクリックして新しいソースを追加します。を選択<strong>ソース</strong>リストから。このクイックスタートは、Blackmagic Design UltraStudio ミニレコーダーを使用してラップトップに接続されたデジタル一眼レフを使用しているため、<strong> Blackmagic Device</strong>が選択されています。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node18621-add-source.png" /></figure>
+      </li>
+      <li>新しいソースの名前を入力し、<strong>「OK」をクリックします</strong>。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node18621-blackmagic.png" /></figure>
+      </li>
+      <li>[ <strong>デバイス]</strong>リストからカメラを選択します。プロパティダイアログにプレビューが表示されます。[<strong>OK</strong>]をクリックします。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node18621-source-preview.png" /></figure>
+      </li>
+      <li>[コントロール] セクションで、[ <strong>設定] をクリックします</strong>。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node18621-controls.png" /></figure>
+      </li>
+      <li>クリック<strong>ストリーム</strong> [設定]ダイアログの左側にあります。</li>
+      <li>[ <strong>サービス]</strong>ドロップダウンメニューで、[ <strong>カスタム] を選択します</strong>。</li>
+      <li>にとって<strong>サーバ</strong>、 使用<strong>SRT URL</strong> Liveモジュールによって提供されます。</li>
+      <li><strong>ストリームキーの場合は</strong>、空のままにします。</li>
+      <li><strong>OK</strong>をクリックして設定を保存します。</li>
+      <li>[コントロール] セクションで、[ <strong>ストリーミングを開始] をクリックします</strong>。ライブストリームが始まるはずです。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node18621-live-stream-OBS.png" /></figure>
+      </li>
+    </ol>
+    <aside class="bcls-aside bcls-aside--information">注:ストリームの処理には約 1 分かかります。</aside>
+  </section>
+  <section class="bcls-section">
+    <h2 id="publish">ライブイベントの公開</h2>
+    <p>ライブイベントの埋め込みコードを生成するには、次の手順に従います。</p>
+    <ol class="bcls-tasklist-restart">
+      <li>ライブモジュールに戻ります。</li>
+      <li>イベントの「コントロールルーム」ページが表示されない場合は、「<strong>ライブ」</strong>タブをクリックして、ライブイベントのリストを表示します。イベント名をクリックして、「コントロールルーム」ページを開きます。</li>
+      <li>ライブストリームが表示されることを確認します。エンコーダを起動した後、ライブストリームが表示されるまでに1分かかる場合があります。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-control-room.png" /></figure>
+      </li>
+      <li>[ <strong>公開して埋め込む] をクリックします</strong>。</li>
+      <li><strong></strong>プレーヤーを選択し、<strong> Player URL</strong>をクリックしてライブストリームを表示します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-embed-code.png" /></figure>
+      </li>
+      <li>ライブストリームの操作が完了したら、ライブモジュールの [ <strong>ストリームを停止]</strong>ボタンをクリックします。また、OBS Studio に戻り、ストリームボタンをクリックして、エンコーダのストリーミングを停止します。<aside class="bcls-aside bcls-aside--information">注:ライブストリームの完了後、エンコーダーを閉じる/停止することが重要です。データが送信されていない場合でも、エンコーダとブライトコーブの間の接続を開いたままにしておくと、予期しない接続料金が発生する可能性があります。</aside>
+      </li>
+    </ol>
+  </section>
+  <section class="bcls-section">
+    <h2 id="clip">クリップの作成</h2>
+    <p>ライブモジュールは、完了したイベントからビデオクリップを作成する機能を提供します。ライブイベントの進行中にクリップを作成することもできます。クリップを作成したい理由はいくつかあります。</p>
+    <ul>
+      <li>ソーシャルメディアに投稿できる短いティーザークリップを作成するには</li>
+      <li>投稿する動画の長さを制限するには（ほとんどのプラットフォームでは動画の長さが制限されています）</li>
+      <li>ソーシャルメディアで短い動画のパフォーマンスが向上することがわかりました</li>
+    </ul>
+    <p>クリップは、イベント終了から7日以内にしか作成できません。その後、[ <strong>クリップを作成</strong> ] ボタンは無効になります。イベントが 24 時間よりも長い場合は、最後の 24 時間だけがクリップ可能です。</p>
+    <aside class="bcls-aside bcls-aside--information">注:クリッピングインターフェースの使用方法の詳細については、<a href="/live-module/creating-video-clip-using-live-module.html">ライブモジュールを使用したビデオクリップの作成を参照してください</a>。</aside>
+    <p>クリップを作成するには、次の手順に従います。</p>
+    <ol class="bcls-tasklist-restart">
+      <li>ライブモジュールに戻ります。</li>
+      <li>[ <strong>完了</strong> ] タブをクリックします。</li>
+      <li>イベントを検索し、イベント名をクリックして Control Room を開きます。</li>
+      <li>[ <strong>クリップを作成] をクリックします</strong>。クリッピングエディタが開きます。</li>
+      <li>クリッピングハンドルをクリックしてドラッグします（<img alt="" width="5" height="20" src="/assets/images/get-started/10821/node10820-clip-handle.png" />）フォーカスタイムラインで、クリップの開始点と終了点を設定します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="300" src="/assets/images/get-started/10821/node10820-clip-start-end.png" /></figure>
+      </li>
+      <li>[ <strong></strong>クリップをプレビュー] をクリックして、クリップをプレビューします。必要に応じて、始点と終点を調整できます。</li>
+      <li>[ <strong>クリップを保存] をクリックします</strong>。</li>
+      <li><strong></strong>クリップ名およびその他のメタデータ値を入力します。アカウントの必須フィールドも表示され、値を割り当てる必要があります。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-clip-metadata.png" /></figure>
+      </li>
+      <li>[ <strong>クリップを作成] をクリックします</strong>。取り込みプロセスが開始され、クリップが Video Cloud アカウントに保存されます。</li>
+      <li>クリップはクリップエディタの下に表示されます。[ <strong></strong>ソーシャルに公開] をクリックして、ブライトコーブ Social を使用してクリップをソーシャル配信先のいずれかに公開します。Social モジュールを使用したビデオの公開については、「<a href="https://social.support.brightcove.com/general/publishing-videos-social-media-platforms.html">ソーシャルメディアプラットフォームへのビデオの公開」を参照してください</a>。</li>
+      <li><strong>コントロールルームに戻る:</strong>ブレッドクラムを完了しました。すべてのクリップは、イベントのコントロールルームにも表示されます。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/get-started/10821/node10820-clips-section.png" /></figure>
+        <aside class="bcls-aside bcls-aside--information">注:[クリップの作成]ボタンを数回クリックして、複数の放送クリップを作成することができます。これにより、各ブロードキャストで何度でもトリミングして保存し、クリップを個別の VOD アセットとしてメディアライブラリに保存できます。</aside>
+      </li>
+    </ol>
+  </section>
+  <section class="bcls-section">
+    <h2 id="troubleshoot">ライブストリームの問題をトラブルシューティングする</h2>
+    <p>ライブイベントを機能させるのにさらにサポートが必要な場合は、<a href="https://supportportal.brightcove.com/create">お問い合わせください</a>。可能な限り迅速な応答を得るために、問題を解決するために必要なサポートのリストを以下に示します。</p>
+    <ul>
+      <li>ストリームに発生している特定の症状。例えば、それはまったく再生されないのですか、それとも吃音またはフリーズしますか？</li>
+      <li>このストリームが過去に正常に機能したかどうか</li>
+      <li>エンコーダで使用しているエントリポイント URL</li>
+      <li>使用しているエンコーディングソフトウェアとハードウェア</li>
+      <li>ライブイベントを公開したプレイヤーの URL</li>
+      <li>Video Cloud Studio のライブアセットのビデオ ID</li>
+      <li>エンコーダからパブリッシュポイントホストへのトレースルートの結果</li>
+    </ul>
+  </section>
+</article>

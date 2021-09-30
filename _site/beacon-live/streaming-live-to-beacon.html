@@ -1,433 +1,305 @@
-﻿<!doctype html>
-<html lang="ja">
+<!doctype html>
+<html lang="en-us">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   
-  <title>ライブイベントをビーコンアプリにストリーミングする</title>
+  <title></title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">  
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&amp;display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/prism.css">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/styles.css">
+  <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/learning-paths/learning-paths.css">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/landing-page.css">
   <link rel="stylesheet" href="https://support.brightcove.com/site-assets/css/site/tabs.css">
   <link rel="stylesheet" href="/assets/css/local.css">
-  <link data-react-helmet="true" rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/381443caa8.js" crossorigin="anonymous"></script>
-  <script src="https://support.brightcove.com/site-assets/js/site/google-analytics.js"></script>
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2728311-17"></script>
+<script translate="no">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-2728311-17');
+</script>
   <script src="/assets/js/sajari-head.js"></script>
+	<script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body class="body">
-
-<header>
+ <header>
   <div class="div-header">
-    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/Live_Logo.svg" alt="製品ロゴ" style="max-height: 100px;max-width: 232px;"/></a>
+    <a href="/"><img class="product-logo" src="https://support.brightcove.com/site-assets/images/site/product-logos/SVG/COVE004_Brightcove_Live_Logo_RGB_K.svg" alt="Brightcove" style="max-width: 170px;"></a>
 <!-- GTranslate: https://gtranslate.io/ -->
-<select onchange="doGTranslate(this);"><option value="">言語の選択</option><option value="en|en" translate="No">English</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">Français</option><option value="en|de" translate="No">Deutsche</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">Español</option></select>
+<select onchange="doGTranslate(this);"><option value="">言語の選択</option><option value="en|en" translate="No">英語</option><option value="en|zh-TW" translate="No">繁體中文</option><option value="en|fr" translate="No">フランス語</option><option value="en|de" translate="No">ドイツ銀行</option><option value="en|ja" translate="No">日本語</option><option value="en|ko" translate="No">한국어</option><option value="en|es" translate="No">スペイン語</option></select>
 
 <script>
-/* <![CDATA[ */
-function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;}
-/* ]]> */
+/*<![CDATA[ */ 関数 dogTranslate (lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw')plang='en';location.href=location.protocol+'//'+(lang == 'en' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '\\.'), '')+location.pathname+location.search;} /*]]> */
 </script>
 
 
-    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><img src="https://support.brightcove.com/site-assets/images/site/support.png" alt="サポート"/> サポートへのお問い合わせ</a> <span style="vertical-align: top;margin-left:1em;margin-right:1em;">|</span> <a href="https://status.brightcove.com/"><img src="https://support.brightcove.com/site-assets/images/site/status.png" alt="システムステータス"/> システムステータス</a></span> <br/>
+
+    <span class="secondary-nav"><a href="https://supportportal.brightcove.com/s/login/?"><i data-feather="help-circle"></i> サポートに連絡する</a><span style="vertical-align: middle;margin-left:1em;margin-right:1em;">| </span><a href="https://status.brightcove.com/"><i data-feather="cloud"></i> システムステータス</a></span>
+    <br>
     
   </div>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb arr-right">
-      
-      <li class="breadcrumb-item"><a href="/">ホーム</a></li>
-      
-      
-      
-      <li class="breadcrumb-item"><a href="/beacon-live/">ライブモジュール</a></li>
-      
-      <li class="breadcrumb-item active" aria-current="page">ライブイベントをビーコンアプリにストリーミングする</li>
+        
+      <li class="breadcrumb-item active" aria-current="page"></li>
     </ol>
   </nav>
-</header>
-<div class="container">
+</header> <div class="container">
     <div class="row">
-            <div class="col-sm-3 left-side-bar">
-        <select id="site_select" class="bcls-select" style="margin-right: 1rem;">
-          <option value="">Brightcove のその他のドキュメント</option>
-          
-            
-              <option value="https://support.brightcove.com">ドキュメントホーム</option>
-            
-          
-            
-              <option value="https://audience.support.brightcove.com">Brightcove Audience</option>
-            
-          
-            
-              <option value="https://beacon.support.brightcove.com">Brightcove ビーコン</option>
-            
-          
-            
-              <option value="https://campaign.support.brightcove.com">Brightcove キャンペーン</option>
-            
-          
-            
-              <option value="https://engage.support.brightcove.com">Brightcove Engage</option>
-            
-          
-            
-              <option value="https://live.support.brightcove.com">Brightcove ・ライブ</option>
-            
-          
-            
-              <option value="https://gallery.support.brightcove.com">Brightcove ギャラリー</option>
-            
-          
-            
-              <option value="https://ssai.support.brightcove.com">Brightcove SSAI</option>
-            
-          
-            
-              <option value="https://social.support.brightcove.com">Brightcove ソーシャル</option>
-            
-          
-            
-              <option value="https://studio.support.brightcove.com">Video Cloud Studio</option>
-            
-          
-            
-              <option value="https://player.support.brightcove.com">Brightcove のプレーヤー開発</option>
-            
-          
-            
-              <option value="https://apis.support.brightcove.com">Video CloudプラットフォームAPI</option>
-            
-          
-            
-              <option value="https://sdks.support.brightcove.com">ビデオクラウドデバイス SDK</option>
-            
-          
-            
-              <option value="https://integrations.support.brightcove.com">統合および CMS コネクタ</option>
-            
-          
-            
-              <option value="https://general.support.brightcove.com">ビデオクラウドの一般情報</option>
-            
-          
-            
-              <option value="https://zencoder.support.brightcove.com">Zencoder</option>
-            
-          
-        </select>
-
+      <div class="col-sm-3 left-side-bar">
+				<select id="site_select" class="bcls-select" style="margin-left: 1rem;">
+					<option value="">Brightcoveのその他のドキュメント</option>
+					 
+							<option value="https://support.brightcove.com">ドキュメンテーションホーム</option>
+						  
+							<option value="">-ビデオクラウド-</option>
+						  
+							<option value="https://studio.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドスタジオ</option>
+						  
+							<option value="https://player.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブプレイヤー開発</option>
+						  
+							<option value="https://apis.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドプラットフォームAPI</option>
+						  
+							<option value="https://sdks.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドデバイスSDK</option>
+						  
+							<option value="https://integrations.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;統合とCMSコネクタ</option>
+						  
+							<option value="https://general.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ビデオクラウドの一般情報</option>
+						  
+							<option value="">-ビデオエッセンシャル-</option>
+						  
+							<option value="https://beacon.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブビーコン</option>
+						  
+							<option value="https://live.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブライブ</option>
+						  
+							<option value="https://zencoder.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp; Zencoder</option>
+						  
+							<option value="">-ビデオクラウドアドオン-</option>
+						  
+							<option value="https://campaign.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブキャンペーン</option>
+						  
+							<option value="https://engage.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブエンゲージ</option>
+						  
+							<option value="https://gallery.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブギャラリー</option>
+						  
+							<option value="https://studio.support.brightcove.com/social/index.html">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブソーシャル</option>
+						  
+							<option value="https://ssai.support.brightcove.com">&nbsp;&nbsp;&nbsp;&nbsp;ブライトコーブSSAI</option>
+						 
+				</select>
         <nav class="sidenav" id="side_nav">
-          
-            
+           
             <h5><a href="/index.html">ホーム</a></h5>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/get-started/index.html">入門編 <strong>+</strong></a></h5>
+              
+              <h5 class="submenu-header"><a href="/get-started/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;はじめに</a></h5>
               <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcove のライブトレーニング動画</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ライブモジュールのガイドラインとベストプラクティス</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ:OBS でのライブモジュールの使用</a></li>
-                  
-                
-                  
-                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:Wirecast でのライブモジュールの使用</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/general/index.html">一般情報<strong> + </strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/general/live-drm.html">ライブDRM </a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス</a></li>
-                  
-                
-                  
-                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集</a></li>
-                  
-                
-                  
-                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
-                  
-                
-                  
-                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされるエンコーダ</a></li>
-                  
-                
-                  
-                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">Akamai ストリームのパッケージングとワイヤキャストの使用</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-module/index.html">ライブモジュールの使用<strong> + </strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">ライブ SSAI を使用したクライアント側のプリロール広告</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">Brightcove ライブでアバイアカンファレンスの開催について</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">Cisco Webex をBrightcove ライブでホストする</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">Brightcove ライブにズームをホストする</a></li>
-                  
-                
-                  
-                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">Brightcove ライブで INXPO イベントを主催する</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告の実装</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-facebook.html">ライブイベントを Facebook に公開する</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/publishing-live-event-youtube.html">ライブイベントをYouTubeに公開する</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析のレビュー</a></li>
-                  
-                
-                  
-                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブ RTMP 出力を使用する</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/live-api/index.html">ライブ API の操作<strong> + </strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/getting-started/index.html">ライブ API:入門編 <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/getting-started/overview-brightcove-live-api.html">概要:ライブ API </a></li>
-                        
-                        <li><a href="/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">API を使用したライブストリームの作成</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/code-samples/index.html">ライブ API:コードサンプル <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS 入力用のライブジョブを作成する</a></li>
-                        
-                        <li><a href="/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントでの RTMP 出力の使用</a></li>
-                        
-                        <li><a href="/live-api/code-samples/simulated-live.html">シミュレートされたライブイベント</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/references/index.html">ライブ API:参考文献 <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/references/live-api-error-messages.html">エラーメッセージ</a></li>
-                        
-                        <li><a href="/live-api/references/live-api-release-notes.html">リリースノート</a></li>
-                        
-                        <li><a href="/live-api/references/reference.html">ライブ API リファレンス</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/ssai/index.html">ライブ API:SSAI <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAI を使用したキューポイントと広告ビーコン</a></li>
-                        
-                        <li><a href="/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバー側広告挿入 (SSAI) </a></li>
-                        
-                        <li><a href="/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化</a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-                  
-                    <li class="submenu-header">
-                      <a href="/live-api/guides/index.html">ライブ API:ガイド <strong>+</strong></a>
-                      <ul class="sidenav-subsubmenu" style="display:none;">
-                        
-                        <li><a href="/live-api/guides/brightcove-live-best-practices.html">Brightcove ライブのベストプラクティス</a></li>
-                        
-                        <li><a href="/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcove ライブプログラム広告メタデータ API </a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度が高いクリップの作成</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-creating-vod-clips.html">VOD クリップを作成する</a></li>
-                        
-                        <li><a href="/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたはVODジョブのリストを取得する</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3 時限メタデータの挿入</a></li>
-                        
-                        <li><a href="/live-api/guides/live-drm-live-api.html">ライブ API を介したライブ DRM </a></li>
-                        
-                        <li><a href="/live-api/guides/managing-credentials-live-api.html">ライブ API の認証情報の管理</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-notifications.html">通知</a></li>
-                        
-                        <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーを削減</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-rtmp-outputs.html">RTMP 出力</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント</a></li>
-                        
-                        <li><a href="/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームでの署名付き URL とトークン認証</a></li>
-                        
-                        <li><a href="/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用</a></li>
-                        
-                        <li><a href="/live-api/guides/live-api-vod-live-event.html">ライブイベントよりVOD </a></li>
-                        
-                      </ul>
-                    </li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/admin/index.html">アカウントの管理 <strong>+</strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルの作成</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブインジェストプロファイルのフィールド</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理</a></li>
-                  
-                
-                  
-                    <li><a href="/admin/standard-live-ingest-profiles.html">標準ライブインジェストプロファイル</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/release-notes/index.html">リリースノート<strong> + </strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
-                    <li><a href="/release-notes/live-api-release-notes.html">ライブリリースノート</a></li>
-                  
-                
-                  
-                    <li><a href="/release-notes/known-issues.html">既知の問題</a></li>
-                  
-                
-              </ul>
-            
-          
-            
-              <h5 class="submenu-header"><a href="/support/index.html"><strong>サポート+ </strong></a></h5>
-              <ul class="sidenav-submenu" style="display:none;">
-                
-                  
+                 
+                    <li><a href="/get-started/brightcove-live-training-videos.html">Brightcoveライブトレーニングビデオ</a></li>
                     
-                  
-                
-                  
-                    <li><a href="/support/viewing-brightcove-system-status-page.html">Brightcove のシステムステータスページの表示</a></li>
-                  
-                
-                  
-                    <li><a href="/support/contact-sales.html">営業へのお問い合わせ</a></li>
-                  
-                
-                  
-                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く</a></li>
-                  
-                
+                    <li><a href="/get-started/delivering-live-streams.html">ライブストリームの配信</a></li>
+                    
+                    <li><a href="/get-started/live-module-guidelines-and-best-practices.html">ブライトコーブライブ：ベストプラクティス</a></li>
+                    
+                    <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">ステップバイステップ:OBS での Live モジュールの使用</a></li>
+                    
+                    <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">ステップバイステップ:ライブモジュールをワイヤキャストで使用する</a></li>
+                    
+                    <li><a href="/get-started/step-step-live-srt.html">ステップバイステップ:SRT ライブイベントのストリーミング</a></li>
+                   
               </ul>
-            
-          
+              
+              <h5 class="submenu-header"><a href="/general/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;一般情報</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/general/live-drm.html">ライブDRM</a></li>
+                    
+                    <li><a href="/general/live-platforms-comparison-matrix.html">ライブプラットフォーム比較マトリックス</a></li>
+                    
+                    <li><a href="/general/live-video-glossary.html">ライブビデオ用語集</a></li>
+                    
+                    <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減</a></li>
+                    
+                    <li><a href="/general/supported-encoders-live-events.html">ライブイベントでサポートされているエンコーダー</a></li>
+                    
+                    <li><a href="/general/creating-live-stream-using-akamai-stream-packaging-and-telestream-wirecast.html">アカマイストリームパッケージングとワイヤーキャストの使用</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/live-module/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;ライブモジュールの使用</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/live-module/client-side-preroll-with-live-ssai.html">ライブSSAIを使用したクライアント側のプレロール広告</a></li>
+                    
+                    <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">ライブイベントの作成と管理</a></li>
+                    
+                    <li><a href="/live-module/creating-video-clip-using-live-module.html">ビデオクリップの作成</a></li>
+                    
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-avaya-conference-brightcove-live.html">BrightcoveLiveでAvayaカンファレンスを主催</a></li>
+                    
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-cisco-webex-conference-brightcove-live.html">CiscoWebexをBrightcoveLiveにホストする</a></li>
+                    
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-zoom-conference-brightcove-live.html">BrightcoveLiveへのホストズーム</a></li>
+                    
+                    <li><a href="https://integrations.support.brightcove.com/web-conferencing/host-inxpo-live.html">BrightcoveLiveでINXPOイベントをホストする</a></li>
+                    
+                    <li><a href="/live-module/implementing-server-side-ads-live-module.html">サーバーサイド広告（SSAI）の実装</a></li>
+                    
+                    <li><a href="/live-module/live-redundancy.html">ライブ冗長性</a></li>
+                    
+                    <li><a href="/live-module/publishing-live-event-facebook.html">Facebookへのライブイベントの公開</a></li>
+                    
+                    <li><a href="/live-module/publishing-live-event-youtube.html">YouTubeへのライブイベントの公開</a></li>
+                    
+                    <li><a href="/live-module/reviewing-live-analytics.html">ライブ分析のレビュー</a></li>
+                    
+                    <li><a href="/live-module/using-live-rtmp-outputs-stream-facebook-and-youtube.html">ライブRTMP出力の使用</a></li>
+                    
+                    <li><a href="/live-module/zoom-live-integration.html">ズームミーティングの統合</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="https://apis.support.brightcove.com/live-api/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;LiveAPIの操作</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li class="submenu-header">
+                      <a href="https://apis.support.brightcove.com/live-api/getting-started/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;Live API：入門編</a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                         
+                            <li><a href="https://apis.support.brightcove.com/live-api/getting-started/overview-brightcove-live-api.html">概要:ライブ API</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/getting-started/quick-start-create-live-stream-using-brightcove-live-api.html">APIを使用したライブストリームの作成</a></li>
+                           
+                      </ul>
+                    </li>
+                    
+                    <li class="submenu-header">
+                      <a href="https://apis.support.brightcove.com/live-api/code-samples/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;Live API：コードサンプル</a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                         
+                            <li><a href="https://apis.support.brightcove.com/live-api/code-samples/live-api-sample-create-live-job.html">ライブジョブの作成</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/code-samples/quick-start-create-live-job-mpeg2-ts-input.html">MPEG2-TS入力用のライブジョブを作成する</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/code-samples/quick-start-using-rtmp-outputs-live-events.html">ライブイベントにRTMP出力を使用する</a></li>
+                           
+                      </ul>
+                    </li>
+                    
+                    <li class="submenu-header">
+                      <a href="https://apis.support.brightcove.com/live-api/references/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;Live API：参考文献</a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                         
+                            <li><a href="https://apis.support.brightcove.com/live-api/references/live-api-error-messages.html">エラーメッセージ</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/references/live-api-release-notes.html">リリースノート</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/references/reference.html">ライブ API リファレンス</a></li>
+                           
+                      </ul>
+                    </li>
+                    
+                    <li class="submenu-header">
+                      <a href="https://apis.support.brightcove.com/live-api/ssai/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;Live API：SSAI</a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                         
+                            <li><a href="https://apis.support.brightcove.com/live-api/ssai/live-api-cue-points-and-ad-beacons-ssai.html">SSAIを使用したキューポイントと広告ビーコン</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/ssai/live-api-server-side-ad-insertion-ssai.html">サーバーサイド広告挿入 (SSAI)</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/ssai/overview-player-enhancements-live-ssai.html">概要:ライブ SSAI のプレーヤーの機能強化</a></li>
+                           
+                      </ul>
+                    </li>
+                    
+                    <li class="submenu-header">
+                      <a href="https://apis.support.brightcove.com/live-api/guides/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;Live API：ガイド</a>
+                      <ul class="sidenav-subsubmenu" style="display:none;">
+                         
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/brightcove-live-best-practices.html">BrightcoveLiveのベストプラクティス</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/brightcove-live-program-ad-metadata-api.html">Brightcoveライブプログラム広告メタデータAPI</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-creating-frame-accurate-clip.html">フレーム精度のクリップの作成</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-creating-vod-clips.html">VODクリップの作成</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/getting-list-live-or-vod-jobs.html">ライブまたはVODジョブのリストの取得</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-insert-id3-timed-metadata.html">ID3タイミングメタデータを挿入します</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-drm-live-api.html">LiveAPIを介したLiveDRM</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/managing-credentials-live-api.html">LiveAPIのクレデンシャルの管理</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-notifications.html">通知</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html">ライブストリームでの再生制限</a></li>
+                            
+                            <li><a href="/general/reducing-latency-live-streams.html">ライブストリームのレイテンシーの削減</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-rtmp-outputs.html">RTMP出力</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-static-entry-points.html">静的エントリポイント</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/signed-urls-and-token-auth-live-stream.html">ライブストリームでの署名付き URL とトークン認証</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/using-live-redundancy.html">ライブ冗長性の使用</a></li>
+                            
+                            <li><a href="https://apis.support.brightcove.com/live-api/guides/live-api-vod-live-event.html">ライブイベントのVOD</a></li>
+                           
+                      </ul>
+                    </li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/admin/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;アカウントの管理</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/admin/creating-custom-live-ingest-profiles.html">カスタムライブ取り込みプロファイルの作成</a></li>
+                    
+                    <li><a href="/admin/fields-custom-live-ingest-profiles.html">カスタムライブインジェストプロファイルのフィールド</a></li>
+                    
+                    <li><a href="/admin/managing-live-settings.html">ライブ設定の管理</a></li>
+                    
+                    <li><a href="/admin/managing-api-authentication-credentials.html">API 認証資格情報の管理</a></li>
+                    
+                    <li><a href="/admin/standard-live-ingest-profiles.html">標準ライブインジェストプロファイル</a></li>
+                   
+              </ul>
+              
+              <h5 class="submenu-header"><a href="/support/index.html"><span style="color:#8E9093">+ </span>&nbsp;&nbsp;サポート</a></h5>
+              <ul class="sidenav-submenu" style="display:none;">
+                 
+                    <li><a href="/support/viewing-brightcove-system-status-page.html">Brightcoveのシステムステータスページの表示</a></li>
+                    
+                    <li><a href="/support/contact-sales.html">営業へのお問い合わせ</a></li>
+                    
+                    <li><a href="/support/opening-case-with-brightcove-support.html">サポートケースを開く</a></li>
+                    
+                    <li><a href="/support/reset-support-portal-password.html">サポートポータルのパスワードをリセットする</a></li>
+                   
+              </ul>
+             
       </nav>
     </div>
     <div class="col-lg-7" style="background-color: white;color: #333333;margin-top: -1em;margin-bottom: -1em;padding-bottom:1em;">
   <!-- bootstrap layout -->
-
-<p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="ナビゲーションメニュー"/></p>
+ <p id="bc_veggie_burger_wrapper" style="display: none;"><img id="bc_veggie_burger" src="/assets/images/feather/menu.svg" alt="Navigation Menu"></p>
 
 <!-- search bar -->
 <div id="nav-search-box" style="margin-top: 1rem;"></div>
@@ -438,18 +310,11 @@ function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;i
   <ul id="centered_in_page_toc" class="list-none"></ul>
 </details>
 <!-- open in new tab/window -->
-<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="新しいタブで開く" style="margin-top:4em;width: 1.5em;"/></a>
-
-
-
-  
-    
-
-
+<a id="open_new_tab" href="#" target="_blank" style="display: none;"><img src="/assets/images/feather/external-link.svg" alt="open in new tab" style="margin-top:4em;width: 1.5em;"></a>  ---
+title: ライブイベントをビーコンアプリにストリーミングする
+parent: Live Module —
 <style> 
-ol li { 
-padding-bottom: 5px;
-}
+ol li { padding-bottom: 5px; }
 </style>
 <article class="bcls-article">
   <h1>ライブイベントをビーコンアプリにストリーミングする</h1>
@@ -475,77 +340,76 @@ padding-bottom: 5px;
   <section class="bcls-section">
 
     <h2 id="create">ビーコンでライブイベントを作成する:</h2>
-    <p>Brightcove Beacon プラットフォームで、[ <strong>イベント</strong> ] タブをクリックしてイベントの設定を開始します。</p>
+    <p>Brightcove Beacon プラットフォームで、<strong></strong>イベントタブをクリックしてイベントの設定を開始します。</p>
 
-    <aside class="bcls-aside bcls-aside--information"><strong>BrightcoveBeaconLive</strong>でアクティブ化されたアカウントのみが、タブセクションで<strong>プレイリスト</strong>と<strong>イベント</strong>を利用できます。アクティブ化されない場合は、Brightcove サポートにお問い合わせください。</aside>
+    <aside class="bcls-aside bcls-aside--information"><strong>Brightcove Beacon Live</strong>でアクティベートされたアカウントのみが、<strong></strong><strong></strong>タブにプレイリストとイベントを使用できます。セクション。有効化していない場合には、ブライトコーブサポートにお問い合わせください。</aside>
     <ol class="bcls-tasklist-restart">
     
-        <li>[ <strong>新しいイベントを追加</strong> ] をクリックします。 
+        <li>[ <strong>新しいイベントを追加] をクリックします</strong>。 
         <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/1-add-new-event.png"/></figure>
         </li>
-        <li><strong>ライブイベントに名前を付けて</strong>、<strong>イベント開始日を指定します</strong>。
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/2-beacon-basic-data.png"/></figure>
+        <li><strong></strong><strong></strong>ライブイベントに名前とイベント開始日を指定します。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/2-beacon-basic-data.png" /></figure>
         </li>
         <li>[ <strong>テキストデータ</strong> ] タブで、イベント情報を入力します。
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/3-beacon-textual-data.png"/></figure>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/3-beacon-textual-data.png" /></figure>
         </li>
-        <li>[ <strong>非テキストデータ</strong> ] タブで、イベントのイメージポスターを選択します。
+        <li>[ <strong>テキスト以外のデータ</strong> ] タブで、イベントのイメージポスターを選択します。
             <p>[縦]、[横]、[サムネイル]、[ワイドバナー] から、イベントに使用するポスターの種類を選択できます。 </p>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/4-beacon-nontextual-data.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/4-beacon-nontextual-data.png" /></figure>
         </li>
-        <li>[ <strong>権利とスケジュール</strong> ] タブでは、<strong>可用性の詳細を次のように設定できます</strong>。
+        <li>[ <strong>権利とスケジュール</strong> ] タブでは、<strong></strong>可用性の詳細を次のように設定できます。
             <ul>
-        <li><strong>権利タイプ:</strong>[ 広告 ]、[ サブスクリプション ]、[ 無料 ] のいずれかで権利の種類を選択します。 </li>
+        <li><strong>権利の種類:</strong>[広告]、[サブスクリプション]、[無料] のいずれかで権利の種類を選択します。 </li>
         <li><strong>開始時間:</strong>イベントの開始時刻</li>
-        <li><strong>終了時間:</strong>イベントの終了時刻。これらの時間は、アプリ内で制限を生成するために作成されます。</li>
+        <li><strong>終了時刻:</strong>イベントの終了時刻。これらの時間は、アプリ内で制限を生成するために作成されます。</li>
         <li><strong>最大ストリーム:</strong>アプリで許可されるストリームの最大数です。デフォルトの数値は 0 (ゼロ) です。 </li>
         <li><strong>デバイスの詳細:</strong>ここでは、ストリームを公開するデバイスの数を追加できます。（例：iOS、アンドロイド、ロク、サムスンなど） </li>
-        <li><strong>地理ロケーションの詳細:</strong>アプリを有効にしたい国のリスト。どの国も制限したくない場合は、「世界」を選ぶことができます。</li>
+        <li><strong>ジオロケーションの詳細:</strong>アプリを有効にしたい国のリスト。どの国も制限したくない場合は、「世界」を選ぶことができます。</li>
         <li><strong>拒否された場所:</strong>コンテンツへのアクセスが拒否されたリージョンのリスト。</li>
         </ul>
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/5-beacon-right-schedualing.png"/></figure>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/5-beacon-right-schedualing.png" /></figure>
         </li>
 
         <li>下のボタンをクリックしてください:<strong>新しいイベントを作成</strong>
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/6-create-event-button.png"/></figure>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/6-create-event-button.png" /></figure>
         </li>
     </ol>
     </section>
     <section class="bcls-section">
          <h2 id="Playlist">ビーコンイベントをプレイリストに追加する</h2>
-        <p>イベントを作成したら、上部のメニューの [ <strong>プレイリスト</strong> ] タブに移動します。何かをストリーミングする前に、イベントをプレイリストに追加する必要があります。</p>
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/7-playlist-menu.png"/></figure>
+        <p>イベントを作成したら、上部メニューの [ <strong>プレイリスト</strong> ] タブに移動します。何かをストリーミングする前に、イベントをプレイリストに追加する必要があります。</p>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/7-playlist-menu.png" /></figure>
 
         <ol class="bcls-tasklist-restart">
     
-            <li>[ <strong>新しいプレイリストを追加] ボタンをクリックして、プレイリストを作成します</strong>。 
-            <aside class="bcls-aside bcls-aside--warning">ライブイベントを含むプレイリストを Brightcove Beacon で作成する必要があります。Video Cloud <strong>のプレイリストを使用しないでください</strong>。Video Cloud プレイリストを使用すると、Beacon ライブ録画が上書きされ、削除されることがあります。</aside>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/8-playlist.png"/></figure>
+            <li>[ <strong>新しいプレイリストを追加]</strong>ボタンをクリックして、プレイリストを作成します。<aside class="bcls-aside bcls-aside--warning">Brightcove Beaconで、ライブイベントを含むプレイリストを作成する必要があります。<strong>Video Cloud</strong>のプレイリストを使用しないでください。Video Cloud プレイリストを使用すると、Beacon Live 録画が上書きされ、削除される可能性があります。</aside>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/8-playlist.png" /></figure>
             </li>
 
-            <li>[ <strong>プレイリスト</strong> ] の [コンテンツタイプ] タブで、[ <strong>イベント</strong> ] タブを選択します。 
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/9-playlist-events.png"/></figure>
+            <li>[ <strong>プレイリスト</strong> ] の [コンテンツタイプ] タブで、[ <strong>イベント]</strong>タブを選択します。 
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/9-playlist-events.png" /></figure>
             </li>
 
             <li>コンテンツモジュールでイベントを探し、(+) ボタンをクリックして左側のプレイリストに追加します。イベントの順序は、アプリで表示したい方法で配置できます。 
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/10-playlist-select-event.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/10-playlist-select-event.png" /></figure>
             </li>
 
             <li>プレイリスト (時間、デバイス、場所など) の設定を調整します。あなたのイベントで行ったように。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src=""/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="" /></figure>
             </li>
 
             <li>[ <strong>プレイリストに変更を保存する</strong> ] ボタンをクリックします。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/11-save-playlist-button.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/11-save-playlist-button.png" /></figure>
             </li>
 
             <li>画面の右上にあるツールボタンをクリックしてキャッシュをクリアし、アプリにすべてが正しく表示されるようにします。 
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/12-clear-cache.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/12-clear-cache.png" /></figure>
             </li>
             </ol>
 
             <p>この時点で、イベントは Brightcove Beacon App のコンテナとして作成されますが、実際にライブ動画のストリーミングを開始するには、Video Cloud Live プラットフォームで送信を設定する必要があります。</p>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/13-beacon-apps-white.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/13-beacon-apps-white.png" /></figure>
 
 </section>
 
@@ -556,22 +420,21 @@ padding-bottom: 5px;
 
             <ol class="bcls-tasklist-restart">
 
-            <li>[ イベントの管理 ] ページで、[ <strong>イベントを作成</strong> ] をクリックします。「ライブイベントの作成」または「ライブチャンネルの作成」ページが開きます。イベントとチャンネルを作成するときのプロパティは同じです。このドキュメントのスクリーンショットでは、イベントの作成について説明します。
-                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/15-live-event.png"/></figure>
+            <li>[イベントの管理] ページで、[ <strong>イベントを作成] をクリックします</strong>。「ライブイベントの作成」または「ライブチャンネルの作成」ページが開きます。イベントとチャンネルを作成するときのプロパティは同じです。このドキュメントのスクリーンショットでは、イベントの作成について説明します。
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/15-live-event.png" /></figure>
             </li>
             <li>イベントの詳細を入力します。
             <ul>
-                <li><strong>Event Name </strong>：イベントの名前。ビデオがビデオアセットとして保存されている場合（最大255文字）、この名前は Media モジュールにも表示されます。</li>
+                <li><strong>Event Name</strong> -イベントの名前。ビデオがビデオアセットとして保存されている場合（最大 255 文字）、この名前は Media モジュールにも表示されます。</li>
                 <li><strong>簡単な説明</strong> -イベントの説明（最大250文字）</li>
                 <li><strong>タグ</strong> -イベントに関連付けるタグ。ビデオがビデオアセットとして保存されている場合は、タグがビデオに割り当てられます（最大 128 文字と 1200 タグ）</li>
-                <li><strong>参照 ID </strong> -イベントの参照ID。一意である必要があります (最大 150 文字)</li>
+                <li><strong>参照 ID</strong> -イベントの参照 ID。一意である必要があります（最大 150 文字）</li>
             </ul>
             </li>
 
             <li>アカウントに必要なカスタムフィールドが表示されます。カスタムフィールドに値を割り当てます。</li>
-	        <li>[ <strong>ソーシャルメディアへのストリーミング</strong> ] を [ <strong>許可</strong> ] に設定すると、イベントをソーシャルメディアプラットフォームにストリーミングできるようになります。これは、<a href="#social">イベントのストリーミングを開始した後、</a>または<a href="/node/18749"> Social モジュールを使用して行うことができます</a>。</li>
-	        <li><strong>ライブインジェストプロファイルを選択します</strong>。ドロップダウンリストには、すべてのライブインジェストプロファイルが表示されます。取り込みプロファイルは、作成されるライブレンディションの品質と数を制御します。[ <strong>プロファイルの管理</strong> ] リンクをクリックすると、別のブラウザタブで取り込みプロファイルエディタが開きます。インジェストプロファイルエディタにアクセスするには、アカウント管理者である必要があります。[ <strong>レンディション</strong> ] リンクをクリックして、選択した取り込みプロファイルを使用して作成されるレンディションを表示します。
-	        <aside class="bcls-aside bcls-aside--information">3 つの層のビットレートと請求の詳細は次のとおりです。
+	        <li>「<strong></strong>ソーシャルメディアへのストリーミング」を「<strong>許可</strong>」に設定すると、イベントをソーシャルメディアプラットフォームにストリーミングできるようになります。これは、<a href="#social">イベントのストリーミングを開始した後、</a>または<a href="/node/18749"> Social モジュールを使用して実行できます</a>。</li>
+	        <li><strong>ライブインジェストプロファイルを選択します</strong>。ドロップダウンリストには、すべてのライブインジェストプロファイルが表示されます。取り込みプロファイルは、作成されるライブレンディションの品質と数を制御します。[ <strong>プロファイルの管理]</strong>リンクをクリックすると、別のブラウザータブにインジェストプロファイルエディタが開きます。インジェストプロファイルエディタにアクセスするには、アカウント管理者である必要があります。「<strong>RENDIONS」</strong>リンクをクリックして、選択したインジェストプロファイルを使用して作成されるレンディションを表示します。<aside class="bcls-aside bcls-aside--information">3 つの階層のビットレートと請求の詳細は次のとおりです。
              <ul>
                     <li>階層 1 では 5,500 Kbps まで使用でき、1.0倍の時間で課金されます</li>
                     <li>階層 2 は 10,000 Kbps まで使用でき、1.5 倍の時間で課金されます。</li>
@@ -579,74 +442,72 @@ padding-bottom: 5px;
              </ul>
             </aside>
             </li>
-            <li>[ <strong>完了したらイベントをビデオアセットに変換</strong> ] を選択して、ライブビデオの VOD バージョンを Video Cloud アカウントに保存します。このオプションを選択すると、<strong>選択したライブインジェストプロファイルの最高品質のレンディションが</strong> VOD ビデオのソースとして使用されます。レンディションの作成時には、アカウントのデフォルトの取り込みプロファイルが使用されます。<strong>ライブイベントが終了するとすぐにVODバージョンが利用できないので、取り込みプロセスが完了するとビデオが利用可能になります。</strong>
-                <aside class="bcls-aside bcls-aside--information">注：このオプションは、定期的なイベントを使用する場合はサポートされません。</aside>
+            <li><strong></strong>完了したらイベントをビデオアセットに変換を選択して、VOD バージョンのライブ動画を Video Cloud アカウントに保存します。このオプションを選択すると、<strong></strong>選択したライブインジェストプロファイルの最高品質のレンディションが VOD ビデオのソースとして使用されます。レンディションの作成時には、アカウントのデフォルトの取り込みプロファイルが使用されます。<strong>ライブイベントが終了するとすぐにVODバージョンが利用できないので、取り込みプロセスが完了するとビデオが利用可能になります。</strong><aside class="bcls-aside bcls-aside--information">注:このオプションは、繰り返しイベントを使用する場合はサポートされません。</aside>
                 </li>
-            <li>[ 詳細オプション ] をクリックし、詳細オプションを設定します。
-                <aside class="bcls-aside bcls-aside--information">注：Beacon Live 作業の場合は、[詳細設定] オプションの [ストリームステータス通知] チェックボックスを有効にする必要があります。</aside>
+            <li>[詳細オプション] をクリックし、詳細オプションを設定します。<aside class="bcls-aside bcls-aside--information">注:Beacon Live 作業の場合は、詳細オプションの [ストリームステータス通知] チェックボックスを有効にする必要があります。</aside>
             </li>
             <li>ストリームステータス通知の有効化 
-            <p>ビーコン CMS からの通知 URL を追加します (この URL は、Brightcove サポートから提供されます)</p>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/16-enable-notifications.png"/></figure>
+            <p>ビーコン CMS からの通知 URL を追加します (この URL は、Brightcoveサポートから提供されます)</p>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/16-enable-notifications.png" /></figure>
             </li>
-            <li>[ <strong>イベントを作成</strong> ] をクリックして、ライブイベントを開始します。Control Room ページが開き、<strong>エンコーダが使用するストリーミングエンドポイント（RTMP URL）</strong><strong>やストリーム名など</strong>、ライブイベントの詳細が表示されます。
-            <p>ストリーム処理の所要時間は約1分間です。</p>
-            <aside class="bcls-aside bcls-aside--information">ライブプラットフォームでストリーミングを開始するには、エンコーダが必要です。エンコーダの使用方法については、次のドキュメントを参照してください。
-               <p><a href="https://live.support.brightcove.com/get-started/step-step-using-live-module-telestream-wirecast.html" target="_blank">ステップバイステップ:ライブモジュールと三ストリームWirecastの使用</a></p> 
+            <li>[ <strong></strong>イベントを作成] をクリックして、ライブイベントを開始します。Control Room ページが開き、<strong>エンコーダで使用されるストリーミングエンドポイント（RTMP URL）</strong><strong></strong>やストリーム名など、ライブイベントの詳細が表示されます。
+            <p>ストリームの処理には約 1 分かかります。</p>
+            <aside class="bcls-aside bcls-aside--information">ライブプラットフォームでストリーミングを開始するには、エンコーダーが必要です。エンコーダーの使用方法については、次のドキュメントをお読みください。
+               <p><a href="https://live.support.brightcove.com/get-started/step-step-using-live-module-telestream-wirecast.html" target="_blank">ステップバイステップ:Telestream Wirecast でのライブモジュールの使用</a></p> 
                 <p><a href="https://live.support.brightcove.com/get-started/step-step-using-live-module-open-broadcaster-software-obs.html" target="_blank">ステップバイステップ:オープンブロードキャスタソフトウェア (OBS) でのライブモジュールの使用</a></p>
             </aside>
 
                  </li>
-            <li><strong>コントロールルームで</strong>、<strong>テストイベントパネルから</strong><strong>「ジョブID」</strong><strong>と「ビデオID」</strong>をコピーし、Beaconプラットフォーム設定でライブイベントを構成する必要があります。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/16.2-control-room.png"/></figure>
+            <li><strong>コントロールルームで、</strong><strong></strong>テストイベントパネルから<strong>「ジョブ ID」</strong>と<strong>「ビデオ ID」</strong>をコピーします。では、Beacon プラットフォーム設定でライブイベントを構成するには、両方とも必要になります。
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/16.2-control-room.png" /></figure>
              </li>
              <li>次に、ビーコンに戻り、[イベント] タブをクリックし、以前に作成したイベントに移動し、[基本データ] 設定でライブイベントのジョブIDを貼り付けます。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/17-beacon-job-id.png"/></figure>
-            <p>次に、[ <strong>ストリーム</strong> ] タブに移動して新しいストリームを作成し、[ <strong>ストリームビデオ ID </strong> ] で、前に作成した Video Cloud <strong>イベントからビデオ ID </strong>を貼り付けます。</p>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/17-beacon-job-id.png" /></figure>
+            <p>次に、<strong>ストリーム</strong>タブをクリックして、新しいストリームを作成します。<strong>ストリーミングビデオID</strong>、貼り付けます<strong>ビデオID</strong>以前に作成したビデオクラウドイベントから。</p>
             <p>次の情報を入力します。</p>
             <ul>
                 <li>ビデオを公開できるデバイスの数を選択します。</li>
-                <li><strong>ストリームタイプを次のように変更します</strong>。<strong>ライブ</strong></li>
-                <li>そして、ページを離れる前に<strong>「イベントの更新」</strong>ボタンをクリックします： </li>
+                <li>[ <strong>ストリームタイプ]</strong>を次のように変更します。<strong>ライブ</strong></li>
+                <li>そして、<strong>ページを離れる前に [イベントの更新]</strong>ボタンをクリックします。 </li>
             </ul>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/18-beacon-stream-id.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/18-beacon-stream-id.png" /></figure>
 
             </li>
 
             <li>キャッシュをクリアします。
-            <p>Brightcove ビーコンアプリに移動し、プレイリストとイベントを選択します。[ <strong>再生</strong> ] をクリックします。 </p>
+            <p>Brightcove ビーコンアプリに移動し、プレイリストとイベントを選択します。[ <strong>再生] をクリックします</strong>。 </p>
             <p>これで、Beacon アプリで Video Cloud からのライブストリーミングを見ることができるはずです。 </p>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="700" src="/beacon-live/beaconimg/19-app-play.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="700" src="/beacon-live/beaconimg/19-app-play.png" /></figure>
             <p>イベントが終了したら、それをクリップとして保存し、後でビーコンにVODとして送信することができます。</p>
             </li>
     </ol>
 </section>
 <section class="bcls-section">
     <h2 id="Clip">ビーコンライブイベントからクリップを作成する</h2>
-    <aside class="bcls-aside bcls-aside--information">後でストリーミング用にビデオを VOD 録画ビデオとして保持する場合は、ライブビーコンイベントのクリップを作成する必要があります。</aside>
+    <aside class="bcls-aside bcls-aside--information">後でストリーミング用にビデオをVOD録画ビデオとして保持する場合は、LiveBeaconイベントのクリップを作成する必要があります。</aside>
     <p>ライブモジュールは、完了したイベントからビデオクリップを作成する機能を提供します。ライブイベントの進行中にクリップを作成することもできます。 </p>
-    <p>クリップ機能の完全なリストについては、<a href="https://live.support.brightcove.com/live-module/creating-video-clip-using-live-module.html"> Live Module を使用したビデオクリップの作成に関するドキュメントを参照してください</a>。</p>
+    <p>完全なクリッピング機能リストについては、<a href="https://live.support.brightcove.com/live-module/creating-video-clip-using-live-module.html"></a>ライブモジュールを使用したビデオクリップの作成のドキュメントを参照してください。</p>
 
     <ol class="bcls-tasklist-restart">
 
-        <li>ライブモジュールで、左側のパネルの [ <strong>クリップを作成</strong> ] タブに移動します。
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/20-create-clip.png"/></figure>
+        <li>ライブモジュールで、<strong>クリップを作成する</strong>左側のパネルのタブ
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/20-create-clip.png" /></figure>
         </li>
-        <li>クリップボタンまたはショートカットキーを使用して、クリップの開始点と終点を設定します。または、ビデオ全体を保持するには、[ <strong>保存] ボタンをクリックします</strong>。 </li>
+        <li>クリップボタンまたはショートカットキーを使用して、クリップの開始点と終点を設定します。または、[ <strong>保存]</strong>ボタンをクリックしてビデオ全体を保持します。 </li>
         <li>クリップビデオのプロパティを入力します。
             <ul>
                 <li><strong>クリップ名</strong> -クリップの名前</li>
                 <li><strong>簡単な説明</strong> -クリップの説明</li>
                 <li><strong>タグ</strong> -クリップに関連付けるタグ</li>
-                <li><strong>参照 ID </strong> -クリップに割り当てる参照 ID</li>
-                <li><strong>ソースの広告ブレイクコンテンツの削除</strong> -このオプションは、プログラムコンテンツのみを保持しながら、クリップ内でトリガーされた広告ブレイクを削除します。注：[ソース広告ブレークを削除] チェックボックスは、ストリームが SSAI が有効になっている場合にのみ表示されます。</li>
+                <li><strong>参照 ID</strong> -クリップに割り当てる参照 ID</li>
+                <li><strong>ソースの広告ブレイクコンテンツの削除</strong> -このオプションは、プログラムコンテンツのみを保持しながら、クリップ内でトリガーされた広告ブレイクを削除します。注:[ソース広告ブレークを削除] チェックボックスは、ストリームが SSAI が有効になっている場合にのみ表示されます。</li>
 
             </ul>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/21-create-clip-menu.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/21-create-clip-menu.png" /></figure>
 
         </li>
-        <li>[ <strong>クリップを作成</strong> ] をクリックします。クリップのトランスコーディングプロセスが開始されます。クリップは、アカウントのデフォルトの取り込みプロファイルを使用してトランスコードされます。
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/22-clip-name.png"/></figure>
+        <li>[ <strong>クリップを作成] をクリックします</strong>。クリップのトランスコーディングプロセスが開始されます。クリップは、アカウントのデフォルトの取り込みプロファイルを使用してトランスコードされます。
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/22-clip-name.png" /></figure>
         </li>
     </ol>
 </section>
@@ -656,20 +517,20 @@ padding-bottom: 5px;
     <ol class="bcls-tasklist-restart">
 
         <li>作成したクリップの番号<strong> ID を取得します</strong>。 
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/23-control-room-id.png"/></figure>
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/23-control-room-id.png" /></figure>
         </li>
-        <li>ビーコンプラットフォームで、[ <strong>イベント</strong> ] タブに移動して [ <strong>ストリーム</strong> ] メニューを選択し、ドロップダウンの [ <strong>ストリームの種類</strong> ] を [ライブ] から [ストリーム] に変更し、[ <strong>ストリームビデオ ID </strong> ] オプションにライブプラットフォームで Clip イベントからコピーした<strong> ID </strong>番号。 
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/24-beacon-stream-id.png"/></figure>
+        <li>ビーコンプラットフォームで、<strong>イベント</strong>タブをクリックして選択します<strong>ストリーム</strong>メニュー、変更<strong>ストリームタイプ</strong>ライブからストリームへのドロップダウン、および<strong>ストリーミングビデオID</strong>オプションで、貼り付けます<strong>ID</strong>ライブプラットフォームのクリップイベントからコピーした番号。 
+        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/24-beacon-stream-id.png" /></figure>
         </li>
 
-        <li>[ <strong>基本データ</strong> ] タブをクリックし、<strong>ステータスを</strong> [ <strong>終了</strong> ] から [ <strong>完了</strong> ] に変更します。ページの下部にある [ <strong>イベントの更新</strong> ] ボタンをクリックして、終了する前に、アプリで [ <strong>再生</strong> ] ボタンを使用できるようになり、イベントの記録を確認できます。
-         <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="700" src="/beacon-live/beaconimg/25-beacon-app-play-button.png"/></figure> 
+        <li>をクリックします<strong>基本データ</strong>タブを変更し、<strong>状態</strong>から<strong>終了しました</strong>に<strong>終了した</strong>。離れる前に<strong>イベントの更新</strong>ページの下部にあるボタンをクリックすると、<strong>演奏する</strong>イベントの記録を表示するためにアプリで利用可能なボタン。
+         <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="400" height="700" src="/beacon-live/beaconimg/25-beacon-app-play-button.png" /></figure> 
         </li>
     </ol>
 </section>
 <section class="bcls-section">
     <h2 id="SEP">(静的エントリポイント) SEP ライブイベント</h2>
-    <p>SEPは、例えば、毎週のプログラムとして、あなたのイベントが何度も繰り返し開始されたときにアクティブ化/無効にすることができる定期的なイベントです。このイベントは、Beacon App <strong>の複数のチャネルに送信できるすべてのライブジョブ ID </strong>の 1 つとして使用できます。</p>
+    <p>SEPは、例えば、毎週のプログラムとして、あなたのイベントが何度も繰り返し開始されたときにアクティブ化/無効にすることができる定期的なイベントです。このイベントは、<strong></strong>ビーコンアプリ内の複数のチャネルに送信できるすべてのライブジョブ ID のイベントとして使用できます。</p>
 
     <aside class="bcls-aside bcls-aside--information">
         <ul>
@@ -678,27 +539,27 @@ padding-bottom: 5px;
         </ul>
     </aside>
 
-        <p>定期的なイベントを作成するには、<strong>ライブイベントの作成時に [静的エントリポイント (SEP) を使用して定期的なイベントとして作成する</strong> ] オプションを選択し、[ <strong>イベントの作成</strong> ] をクリックします。</p>
+        <p>定期的なイベントを作成するには、<strong>ライブイベントの作成時に [静的エントリポイント (SEP) を使用してこれを定期的なイベントとして作成する]</strong>オプションを選択し、[ <strong>イベントの作成] をクリックします</strong>。</p>
         <ol class="bcls-tasklist-restart">
 
-            <li><strong>ライブプラットフォームで新しいイベントを作成します</strong>。イベントの作成方法について詳しくは、<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html">以下のドキュメントを参照してください</a>。 </li>
-            <li>[ <strong>詳細オプション</strong> ] を展開し、[ <strong>静的エントリポイント (SEP) を使用して定期的なイベントとしてこれを作成する] </strong>オプションを有効にします。SEP の詳細については、<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html#work_recurring">ここをクリックしてください。</a>
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/26-sep.png"/></figure> 
+            <li><strong>ライブプラットフォームで新しいイベントを作成します</strong>。イベントの作成方法の詳細については、<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html">次のドキュメントを参照してください</a>。 </li>
+            <li>[ <strong>詳細オプション] を展開し</strong>、[ <strong>静的エントリポイント (SEP) を使用してこれを繰り返しイベントとして作成する]</strong>オプションを有効にします。9月の詳細については、<a href="https://live.support.brightcove.com/live-module/creating-and-managing-live-events-using-live-module.html#work_recurring">ここをクリックしてください。</a>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/26-sep.png" /></figure> 
             </li>
 
-            <li>すでに SEP イベントがある場合は、[ <strong>スタンバイ</strong> ] タブをクリックすると、<strong>ライブコントロールルームからアクティブ/非アクティブ化できます</strong>。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/27-control-room-activate.png"/></figure> 
+            <li>SEP イベントがすでにある場合は、[ <strong>スタンバイ</strong> ] タブをクリックすると、<strong></strong>ライブコントロールルームからアクティブ化/非アクティブ化できるようになります。
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/27-control-room-activate.png" /></figure> 
             </li>
-            <li><strong>ライブジョブ ID </strong>をコピーする
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/28-control-room-jobid.png"/></figure> 
+            <li><strong>ライブジョブ ID をコピーする</strong>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/28-control-room-jobid.png" /></figure> 
             </li>
             <li>Brightcove Beacon プラットフォームに戻り、イベントに名前とスケジュールされた時刻を設定してください。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/29-beacon-calendar.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/beacon-live/beaconimg/29-beacon-calendar.png" /></figure>
             </li>
             <li>イベントの日付と時刻は、次の形式にする必要があります。
-            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/30-date-format.png"/></figure>
+            <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/beacon-live/beaconimg/30-date-format.png" /></figure>
             </li>
-            <li>[ <strong>イベントの更新</strong> ] ボタンをクリックします。</li>
+            <li>[ <strong>イベントの更新]</strong>ボタンをクリックします。</li>
             </ol>
             <p>このプロセスは、Brightcove Beacon プラットフォームで必要なすべてのイベントチャンネルで実行できます。これらのチャンネルはすべて、同じライブイベント送信からストリーミングされますが、それぞれのイベント設定で調整した日時が異なります。</p>
 
@@ -707,8 +568,7 @@ padding-bottom: 5px;
   
 </article>
 
-
-<!-- complete bootstrap layout -->
+ <!-- complete bootstrap layout -->
     </div>
     <div class="col-sm-2 right-side-bar">
       
@@ -722,11 +582,18 @@ padding-bottom: 5px;
 </div>
 
 <hr>
-<footer class="bcls-footer" role="contentinfo">  <div class="row">
+<div class="last-updated">
+  ページの最終更新日21 May 2021
+</div>
+
+
+ <footer class="bcls-footer" role="contentinfo">
+  <div class="row">
     <div class="region region-footer-top-center col-md-12">
       <nav role="navigation" aria-labelledby="block-brightcovesupport-menu" id="block-brightcovesupport" class="footer-menu">
+        <img src="https://support.brightcove.com/site-assets/images/site/SVG/COVE004_Brightcove_Logo_093020_RGB_KO.svg" class="bc-footer-logo" alt="Brightcove">
 
-        <h2>Brightcove サポート</h2>
+        <h2>ブライトコーブのサポート</h2>
 
         <ul class="menu">
           <li>
@@ -753,14 +620,14 @@ padding-bottom: 5px;
             <a href="https://studio.support.brightcove.com/training/register-training.html">コースに登録する</a>
           </li>
           <li>
-            <a href="https://university.brightcove.com/">Brightcove University</a>
+            <a href="https://university.brightcove.com/">ブライトコーブ大学</a>
           </li>
         </ul>
 
       </nav>
       <nav role="navigation" aria-labelledby="block-brightcove-menu" class="footer-menu">
 
-        <h2>Brightcove</h2>
+        <h2>ブライトコーブ</h2>
 
         <ul class="menu">
           <li>
@@ -779,12 +646,12 @@ padding-bottom: 5px;
         <table>
           <tr>
             <td>
-              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> Brightcove Inc. 全著作権所有。</div>
+              <div id="bc_copyright" class="field field--name-field-copyright-year field--type-string field--label-hidden field--item" style="float: left;"> ブライトコーブ Inc. すべての権利を保有</div>
             </td>
             <td><a href="https://www.brightcove.com/en/legal/privacy">プライバシー</a> | <a href="https://www.brightcove.com/en/terms-and-conditions">利用規約</a></td>
             <td>
               <div class="gf-links-cols footer-menu">
-                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin"><i class="fab fa-linkedin-in" style="font-size: 1.5rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i class="fab fa-facebook-f" style="font-size: 1.5rem;"></i></a>
+                <div class="gf-social"><a href="https://www.linkedin.com/company/16439" title="LinkedIn" newtab="newtab" class="gf-social-linkedin" style="margin-right: 1rem;"><i data-feather="linkedin" style="color:#8E9093;height: 1.25rem;"></i></a><a href="https://twitter.com/brightcove" title="Twitter" newtab="newtab" class="gf-social-twitter" style="margin-right: 1rem;"><i data-feather="twitter" style="color:#8E9093;height: 1.25rem;"></i></a><a href="https://www.facebook.com/Brightcove" title="Facebook" newtab="newtab" class="gf-social-facebook"><i data-feather="facebook" style="color:#8E9093;height: 1.25rem;"></i></a>
                 </div>
               </div>
             </td>
@@ -795,7 +662,7 @@ padding-bottom: 5px;
   </div>
 </footer>
 
-<script>
+<script translate="no">
       
   var searchBox = sajari.init({
     mode: "search-box",
@@ -812,8 +679,7 @@ padding-bottom: 5px;
     });
   
 
-</script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
+</script>   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/https-fix.js"></script>
@@ -822,17 +688,22 @@ padding-bottom: 5px;
   <script src="https://support.brightcove.com/site-assets/js/site/prism.js"></script>
   
   <script src="https://support.brightcove.com/site-assets/js/site/site.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/learning-paths/learning-paths.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/tabs.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/toc.js"></script>
   <script src="/assets/js/sites_nav.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/bcls-utils.js"></script>
   <script src="https://support.brightcove.com/site-assets/js/site/local-link-fix.js"></script>
+  <script src="https://support.brightcove.com/site-assets/js/site/sajari-reindex.js"></script>
   <script src="/assets/js/feedback.js"></script>
   
   <script src="/assets/js/sajari-search-foot.js"></script>
   
+	<script translate="no">
+  feather.replace()
+</script>
   <!-- <script src="/assets/js/sajari-index.js"></script> -->
-  <style>
+  <style translate="no">
     a.sj-paginator__page-number.sj-paginator__page-number--current.css-so0ov7 {
       background-color: lightblue;
     }
@@ -861,4 +732,4 @@ padding-bottom: 5px;
 
 </body>
 
-</html>
+</html> 

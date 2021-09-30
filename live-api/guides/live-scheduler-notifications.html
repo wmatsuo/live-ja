@@ -1,0 +1,132 @@
+---
+title: ''
+description: 'ライブスケジューラ通知スケジューラを使用してワークフローを作成するときに、オプションで通知を構成できます。'
+parent: Guides 
+grandparent: Live API
+layout: staging
+---
+
+<!-- Remember to change API reference links when going live -->
+
+<h1>{{ page.title }}</h1>
+<article class="bcls-article">
+  <summary>{{ page.description }}</summary>
+	<section class="bcls-section">
+		<h2 id="Introduction">はじめに</h2>
+		<p>タスクを完了すると、スケジューラは http メソッド<code translate="no"></code> POST を使用して、設定されたエンドポイントに通知を送信し、実行されたアクションとその成功/失敗の詳細を示します。</p>
+		<p>今後のタスクの事前通知を構成することもできます。を参照してください<a href="/live-api/references/reference-staging.html">Live APIリファレンス</a>通知URLと設定の指定の詳細、およびSEPジョブの開始/停止時間のスケジュールとクリップのスケジュールの違いに注意してください。</p>
+		<dl>
+			<dt><a href="/live-api/guides/live-scheduler-stop-start.html">スケジューラの開始/停止</a></dt>
+			<dd>
+				<ul>
+					<li>通知URLは、リクエスト本文オブジェクトの最上位で定義されます</li>
+					<li>通知は、<code translate="no"></code><code translate="no"></code>アクティブ化オブジェクトと非アクティブ化オブジェクトでスケジュールされます（イベントが通知を送信する前の秒単位）。</li>
+				</ul>
+				<p><strong>例</strong></p>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"job_id": "your Job ID",
+	"activation": {
+		"time_utc": 1612274100,
+		<span class="bcls-highlight">"notification": 600</span>
+	},
+	"deactivation": {
+		"time_utc": 1612281600,
+		<span class="bcls-highlight">"notification": 600</span>
+	},
+	"description": "My Tuesday broadcast",
+	<span class="bcls-highlight">"notification_url": "http://example.com/live/jobstartstop/callbacks"</span>
+}</code></pre>
+			</dd>
+			<dt><a href="/live-api/guides/live-scheduler-clips.html">クリップスケジューラ</a></dt>
+			<dd>
+				<ul>
+					<li>通知URLは、リクエスト本文オブジェクトの最上位で定義されます</li>
+					<li><code translate="no"></code>通知はクリップオブジェクトでスケジュールされます（タスクが通知の送信を開始するまでの時間（秒単位））</li>
+				</ul>
+				<p><strong>例</strong></p>
+<pre><code class="language-json" translate="no">{"job_id"： "あなたのジョブID"、 "説明"：「マイスケジュールクリップ」, <span class="bcls-highlight">「notification_url」: "http://example.com/live/clip/callbacks"</span> ,「クリップ」: { "output": { "label": "My Scheduled Clip", "start_time": 1612878900, "end_time": 1612879800, "videocloud": { "video": { "name": "My Scheduled Clip" } },「time_utc」: 1612879800, <span class="bcls-highlight">「通知」:600</span> }}</code></pre>
+						</dd>
+		</dl>
+	</section>
+	<section class="bcls-section">
+		<h2 id="notification_body">通知本文</h2>
+		<p>サーバーが<code translate="no"> notification_url に通知を送信すると</code>、リクエストには JSON 本文が含まれます。以下の表にフィールドの詳細を示します。</p>
+			<table class="bcls-table">
+				<caption class="bcls-caption--table">通知本文フィールド</caption>
+				<thead class="bcls-table__head">
+					<tr>
+						<th>アクション</th>
+						<th>アクション名。「<a href="#Actions">アクション」を参照</a>
+						</th>
+					</tr>
+					<tbody class="bcls-table__body">
+						<tr>
+						<td>ワークフロー</td>
+						<td>アクション完了後にワークフローが更新されました。構造は、ワークフロータイプによって異なります。</td>
+					</tr>
+					<tr>
+						<td>エラー</td>
+						<td>アクションの完了時にエラーが発生した場合は、このフィールドにはエラーが含まれます。値はアクションの種類によって異なります。</td>
+					</tr>
+				</tbody>
+		</table>
+		<h3 id="actions">アクション</h3>
+		<p>次の表に、ワークフロータイプ別のアクションの詳細を示します。</p>
+		<table class="bcls-table">
+			<caption class="bcls-caption--table">アクション</caption>
+			<thead class="bcls-table__head">
+				<tr>
+					<th>名前</th>
+					<th>ワークフロータイプ</th>
+					<th>説明</th>
+				</tr>
+				</thead>
+			<tbody class="bcls-table__body">
+				<tr>
+					<td><code translate="No">notify-activate</code></td>
+					<td><code translate="No">jobstartstop</code></td>
+					<td>あなたのジョブがすぐにアクティブになるという通知をヘッズします。</td>
+				</tr>
+				<tr>
+					<td><code translate="No">activate</code></td>
+					<td><code translate="No">jobstartstop</code></td>
+					<td>ジョブのアクティブ化が完了しました。<code translate="no">「error」</code>が存在する場合、アクティベーションは失敗し、非アクティブ化はキャンセルされます。
+					</td>
+				</tr>
+				<tr>
+					<td><code translate="No">notify-deactivate</code></td>
+					<td><code translate="No">jobstartstop</code></td>
+					<td>あなたのジョブがすぐにアクティブになるという通知をヘッズします。</td>
+				</tr>
+				<tr>
+					<td><code translate="No">deactivate</code></td>
+					<td><code translate="No">jobstartstop</code></td>
+					<td>ジョブの非アクティブ化が完了しました。<code translate="no">「error」</code>が存在する場合、非アクティブ化は失敗しています。
+					</td>
+				</tr>
+				<tr>
+					<td><code translate="No">notify-clip</code></td>
+					<td><code translate="No">clip</code></td>
+					<td>あなたのクリップがすぐにリクエストされるという通知をヘッズします。</td>
+				</tr>
+				<tr>
+					<td><code translate="No">clip</code></td>
+					<td><code translate="No">clip</code></td>
+					<td>クリップリクエストが完了しました。<code translate="no">「error」</code>が存在する場合、リクエストは失敗しました。
+					</td>
+				</tr>
+		</tbody>
+	</table>
+	</section>
+	<section class="bcls-section">
+		<h2 id="related_topics">関連トピック</h2>
+		<ul>
+			<li><a href="/live-api/guides/live-scheduler.html">概要:ライブスケジューラ</a></li>
+			<li><a href="/live-api/guides/live-scheduler-stop-start.html">SEP ストリームのアクティブ化/非アクティブ化のスケジューリング</a></li>
+			<li><a href="/live-api/guides/live-scheduler-clips.html">ライブストリームのクリップ生成のスケジューリング</a></li>
+			<li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント (SEP) ジョブ</a></li>
+			<li><a href="/live-api/references/reference-staging.html">ライブ API リファレンス</a></li>
+			<li><a href="/live-module/scheduling-live-event.html">コントロールルームでのライブイベントの自動開始/停止</a></li>
+		</ul>
+	</section>
+</article>

@@ -1,0 +1,160 @@
+---
+title: 'SEP '
+description: '<code translate="No">JobStartStop</code>ストリームのアクティブ化/非アクティブ化のスケジューリングエンドポイントを使用すると、アクティベーションをスケジュールできます。既存のライブ<a href="/live-api/guides/live-api-static-entry-points.html"> SEP</a>ジョブの非アクティブ化。指定された時間に、当社のシステムは、ユーザーに代わってジョブをアクティブ化および非アクティブ化するために必要なAPI呼び出しを行います。'
+parent: Guides 
+grandparent: Live API
+layout: staging
+---
+
+<!-- Remember to change API reference links when going live -->
+
+<h1>{{ page.title }}</h1>
+<article class="bcls-article">
+  <summary>{{ page.description }}</summary>
+	<section class="bcls-section">
+		<h2 id="Requirements">要件</h2>
+		<ul>
+			<li>アカウントのライブ API キー。</li>
+			<li>ライブアカウントでは、スケジューラのオーバーライドを有効にする必要があります。</li>
+			<li><code translate="no">「static」: true の既存のライブジョブ</code> (詳細については、<a href="/live-api/guides/live-api-static-entry-points.html"></a>静的エントリポイントジョブを参照)。</li>
+		</ul>
+		<aside class="bcls-aside bcls-aside--information">ライブモジュールでアクティブ化と非アクティブ化をスケジュールすることもできることに注意してください-を参照してください<a href="/live-module/scheduling-live-event.html">コントロールルームでのライブイベントの自動開始/停止</a>詳細については</aside>
+	</section>
+	<section class="bcls-section">
+		<h2 id="Create_a_scheduler">スケジューラーを作成する</h2>
+		<p><code translate="no">2021-04-02T 14:00:00 + 00:00 に始まる2時間のイベントをスケジュールするとしましょう</code>。</p>
+
+		<p>タイムスタンプは、秒単位のUNIXタイムスタンプとしてUTC形式である必要があります。<a href="https://www.unixtimestamp.com/" rel="nofollow">https://www.unixtimestamp.com/</a>で変換できます。</p>
+		<aside class="bcls-aside bcls-aside--information"><a href="https://live.support.brightcove.com/live-api/guides/live-api-static-entry-points.html#Limitations" rel="nofollow">ここで説明するアクティベーション時間の制限は、</a>スケジュールされたアクティベーションにも適用されるため、希望する開始時刻の少なくとも 60 秒前までの時間をスケジュールすることをお勧めします。
+			<p>この例では、開始予定時刻の5分前を選択します。</p>
+			<pre><code translate="no">始める：2021-04-02T13：55：00 + 00：00 = 1617386100停止：2021-04-02T 16:00:00 + 00:00 = 1617393600</code></pre>
+		</aside>
+		<p>スケジューラを実装するには、<code translate="No">POST</code>次のリクエストを実行します。</p>
+		<pre><code class="language-http" translate="No">https://api.bcovlive.io/v1/scheduler/jobstartstop</code></pre>
+		<h3>ヘッダー</h3>
+		<pre class="line-numbers"><code class="language-bash" translate="No">Content-Type: application/json
+		X-API-KEY: <span class="bcls-input">{your API Key}</span></code></pre>
+		<h3>リクエスト本文</h3>
+		<pre class="line-numbers"><code class="language-json" translate="No">{
+			"job_id": "your Job ID",
+			"activation": {
+				"time_utc": 1617386100
+			},
+			"deactivation": {
+				"time_utc": 1617393600
+			},
+			"description": "My Wednesday broadcast"
+		}</code></pre>
+			<details>
+				<summary><h3>レスポンスの例</h3></summary>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"account_id": "1752604059001",
+	"activation": {
+		"state": "pending",
+		"time_utc": 1617386100
+	},
+	"deactivation": {
+		"state": "pending",
+		"time_utc": 1617393600
+	},
+	"description": "My Wednesday broadcast",
+	"job_id": "15981d93877e490185e6ebc9af2c79a3",
+	"type": "jobstartstop",
+	"workflow_id": "d44cf29f4f184757ac0995beb8a0097e"
+}</code></pre>
+			</details>
+		</section>
+		<section class="bcls-section">
+			<h2 id="Update_a_scheduler">スケジューラーを更新する</h2>
+			<p>あなたは更新することができます<code translate="no">アクティベーション</code>および/または<code translate="no">非アクティブ化</code>ジョブが<strong translate="no">保留中</strong>州 （<code translate="no">「状態」：「保留中」</code>）。これを行うには、<code translate="no"></code> PUT リクエストを次の宛先に送信します。</p>
+<pre><code class="language-http" translate="No">https://api.bcovlive.io/v1/scheduler/jobstartstop/<span class="bcls-input">{workflow_id}</span></code></pre>
+			<p>ヘッダーは、上記の<code translate="no"> POST</code>リクエストと同じです。</p>
+			<h3>リクエスト本文</h3>
+			<p>リクエスト本文オブジェクトには、<code translate="no">アクティベーション</code>および/または<code translate="no">非アクティブ化</code>田畑。</p>
+			<p>たとえば、予定より30分早くイベントを停止するには：</p>
+			<h3>リクエスト本文</h3>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"deactivation": {
+		"time_utc": 1617391800
+	}
+}</code></pre>
+<details>
+	<summary><h3>レスポンスの例</h3></summary>
+<pre class="line-numbers"><code class="language-json" translate="No">{
+	"account_id": "1752604059001",
+	"activation": {
+		"state": "pending",
+		"time_utc": 1617386100
+	},
+	"deactivation": {
+		"state": "pending",
+		"time_utc": 1617391800
+	},
+	"description": "My Wednesday broadcast",
+	"job_id": "15981d93877e490185e6ebc9af2c79a3",
+	"type": "jobstartstop",
+	"workflow_id": "d44cf29f4f184757ac0995beb8a0097e"
+}</code></pre>
+</details>
+</section>
+<section class="bcls-section">
+  <h2 id="cancel_the_scheduler">スケジューラをキャンセルする</h2>
+  <p><code translate="no">DELETE</code>リクエストを使用して、アクティベーションと非アクティブ化をキャンセルできます。</p>
+	<pre><code class="language-http" translate="No">https://api.bcovlive.io/v1/scheduler/jobstartstop/<span class="bcls-input">{workflow_id}</span></code></pre>
+	<p>アクティベーション後にこれを行うと、非アクティブ化を取り消すこともできます。</p>
+	<h3>ヘッダー</h3>
+	<p>必要なヘッダーは次のとおりです。</p>
+	<pre class="line-numbers"><code class="language-bash" translate="No">X-API-KEY: <span class="bcls-input">your API Key</span></code></pre>
+	<h3>リクエスト本文</h3>
+	<p>このリクエストにはリクエスト本文がありません。</p>
+	<details>
+		<summary><h3>レスポンスの例</h3></summary>
+	<pre class="line-numbers"><code class="language-json" translate="No">{
+		"account_id": "1752604059001",
+		"activation": {
+			"state": "cancelled",
+			"time_utc": 1617386100
+		},
+		"deactivation": {
+			"state": "cancelled",
+			"time_utc": 1617391800
+		},
+		"description": "My Wednesday broadcast",
+		"job_id": "15981d93877e490185e6ebc9af2c79a3",
+		"type": "jobstartstop",
+		"workflow_id": "d44cf29f4f184757ac0995beb8a0097e"
+	}</code></pre>
+	</details>
+</section>
+<section class="bcls-section">
+  <h2 id="Notifications">通知</h2>
+  <p>オプションで、ワークフローの作成時に通知を構成できます。<code translate="no">POSTするサービスの URL</code>を提供する必要があります。スケジューラーがアクティブ化および非アクティブ化の呼び出しを行うと、通知が送信されます。アクティベーションまたは非アクティブ化の<code translate="no"> n</code>秒前に通知を受信するようにを設定することもできます。詳細については、<a href="/live-api/guides/live-scheduler-notifications.html"></a>ライブスケジューラ通知を参照してください。</p>
+	<details>
+		<summary><h3>リクエスト本文の例</h3></summary>
+	<pre class="line-numbers"><code class="language-json" translate="No">{
+		"job_id": "your Job ID",
+		"activation": {
+			"time_utc": 1612274100,
+			<span class="bcls-highlight">"notification": 600</span>
+		},
+		"deactivation": {
+			"time_utc": 1612281600,
+			<span class="bcls-highlight">"notification": 600</span>
+		},
+		"description": "My Tuesday broadcast",
+		<span class="bcls-highlight">"notification_url": "http://example.com/live/jobstartstop/callbacks"</span>
+	}</code></pre>
+	</details>
+</section>
+<section class="bcls-section">
+	<h2 id="related_topics">関連トピック</h2>
+	<ul>
+		<li><a href="/live-api/guides/live-scheduler-stop-start.html">SEP ストリームのアクティブ化/非アクティブ化のスケジューリング</a></li>
+		<li><a href="/live-api/guides/live-scheduler-clips.html">ライブストリームのクリップ生成のスケジューリング</a></li>
+		<li><a href="/live-api/guides/live-scheduler-notifications.html">ライブスケジューラ通知</a></li>
+		<li><a href="/live-api/guides/live-api-static-entry-points.html">静的エントリポイント (SEP) ジョブ</a></li>
+		<li><a href="/live-api/references/reference-staging.html">ライブ API リファレンス</a></li>
+		<li><a href="/live-module/scheduling-live-event.html">コントロールルームでのライブイベントの自動開始/停止</a></li>
+	</ul>
+</section>
+</article>

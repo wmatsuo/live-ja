@@ -1,0 +1,97 @@
+---
+title: ライブ SEP イベントのスケジューリング
+parent: Live Module
+---
+
+<article class="bcls-article">
+    <h1>静的エントリポイントを使用したライブイベントの自動開始/停止</h1>
+    <summary>この機能を使用すると、1 つまたは複数の Live Job イベントの開始時刻と停止時間をスケジュールおよび管理できます。 
+        </summary>
+   
+
+        <section class="bcls-section">
+            <h2 id="schedule">前提条件</h2>
+
+            <p>イベントをスケジュールするには、SEP（静的エントリポイント）タイプのライブイベントを作成する必要があります。</p>
+
+            <aside class="bcls-aside bcls-aside--information">現在、冗長グループのスケジューリングはサポートされていません。</aside>
+
+            <h2 id="schedule">推奨事項とベストプラクティス</h2>
+
+            <p>最良の結果を得るには、以下の指示に従ってください。</p>
+                <ol class="bcls-tasklist-restart">
+                <li>一度に6つの保留中のアクティベーションをスケジュールできます。さらに必要な場合は、カスタマーサポートにお問い合わせください。</li>
+                <li>SEP がアクティブ化されると、デフォルトの [最大待機時間] は引き続き有効です（<a href="https://live.support.brightcove.com/live-api/guides/live-api-static-entry-points.html#max_waiting_time" target="_blank">ライブ API を参照）。詳細については、静的エントリポイント</a> )。</li>
+                <li><a href="https://live.support.brightcove.com/live-api/guides/live-api-static-entry-points.html#Limitations" target="_blank"></a>静的エントリポイントで説明されている制限は引き続き有効であることに注意してください。</li>
+                </ol>
+        </section>
+
+        <section class="bcls-section">
+
+            <h2 id="schedule">コントロールルームのスケジューリングパネル</h2>
+
+            <p>ライブアカウントで自動開始/停止が有効になっている場合、コントロールルームの右上隅にあるプレビュープレーヤーの下に、スケジュールパネルが表示されます。</p>
+            <p>自動開始/停止を使用するには、以下の手順に従ってください。</p>
+
+            <ol class="bcls-tasklist-restart">
+                <li>ライブモジュールで、静的エントリポイントを使用して新しいライブイベントを作成するか、以前に作成したイベントにアクセスします。</li>
+                <li><strong>コントロールルームでは</strong>、スケジューリングという名前の新しいパネルが利用可能になります。[ <strong>+</strong>スケジュールの追加] をクリックして、新しい自動アクティベーションと非アクティブ化を作成します。
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/add-schedule.png" /></figure>
+
+                </li>
+                <li>開始日と終了日をそれぞれ目的のアクティブ化と非アクティブ化に変更します。
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/start-end-dates.png" /></figure>
+                <aside class="bcls-aside bcls-aside--information">複数のスケジュールが同時に実行されるのを防ぐことはできませんが、競合する行には警告が表示されます。競合するスケジュールは、アクティベーション時間より前に対処しないと失敗する可能性があります。警告を回避するには、行の 1 つを削除するか、時間を調整するだけです。</aside>
+                </li>
+                <li>
+                    2 番目のスケジュールを作成するには、[ <strong>+ スケジュールの追加]</strong>ボタンをもう一度クリックします。[ <strong>+ スケジュールの追加</strong> ] ボタンは、保留中のアクティベーションの制限に達すると自動的に無効になります。
+                    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/more-schedules.png" /></figure>
+
+                </li>
+                <li>スケジュールを削除するには、 <img class="bcls-image--no-border" alt="" width="30" height="30" src="/assets/images/live-module/scheduling/trash-icon.png" /> アイコン。</li>
+                
+            </ol>
+
+            <aside class="bcls-aside bcls-aside--information">
+
+                <ul>
+
+                    <li>スケジュールが競合している場合、スケジュールイベントは警告として黄色に変わります。</li>
+                    <li>何らかの理由でストリーミングで障害が発生すると、スケジュールされたイベントが赤に変わります。</li>
+                    <li>失敗したスケジュールは7日間表示されたままになります。 </li>
+
+                </ul>
+
+
+
+            </aside>
+
+
+        </section>
+
+        <section class="bcls-section">
+
+            <h2 id="schedule">今後のアクティベーションの表示</h2>
+
+            <ol class="bcls-tasklist-restart">
+                
+                <li>スケジュールされたアクティベーションを作成したら、[ <strong>イベントの管理] &gt;</strong> [スタンバイ] タブでそれらを表示できます。<strong></strong><strong></strong>次の開始日と終了日は、「<strong>近日予定」</strong>タイトルの下に表示されます。
+                    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/upcoming-events.png" /></figure>
+                </li>
+                <li>[ <strong>表示</strong> ] 選択ボックスでは、スケジュールされたイベントのみを表示できます。
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="300" height="200" src="/assets/images/live-module/scheduling/show-events.png" /></figure>
+                </li>
+                <li>イベントが開始されると、に表示されます<strong>住む</strong>タブ、および<strong>始める</strong>時間は無効になります。
+                <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" width="" height="" src="/assets/images/live-module/scheduling/streaming-event.png" /></figure>
+
+                </li>
+            </ol>
+
+
+
+            </section>
+
+
+
+
+</article>
